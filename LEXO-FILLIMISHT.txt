@@ -1,0 +1,32 @@
+ALBERTO — WEBSITE PËR VISUAL STUDIO CODE
+
+1. Nxirre ZIP-in (Extract all / Alle extrahieren).
+2. Në Visual Studio Code: File > Open Folder > alberto-website.
+3. Hape index.html me dy klikime në browser. Nuk nevojitet npm.
+   Mund të përdorësh edhe shtesën Live Server në VS Code.
+
+FAQET
+index.html — ballina
+speisekarte.html — menuja e plotë, e shkruar në HTML
+bestellen.html — porositë me të dy lidhjet dhe telefonin
+feiern.html — salla e veçantë, deri 35 persona
+ueber-uns.html — prezantimi
+kontakt.html — kontakti, orari, rrjetet sociale
+impressum.html / datenschutz.html — drafte, duhen plotësuar para publikimit
+style.css — ngjyrat, pamja dhe përshtatja për telefon
+script.js — menuja mobile, galeria dhe animacionet
+assets/ — logoja, fotot dhe videoja e përzgjedhur
+menu.json — kopje e strukturuar e menusë për redaktime të ardhshme.
+Për ndryshime që shihen në faqe redakto speisekarte.html (JSON nuk ngarkohet automatikisht).
+
+PARA PUBLIKIMIT
+- Plotëso Impressum dhe Datenschutzerklärung sipas pronarit dhe hostimit real.
+- Kontrollo alergjenët me kuzhinën: PDF-ja origjinale ka kode që nuk përputhen me legjendën (p.sh. N për fruta deti, z17 pa shpjegim). Kodet janë ruajtur sipas burimit; nuk janë korrigjuar me hamendje.
+- Kontrollo çmimet; janë marrë nga PDF-ja, jo nga Lieferando.
+- Vlerësimi Lieferando është fotografi e burimit të lexuar: 5/5, 165 vlerësime; nuk është live.
+- Komentet Google janë fragmente të shkurtra reale, marrë nga Wanderlog, me burim dhe datë në faqe; nuk përditësohen vetë.
+- Faqet kanë noindex,nofollow për këtë draft. Hiqe vetëm kur të jetë gati për publikim.
+- Vendos domain-in përfundimtar, canonical, sitemap dhe regjistro faqen te Google Search Console gjatë publikimit.
+
+Nuk është publikuar online. Nuk janë përfshirë pagesa, formular që dërgon mesazhe, ose sistem rezervimesh. Butonat hapin telefonin, emailin ose faqet e porositjes.
+Foto/video janë materiale të dërguara prej teje; është përzgjedhur një video e shkurtër pa audio.
