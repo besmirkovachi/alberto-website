@@ -1,32 +1,52 @@
-ALBERTO — WEBSITE PËR VISUAL STUDIO CODE
+ALBERTO — WEBSITE I RI
 
-1. Nxirre ZIP-in (Extract all / Alle extrahieren).
-2. Në Visual Studio Code: File > Open Folder > alberto-website.
-3. Hape index.html me dy klikime në browser. Nuk nevojitet npm.
-   Mund të përdorësh edhe shtesën Live Server në VS Code.
+Faqja është ndërtuar nga e para me materialet origjinale të Alberto.
+Përmban 9 faqe: ballinën, menunë, rreth nesh, galerinë, festat private,
+dërgesat, kontaktin, Impressum dhe Datenschutz.
 
-FAQET
-index.html — ballina
-speisekarte.html — menuja e plotë, e shkruar në HTML
-bestellen.html — porositë me të dy lidhjet dhe telefonin
-feiern.html — salla e veçantë, deri 35 persona
-ueber-uns.html — prezantimi
-kontakt.html — kontakti, orari, rrjetet sociale
-impressum.html / datenschutz.html — drafte, duhen plotësuar para publikimit
-style.css — ngjyrat, pamja dhe përshtatja për telefon
-script.js — menuja mobile, galeria dhe animacionet
-assets/ — logoja, fotot dhe videoja e përzgjedhur
-menu.json — kopje e strukturuar e menusë për redaktime të ardhshme.
-Për ndryshime që shihen në faqe redakto speisekarte.html (JSON nuk ngarkohet automatikisht).
+SI TA NISËSH
+Hape dosjen e projektit në Visual Studio Code. Në terminal ekzekuto:
 
-PARA PUBLIKIMIT
-- Plotëso Impressum dhe Datenschutzerklärung sipas pronarit dhe hostimit real.
-- Kontrollo alergjenët me kuzhinën: PDF-ja origjinale ka kode që nuk përputhen me legjendën (p.sh. N për fruta deti, z17 pa shpjegim). Kodet janë ruajtur sipas burimit; nuk janë korrigjuar me hamendje.
-- Kontrollo çmimet; janë marrë nga PDF-ja, jo nga Lieferando.
-- Vlerësimi Lieferando është fotografi e burimit të lexuar: 5/5, 165 vlerësime; nuk është live.
-- Komentet Google janë fragmente të shkurtra reale, marrë nga Wanderlog, me burim dhe datë në faqe; nuk përditësohen vetë.
-- Faqet kanë noindex,nofollow për këtë draft. Hiqe vetëm kur të jetë gati për publikim.
-- Vendos domain-in përfundimtar, canonical, sitemap dhe regjistro faqen te Google Search Console gjatë publikimit.
+python3 scripts/build.py
+python3 -m http.server 8000 --bind 127.0.0.1
 
-Nuk është publikuar online. Nuk janë përfshirë pagesa, formular që dërgon mesazhe, ose sistem rezervimesh. Butonat hapin telefonin, emailin ose faqet e porositjes.
-Foto/video janë materiale të dërguara prej teje; është përzgjedhur një video e shkurtër pa audio.
+Nuk nevojitet npm për ndërtimin ose funksionimin e faqes.
+Mund të përdorësh edhe Live Server për skedarët HTML të gjeneruar.
+
+KU BËHEN NDRYSHIMET
+templates/ — tekstet dhe seksionet e secilës faqe
+menu.json — emrat e gatimeve, përshkrimet dhe çmimet
+scripts/build.py — navigimi, fundfaqja, galeria dhe të dhënat SEO
+style.css — pamja dhe përshtatja për telefon, tablet e desktop
+script.js — animacionet, kërkimi në menu, navigimi dhe galeria
+assets/ — logoja, fotografitë, videoja dhe fontet lokale
+
+Pas ndryshimeve në templates/, menu.json ose scripts/build.py,
+ekzekuto përsëri python3 scripts/build.py.
+Mos redakto drejtpërdrejt faqet HTML në rrënjë: gjenerohen nga këto burime.
+
+SALLA SIPËR
+Ka seksion në ballinë dhe faqe të veçantë për festa private.
+Nuk deklarohet numër fiks personash. Mundësitë, sistemimi dhe
+disponueshmëria diskutohen me restorantin në telefon.
+
+KONTROLLET
+node --check script.js
+node tests/browser.cjs
+
+Testet e shfletuesit përdorin Playwright dhe Chromium.
+Shpjegimet e plota gjenden te README.md dhe tests/README.md.
+
+PARA PUBLIKIMIT ONLINE
+- Plotëso të dhënat e pronarit dhe hostimit te Impressum dhe Datenschutz.
+- Verifiko çmimet dhe kodet e alergjenëve me restorantin. Disa kode në
+  burimin e vjetër janë të paqarta; nuk janë korrigjuar me hamendje.
+- Vendos adresën përfundimtare HTTPS te SITE_URL dhe aktivizo
+  SITE_INDEXABLE=1 vetëm pasi faqja të jetë gati për publikim.
+  Gjenero përsëri faqet për canonical, metadata dhe sitemap.xml.
+- Lidhjet e porosive çojnë te platformat ekzistuese; çmimet online
+  janë ato të platformës përkatëse.
+
+Faqja nuk është publikuar online nga ky projekt.
+Nuk ka sistem rezervimesh, pagesash ose prenotimi të festave.
+Nuk janë shtuar vlerësime ose çmime të fituara të sajuara.
