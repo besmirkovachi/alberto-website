@@ -40,7 +40,7 @@ Cream `#F5F1E8`, jeshile `#173B2E`, e kuqe `#A93D32`; Cormorant Garamond dhe Man
 
 ## Lëvizja dhe përdorshmëria
 
-GSAP 3.15.0 + ScrollTrigger koordinojnë hyrjen “Firma Alberto” dhe animacionet diskrete. Lenis 1.3.26 përdoret vetëm në desktop me pointer të saktë; telefoni ruan scroll-in natyral. Reduced Motion çaktivizon hyrjen lëvizëse dhe scroll-in e zbutur. Hyrja me logon origjinale shfaqet në çdo hapje të re të Homepage (rreth 1.7 sekonda), përfshirë rifreskimin. Ndërpritet menjëherë gjatë ndërveprimit dhe nuk bllokon navigimin. Lidhjet drejt seksioneve, rikthimi te pozicioni i ruajtur, Reduced Motion dhe kursimi i të dhënave e ruajnë hapjen statike.
+GSAP 3.15.0 + ScrollTrigger koordinojnë hyrjen “Firma Alberto” dhe animacionet diskrete. Lenis 1.3.26 përdoret vetëm në desktop me pointer të saktë; telefoni ruan scroll-in natyral. Reduced Motion çaktivizon hyrjen lëvizëse dhe scroll-in e zbutur. Hyrja me logon origjinale shfaqet në çdo hapje të re të Homepage (rreth 2.2 sekonda), përfshirë rifreskimin. Ndërpritet menjëherë gjatë ndërveprimit dhe nuk bllokon navigimin. Lidhjet drejt seksioneve, rikthimi te pozicioni i ruajtur, Reduced Motion dhe kursimi i të dhënave e ruajnë hapjen statike.
 
 Videoja niset automatikisht vetëm kur është e dukshme dhe shfletuesi e lejon. Reduced Motion ose kursimi i të dhënave e kalojnë në nisje manuale. Pauza e përdoruesit respektohet. Pa JavaScript ruhen kontrollet native; nëse autoplay bllokohet mbetet butoni për nisje manuale.
 
@@ -87,4 +87,4 @@ python3 scripts/package.py
 
 Testet kërkojnë Playwright dhe Chromium vetëm gjatë zhvillimit; udhëzimet janë te `tests/README.md`. Paketimi kontrollon raportin e testimit dhe integritetin SHA-256. ZIP-i i ri quhet `ALBERTO-WEBSITE-V1-MENU-2026.zip`.
 
-Ky variant mbetet draft me `noindex` dhe `robots.txt: Disallow: /`. Ndryshimet e Homepage dorëzohen për shqyrtim në GitHub; nuk janë bashkuar ose publikuar. Për domain-in përfundimtar gjeneratori mbështet `SITE_URL=https://domain-i` dhe `SITE_INDEXABLE=1`; këto nuk janë aktivizuar. Faqet ligjore ruajnë të dhënat ekzistuese të V1.
+Ky variant mbetet draft me `noindex` dhe `robots.txt: Disallow: /`. Për domain-in përfundimtar gjeneratori mbështet `SITE_URL=https://domain-i` dhe `SITE_INDEXABLE=1`; këto nuk janë aktivizuar. Faqet ligjore ruajnë të dhënat ekzistuese të V1.

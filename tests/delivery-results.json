@@ -1,5 +1,5 @@
 {
-  "completedAt": "2026-10-20T22:15:56.675Z",
+  "completedAt": "2026-10-20T22:27:57.236Z",
   "passed": [
     "All nine pages: metadata, semantics, local links and referenced assets",
     "Social cards stay readable after touch interaction and keyboard focus",
@@ -34,10 +34,10 @@
     "search": {
       "environment": "Headless Chromium, 390×844 touch emulation, 4× CPU throttling; synthetic lab measurement, not field INP or a physical phone",
       "samples": 50,
-      "inputToSecondAnimationFrameP95Ms": 35.5,
-      "maximumMs": 72.6,
-      "longTasksOver50Ms": 2,
-      "longestTaskMs": 57
+      "inputToSecondAnimationFrameP95Ms": 62.3,
+      "maximumMs": 85.7,
+      "longTasksOver50Ms": 3,
+      "longestTaskMs": 91
     },
     "hero-1440x900": {
       "width": 1440,
@@ -151,7 +151,7 @@
       "imageSource": "assets/hero.webp"
     }
   },
-  "screenshots": "/workspace/alberto-hero-qa/final",
+  "screenshots": "/workspace/alberto-hero-qa/longer",
   "sourceCommit": "43749a496c5e66064a33e21137de92f53aaf341a",
   "menuSource": "Alberto_Menü_2026.pdf",
   "menuSourceSHA256": "1759cca442c4eea2817cd8e91efb962c6fc67c1ac68f37f9d057d5b474f49fa6",
@@ -165,7 +165,7 @@
     "kontakt.html": "a05d347da0aa66d3a2836c9eca37431aa004c0b454ac132a77c5cebcdef45f0f",
     "menu-premium.css": "6f7d051a3e8ffeb8e5447cce943a848bc21b3f098f19c7cc8fcc92c72a1599e8",
     "menu.json": "68bcb25a474b95eda3c730f99bad572e333e59f86ff7b6b88abaa7c6bab38b16",
-    "motion.js": "c7e30bf7a2cba0393483f40d806db565d331067ca793f68c6810aabac78ee81b",
+    "motion.js": "f743f382fb2601ece1c7c88845b655b6e2fd0e35c41783083961b83345a807bc",
     "premium.css": "3969a5f9ee09797c212b437ab73cb88fd8aa6fa54bafa1a5b3f92a5af84b467f",
     "script.js": "1a049eb58529936f0b62fd645d2388b5bffa1b046a88a7c29ad6e68a8321009f",
     "scripts/build.py": "22a258f220bbb467824743e75182bf8e6dbe4e50da222317c333179c9e796a70",

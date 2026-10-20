@@ -184,14 +184,14 @@
         const stationery = [logoMat, logoCaption, rule].filter(Boolean);
         // A short readable hold makes the signature register before it lands
         // in the header. It never captures pointer events or locks scrolling.
-        if (stationery.length) intro.to(stationery, { opacity: 0, duration: 0.16, ease }, 1.04);
+        if (stationery.length) intro.to(stationery, { opacity: 0, duration: 0.16, ease }, 1.52);
 
         const scale = destination.width / source.width;
         const x = destination.left - frame.left - (source.left - frame.left) * scale;
         const y = destination.top - frame.top - (source.top - frame.top) * scale;
-        intro.to(logo, { x, y, scale, duration: 0.58, ease: moveEase }, 1.12);
-        intro.to(logo, { opacity: 0, duration: 0.08, ease }, 1.64);
-        intro.to(headerLogo, { opacity: 1, duration: 0.08, ease }, 1.64);
+        intro.to(logo, { x, y, scale, duration: 0.58, ease: moveEase }, 1.60);
+        intro.to(logo, { opacity: 0, duration: 0.08, ease }, 2.12);
+        intro.to(headerLogo, { opacity: 1, duration: 0.08, ease }, 2.12);
       }
       return true;
     } catch (error) {

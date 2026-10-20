@@ -16,12 +16,12 @@
       "reason": "Chromium administrator policy blocks file:// URLs. Policy was not changed; all nine pages, styles and assets are verified over the local HTTP server. Direct file opening requires a check outside this managed browser."
     }
   ],
-  "verified_at": "2026-10-20T22:15:56.675Z",
+  "verified_at": "2026-10-20T22:27:57.236Z",
   "published": false,
   "sha256": {
     "KONTROLLET.md": "77b1b4138a4f0ab6b644ee9b04a0ef10ae82fb9d32448d2e63d79225016925e9",
     "LEXO-FILLIMISHT.txt": "237f7ab80b057b267ee0010c1aa6377e1e6865d81e95604984117cdddd65079a",
-    "README.md": "1bb41cd04d8e5a028a1ec35447b45059024d7a318d8cfc52814f0f19529a71a2",
+    "README.md": "cdb1ef3a7811458174d05a3f0b4a22dfe675c699e833348be91aeddf0794d849",
     "THIRD-PARTY.md": "7a1c90dbdc88a21cc1bdb82a844816a5f6c3a7631f6b387f2679696db3f7df15",
     "assets/antipasti.webp": "5b697c547c95ac195f66d6183cae0ffc1d15d82569bcf4b579075d06b6a81bdc",
     "assets/dessert.webp": "46a8fffcbcd68d6b361d739af8d491f9c7c58a41dfa53e0e4e76c5cc0244d338",
@@ -83,7 +83,7 @@
     "kontakt.html": "a05d347da0aa66d3a2836c9eca37431aa004c0b454ac132a77c5cebcdef45f0f",
     "menu-premium.css": "6f7d051a3e8ffeb8e5447cce943a848bc21b3f098f19c7cc8fcc92c72a1599e8",
     "menu.json": "68bcb25a474b95eda3c730f99bad572e333e59f86ff7b6b88abaa7c6bab38b16",
-    "motion.js": "c7e30bf7a2cba0393483f40d806db565d331067ca793f68c6810aabac78ee81b",
+    "motion.js": "f743f382fb2601ece1c7c88845b655b6e2fd0e35c41783083961b83345a807bc",
     "package-lock.json": "583acf30a14f375928b5f7e60e0de659c563606087dd3ab439d779a053a3aedd",
     "package.json": "411783a03dc1a5b17d863ca50b48df46b60c82edf8d05f89afc3544d8e16f5de",
     "premium.css": "3969a5f9ee09797c212b437ab73cb88fd8aa6fa54bafa1a5b3f92a5af84b467f",
@@ -108,7 +108,7 @@
     "templates/ueber-uns.html": "ba9609f4692d3c7c0c58b5a3504c73b2f4d619de133f158c587e377a09b983e0",
     "tests/README.md": "f82d0f92692f383c417df023f7355fbc4f9c49ed78c10546781ff0a254505619",
     "tests/browser.cjs": "1d526447b9d42acb9d90bbe47c3ad5eacd79abd45f7247e29e8773a2c99d95ba",
-    "tests/delivery-results.json": "b19dbf36402d8c9f431a504f58b5788f3d0cd50a17e5236477bb2fbcc4ea933c",
+    "tests/delivery-results.json": "ce7e00befc11bf95b0b9483d9584449215bbb692610b3be71e9ea2c98b5c9065",
     "tests/menu-2026.json": "2827b120f6f5f32a939ceb9ca773c4437ba057d233604d749fbb060651ee5d0d",
     "tests/v1-menu.json": "c6a1a812773020ee6abd05ba09aaa8e2a8bc75636afa4f7b730c8fcd9eb17a29",
     "ueber-uns.html": "005ca3e2596b8c7446cc6bf83811c039164cba110825cdba0884fa623cd71d07"
