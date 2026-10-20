@@ -7,10 +7,11 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const net = require("node:net");
+const crypto = require("node:crypto");
 const { spawn } = require("node:child_process");
 
 const root = path.resolve(__dirname, "..");
-const screenshots = process.env.SCREENSHOT_DIR || "/tmp/alberto-review";
+const screenshots = process.env.SCREENSHOT_DIR || "/tmp/alberto-review-2026";
 const pages = [
   "index",
   "speisekarte",
@@ -22,10 +23,21 @@ const pages = [
   "impressum",
   "datenschutz",
 ];
-const sourceMenu = JSON.parse(
-  fs.readFileSync(path.join(root, "menu.json"), "utf8"),
-).flatMap((category) => category.items);
+const sourceCommit = "43749a496c5e66064a33e21137de92f53aaf341a";
+// This independent fixture comes from the two PDF audits, not production menu.json.
+// tests/v1-menu.json remains the historical V1 reference, not the current menu.
+const menuReference = JSON.parse(fs.readFileSync(path.join(__dirname, "menu-2026.json"), "utf8"));
+const sourceMenu = menuReference.rows;
+assert.equal(sourceMenu.length, 151, "2026 PDF contains 151 comparable menu rows");
+const socialLinks = {
+  Instagram: "https://www.instagram.com/ristorantealberto/",
+  Facebook: "https://www.facebook.com/share/18fm5KVA2n/",
+  TikTok: "https://www.tiktok.com/@ristorante.alberto",
+};
 const failures = [];
+const passed = [];
+const skipped = [];
+const metrics = {};
 const browserErrors = new Set();
 let server;
 let browser;
@@ -44,8 +56,14 @@ function playwright() {
 async function check(name, run) {
   try {
     await run();
+    passed.push(name);
     console.log(`PASS ${name}`);
   } catch (error) {
+    if (error.skipReason) {
+      skipped.push({ name, reason: error.skipReason });
+      console.log(`SKIP ${name}: ${error.skipReason}`);
+      return;
+    }
     failures.push({ name, error: error.stack || String(error) });
     console.error(`FAIL ${name}: ${error.message}`);
   }
@@ -110,6 +128,10 @@ async function newPage(options = {}) {
     if (response.status() >= 400)
       browserErrors.add(`HTTP ${response.status()}: ${response.url()}`);
   });
+  page.on("requestfailed", (request) => {
+    if (request.failure()?.errorText !== "net::ERR_ABORTED")
+      browserErrors.add(`${request.failure()?.errorText}: ${request.url()}`);
+  });
   return { context, page };
 }
 
@@ -167,10 +189,13 @@ async function screenshot(page, name) {
 }
 
 async function noOverflow(page, label) {
+  const expectedWidth = page.viewportSize().width;
   const result = await page.evaluate(() => {
     const width = document.documentElement.clientWidth;
     return {
       width,
+      innerWidth: window.innerWidth,
+      visualWidth: window.visualViewport?.width,
       scrollWidth: document.documentElement.scrollWidth,
       suspects: [...document.querySelectorAll("body *")]
         .filter((element) => {
@@ -190,8 +215,8 @@ async function noOverflow(page, label) {
     };
   });
   assert.ok(
-    result.scrollWidth <= result.width + 2,
-    `${label}: width ${result.width}, scrollWidth ${result.scrollWidth}; ${result.suspects.join(", ")}`,
+    result.width <= expectedWidth + 2 && result.innerWidth <= expectedWidth + 2 && result.scrollWidth <= expectedWidth + 2,
+    `${label}: configured ${expectedWidth}, client ${result.width}, inner ${result.innerWidth}, visual ${result.visualWidth}, scrollWidth ${result.scrollWidth}; ${result.suspects.join(", ")}`,
   );
 }
 
@@ -201,6 +226,22 @@ async function visibleCategories(page) {
     .evaluateAll((elements) =>
       elements.map((element) => element.dataset.menuCategory),
     );
+}
+
+function expectedMenuRow(row) {
+  const sizeMatch = row.name_printed.match(/\s*((?:Fl\.|FI\.)?\s*\d+[,.]?\d*\s*(?:I|l|cl))\s*$/);
+  const normalizeSize = (size) => size.trim().replace(/^FI\./, "Fl.").replace(/I$/, "l").replace(/(\d)cl$/, "$1 cl").replace(/\s+/g, " ");
+  return {
+    page: String(row.page),
+    row: String(row.source_row),
+    category: row.category,
+    name: sizeMatch ? row.name_printed.slice(0, sizeMatch.index).trim() : row.name_printed,
+    prices: row.prices,
+    description: row.description,
+    sizes: row.prices.length > 1
+      ? row.price_labels.map((label) => normalizeSize(label.replace(/\s*\d+,\d{2}\s*€$/, "")))
+      : sizeMatch ? [normalizeSize(sizeMatch[1])] : [],
+  };
 }
 
 async function main() {
@@ -256,6 +297,17 @@ async function main() {
           await page.locator('a[href="tel:+4976216869205"]').count(),
           `${slug}: phone link`,
         );
+        for (const [name, url] of Object.entries(socialLinks)) {
+          const link = page.locator(`footer a[href="${url}"]`);
+          assert.equal(await link.count(), 1, `${slug}: one ${name} footer link`);
+          assert.equal(await link.getAttribute("target"), "_blank");
+          assert.match(await link.getAttribute("rel"), /noopener/);
+          assert.ok((await link.getAttribute("aria-label") || await link.textContent()).includes(name), `${slug}: accessible ${name} name`);
+          assert.ok(await link.locator("svg").count(), `${slug}: ${name} icon`);
+          if (slug === "kontakt") {
+            assert.equal(await page.locator(`main a[href="${url}"]`).count(), 1, `Contact: ${name} also appears in the social section`);
+          }
+        }
         const data = JSON.parse(
           await page
             .locator('script[type="application/ld+json"]')
@@ -293,11 +345,13 @@ async function main() {
           if (url.hash) anchorReferences.push(url);
         }
       }
-      const css = fs.readFileSync(path.join(root, "style.css"), "utf8");
-      for (const match of css.matchAll(/url\(\s*['"]?([^)'"\s]+)['"]?\s*\)/g)) {
-        const url = new URL(match[1], `${baseURL}/style.css`);
-        if (url.origin === new URL(baseURL).origin)
-          localReferences.add(url.pathname);
+      for (const stylesheet of fs.readdirSync(root).filter((file) => file.endsWith(".css"))) {
+        const css = fs.readFileSync(path.join(root, stylesheet), "utf8");
+        for (const match of css.matchAll(/url\(\s*['"]?([^)'"\s]+)['"]?\s*\)/g)) {
+          const url = new URL(match[1], `${baseURL}/${stylesheet}`);
+          if (url.origin === new URL(baseURL).origin)
+            localReferences.add(url.pathname);
+        }
       }
       for (const pathname of localReferences) {
         const response = await fetch(`${baseURL}${pathname}`, {
@@ -327,24 +381,64 @@ async function main() {
   );
 
   await check(
-    `Menu preserves all ${sourceMenu.length} supplied names, prices and descriptions`,
+    "Social cards stay readable after touch interaction and keyboard focus",
+    async () => {
+      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+      await visit(page, "kontakt");
+      for (const selector of [".contact-bottom .social-links", ".site-footer .social-links"]) {
+        const cards = page.locator(`${selector} .social-link`);
+        const expected = selector.startsWith(".contact") ? "rgb(23, 59, 46)" : "rgb(245, 241, 232)";
+        for (let index = 0; index < await cards.count(); index += 1) {
+          const card = cards.nth(index);
+          await card.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+          await card.tap();
+          assert.equal(await card.evaluate((element) => getComputedStyle(element).color), expected, "Sticky touch hover must retain readable brand icon and label colors");
+          const box = await card.boundingBox();
+          assert.ok(box.width >= 44 && box.height >= 44, "Social cards retain comfortable touch targets");
+          await card.focus();
+          assert.ok(await card.evaluate((element) => document.activeElement === element));
+        }
+      }
+      await context.close();
+    },
+  );
+
+  await check(
+    "2026 PDF fidelity: 151 rows, 153 prices, exact names, portions, descriptions and 18 categories",
     async () => {
       const { context, page } = await newPage();
       await visit(page, "speisekarte");
+      const categories = await page.locator(".menu-category").evaluateAll((items) => items.map((item) => ({
+        id: item.dataset.menuCategory,
+        title: item.querySelector("h2").textContent.trim(),
+      })));
+      assert.deepEqual(categories, menuReference.categories, "Category order follows the PDF, including soups and children's dishes");
       const rendered = await page.locator(".menu-item").evaluateAll((items) =>
         items.map((item) => ({
+          page: item.dataset.sourcePage,
+          row: item.dataset.sourceRow,
+          category: item.closest(".menu-category").dataset.menuCategory,
           name: item.querySelector("h3").textContent.trim(),
-          price: item.querySelector(".dish-price").textContent.trim(),
+          prices: [...item.querySelectorAll(".dish-price")].map((price) => price.textContent.trim()),
           description: item.querySelector("p")?.textContent.trim() || "",
+          sizes: [...item.querySelectorAll(".dish-size")].map((size) => size.textContent.trim()),
         })),
       );
-      const key = (item) =>
-        JSON.stringify([
-          item.name.trim(),
-          item.price.trim(),
-          item.description.trim(),
-        ]);
-      assert.deepEqual(rendered.map(key).sort(), sourceMenu.map(key).sort());
+      assert.equal(rendered.length, menuReference.row_count);
+      assert.equal(rendered.reduce((count, item) => count + item.prices.length, 0), menuReference.price_count);
+      assert.deepEqual(rendered, sourceMenu.map(expectedMenuRow), "Every rendered product is checked against independently audited PDF records in source order");
+      const menuText = rendered.map((item) => item.name).join("\n").toUpperCase();
+      for (const removed of menuReference.removed_names)
+        assert.ok(!menuText.includes(removed), `${removed} must not survive from the old menu`);
+      assert.equal(await page.locator('[data-category="desserts"]').evaluate((element) => [...element.childNodes].filter((node) => node.nodeType === Node.TEXT_NODE).map((node) => node.textContent).join("").trim()), "Desserts");
+      assert.match(await page.locator('[data-menu-category="kindermenue"]').textContent(), /bis 12 Jahre/i);
+      assert.match(await page.locator('[data-menu-category="pizza"]').textContent(), /36\s*cm/);
+      assert.match(await page.locator('[data-menu-category="wein"]').textContent(), /0,75\s*l/);
+      assert.equal(rendered.filter((item) => item.category === "fleisch").every((item) => item.prices.length === 1), true, "Kalb/Schwein does not imply unprinted dual prices");
+      assert.equal(rendered.filter((item) => item.name.startsWith("SCHORLE ")).every((item) => item.sizes.length === 0), true, "Wine Schorle has no invented volume");
+      const menuJSON = JSON.parse(fs.readFileSync(path.join(root, "menu.json"), "utf8"));
+      assert.deepEqual(menuJSON.map(({ id, title }) => ({ id, title })), menuReference.categories);
+      assert.equal(menuJSON.flatMap((category) => category.items).length, menuReference.row_count);
       await context.close();
     },
   );
@@ -391,7 +485,109 @@ async function main() {
           .getAttribute("aria-current"),
         "true",
       );
+      await visit(page, "speisekarte", "#dolci");
+      assert.deepEqual(await visibleCategories(page), ["desserts"], "Old dessert links still work");
+      await visit(page, "speisekarte", "#menu-9");
+      assert.deepEqual(await visibleCategories(page), ["bier"], "Original V1 beer links resolve to their new category");
+      await visit(page, "speisekarte", "#menu-11");
+      assert.deepEqual(await visibleCategories(page), ["aperitifs"], "Original aperitif links resolve to their new category");
+      await visit(page, "speisekarte", "#%E0%A4%A");
+      assert.equal((await visibleCategories(page)).length, menuReference.categories.length, "Malformed URL encodings cannot break filtering");
       await screenshot(page, "desktop-menu");
+      await context.close();
+    },
+  );
+
+  await check(
+    "Mobile category selector, search combination, Back/Forward and direct links stay synchronized",
+    async () => {
+      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+      await visit(page, "speisekarte");
+      const select = page.locator("#menu-category-select");
+      assert.ok(await select.isVisible(), "All18 categories are available without a long horizontal scroll");
+      assert.equal(await select.locator("option").count(), 19);
+      await select.selectOption("kindermenue");
+      assert.deepEqual(await visibleCategories(page), ["kindermenue"]);
+      assert.equal(await page.locator(".menu-item:visible").count(), 4);
+      assert.equal(new URL(page.url()).hash, "#kindermenue");
+      await select.selectOption("pizza");
+      assert.deepEqual(await visibleCategories(page), ["pizza"]);
+      await page.goBack();
+      await page.waitForFunction(() => document.querySelector("#menu-category-select").value === "kindermenue");
+      assert.deepEqual(await visibleCategories(page), ["kindermenue"]);
+      await page.goForward();
+      await page.waitForFunction(() => document.querySelector("#menu-category-select").value === "pizza");
+      await page.locator("#dish-search").fill("Familienpizza");
+      assert.equal(await page.locator(".menu-item:visible").count(), 1);
+      await select.selectOption("desserts");
+      assert.ok(await page.locator("#no-results").isVisible(), "Category filtering preserves an explicit search");
+      await page.locator("#reset-menu").click();
+      assert.equal(await select.inputValue(), "all");
+      assert.equal(await page.locator(".menu-item:visible").count(), sourceMenu.length);
+      await context.close();
+    },
+  );
+
+  await check(
+    "Search handles rapid input, accents, composition and literal markup with responsive 4×CPU rendering",
+    async () => {
+      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+      await visit(page, "speisekarte");
+      const input = page.locator("#dish-search");
+      await input.fill("schoko souffle");
+      assert.equal(await page.locator(".menu-item:visible").count(), 1);
+      assert.match(await page.locator(".menu-item:visible h3").textContent(), /SCHOKO-SOUFFLÉ/);
+      await input.fill("<img src=x onerror=alert(1)>");
+      assert.equal(await page.locator(".menu-item:visible").count(), 0);
+      assert.equal(await page.locator("img[src=x]").count(), 0, "Search text must remain literal text");
+      await input.evaluate((element) => {
+        element.dispatchEvent(new CompositionEvent("compositionstart", { bubbles: true, data: "" }));
+        element.value = "Tiram";
+        element.dispatchEvent(new InputEvent("input", { bubbles: true, data: "Tiram", isComposing: true }));
+        element.value = "Tiramisú";
+        element.dispatchEvent(new CompositionEvent("compositionend", { bubbles: true, data: "Tiramisú" }));
+        element.dispatchEvent(new InputEvent("input", { bubbles: true, data: "Tiramisú", isComposing: false }));
+      });
+      assert.equal(await input.inputValue(), "Tiramisú");
+      assert.equal(await page.locator(".menu-item:visible").count(), 1);
+      assert.match(await page.locator(".menu-item:visible h3").textContent(), /TIRAMISÚ/);
+      await input.fill("");
+      await input.focus();
+      const cdp = await context.newCDPSession(page);
+      await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+      await page.evaluate(() => {
+        window.__searchSamples = [];
+        window.__searchLongTasks = [];
+        new PerformanceObserver((list) => {
+          window.__searchLongTasks.push(...list.getEntries().map((entry) => entry.duration));
+        }).observe({ type: "longtask", buffered: false });
+        document.querySelector("#dish-search").addEventListener("input", () => {
+          const started = performance.now();
+          requestAnimationFrame(() => requestAnimationFrame(() => window.__searchSamples.push(performance.now() - started)));
+        }, { capture: true });
+      });
+      for (const query of ["Carbonara", "frutti di mare", "peperoncino", "Familienpizza"]) {
+        await input.fill("");
+        await input.pressSequentially(query, { delay: 0 });
+        assert.equal(await input.inputValue(), query, "Rapid typing never loses characters");
+        assert.ok((await page.locator(".menu-item:visible").count()) > 0, `Latest query renders: ${query}`);
+      }
+      await page.waitForTimeout(200);
+      const samples = await page.evaluate(() => ({ frames: window.__searchSamples, longTasks: window.__searchLongTasks }));
+      const sorted = samples.frames.sort((a, b) => a - b);
+      assert.ok(sorted.length >= 35);
+      metrics.search = {
+        environment: "Headless Chromium, 390×844 touch emulation, 4× CPU throttling; synthetic lab measurement, not field INP or a physical phone",
+        samples: sorted.length,
+        inputToSecondAnimationFrameP95Ms: Math.round(sorted[Math.floor((sorted.length - 1) * 0.95)] * 10) / 10,
+        maximumMs: Math.round(sorted.at(-1) * 10) / 10,
+        longTasksOver50Ms: samples.longTasks.length,
+        longestTaskMs: samples.longTasks.length ? Math.round(Math.max(...samples.longTasks) * 10) / 10 : 0,
+      };
+      assert.ok(metrics.search.inputToSecondAnimationFrameP95Ms < 250, `Search P95 must stay below250ms in lab: ${JSON.stringify(metrics.search)}`);
+      console.log(`  Search lab measurement: ${JSON.stringify(metrics.search)}`);
+      await cdp.send("Emulation.setCPUThrottlingRate", { rate: 1 });
+      await cdp.detach();
       await context.close();
     },
   );
@@ -517,82 +713,211 @@ async function main() {
   );
 
   await check(
-    "Reduced motion: static hero, manual slide controls, video does not autoplay",
+    "Reduced motion: original hero stays visible, intro and smooth scrolling are disabled",
     async () => {
       const { context, page } = await newPage({ reducedMotion: "reduce" });
       await visit(page);
-      const active = () =>
-        page.locator(".hero-slide.is-active").getAttribute("data-slide");
-      const first = await active();
-      await page.waitForTimeout(7000);
-      assert.equal(
-        await active(),
-        first,
-        "Reduced motion disables automatic image rotation",
-      );
-      await page.locator('[data-go-slide="1"]').click();
-      assert.equal(await active(), "1", "Manual image controls still work");
-      assert.equal(
-        await page.locator('[data-go-slide="1"]').getAttribute("aria-pressed"),
-        "true",
-      );
-      const videos = await page
-        .locator("video")
-        .evaluateAll((elements) =>
-          elements.map((video) => ({
-            paused: video.paused,
-            autoplay: video.autoplay,
-          })),
-        );
-      assert.ok(
-        videos.every((video) => video.paused && !video.autoplay),
-        "Video starts only on request",
-      );
+      const state = await page.evaluate(() => window.AlbertoMotion.getState());
+      assert.equal(state.reducedMotion, true);
+      assert.equal(state.introRunning, false);
+      assert.equal(state.smoothScroll, false);
+      assert.equal(state.tickerActive, false);
+      assert.equal(state.pendingReveals, 0);
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.replay()), false);
+      assert.ok(await page.locator(".hero-photo").isVisible());
+      assert.equal(await page.locator(".hero-photo").evaluate((image) => image.naturalWidth), 1536);
+      assert.equal(await page.locator(".brand img").evaluate((image) => getComputedStyle(image).opacity), "1");
+      assert.equal(await page.locator(".hero-slide").count(), 0, "Approved R2 has one dominant original photograph");
+      const videos = await page.locator("video").evaluateAll((elements) => elements.map((video) => ({ paused: video.paused, autoplay: video.autoplay })));
+      assert.ok(videos.every((video) => video.paused && !video.autoplay), "Reduced-motion visitors choose when to play video");
       await context.close();
     },
   );
 
   await check(
-    "Cinematic hero advances with motion enabled and respects pause",
+    "Kitchen video: lazy viewport autoplay, inline muted loop, persistent manual pause and preference change",
     async () => {
-      const { context, page } = await newPage({
-        reducedMotion: "no-preference",
-      });
+      const { context, page } = await newPage({ reducedMotion: "no-preference" });
+      const requests = [];
+      page.on("request", (request) => { if (request.url().includes("/assets/kueche.mp4")) requests.push(request.url()); });
       await visit(page);
-      await page.waitForFunction(
-        () =>
-          document.querySelector(".hero-slide.is-active")?.dataset.slide ===
-          "1",
-        null,
-        { timeout: 11000 },
-      );
-      const pause = page.locator(".slideshow-pause");
-      await pause.click();
-      assert.equal(await pause.getAttribute("aria-pressed"), "true");
-      await page.mouse.move(1, 1);
-      await page.locator("h1").click();
-      const active = await page
-        .locator(".hero-slide.is-active")
-        .getAttribute("data-slide");
-      await page.waitForTimeout(7000);
-      assert.equal(
-        await page.locator(".hero-slide.is-active").getAttribute("data-slide"),
-        active,
-        "Pause stops automatic transitions",
-      );
-      await page.locator('[data-go-slide="2"]').click();
-      assert.equal(
-        await page.locator(".hero-slide.is-active").getAttribute("data-slide"),
-        "2",
-      );
+      const video = page.locator("#kitchen-video");
+      const toggle = page.locator(".video-toggle");
+      assert.equal(requests.length, 0, "Offscreen video must not consume media bandwidth on load");
+      assert.deepEqual(await video.evaluate((element) => ({ muted: element.muted, inline: element.playsInline, loop: element.loop, controls: element.controls, preload: element.preload, paused: element.paused })), { muted: true, inline: true, loop: true, controls: false, preload: "none", paused: true });
+      assert.equal(await toggle.getAttribute("aria-controls"), "kitchen-video");
+      await video.evaluate((element) => element.scrollIntoView({ block: "center", behavior: "instant" }));
+      await page.waitForFunction(() => { const video = document.querySelector("#kitchen-video"); return !video.paused && video.currentTime > 0; });
+      assert.ok(requests.length > 0);
+      assert.equal(await toggle.getAttribute("aria-label"), "Küchenvideo pausieren");
+      await toggle.click();
+      assert.ok(await video.evaluate((element) => element.paused));
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await page.waitForTimeout(100);
+      await video.evaluate((element) => element.scrollIntoView({ block: "center", behavior: "instant" }));
+      await page.waitForTimeout(200);
+      assert.ok(await video.evaluate((element) => element.paused), "Scrolling back never overrides an explicit Pause");
+      await toggle.click();
+      await page.waitForFunction(() => !document.querySelector("#kitchen-video").paused);
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await page.waitForFunction(() => document.querySelector("#kitchen-video").paused);
+      await video.evaluate((element) => element.scrollIntoView({ block: "center", behavior: "instant" }));
+      await page.waitForFunction(() => !document.querySelector("#kitchen-video").paused);
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.waitForFunction(() => document.querySelector("#kitchen-video").paused);
       await context.close();
     },
   );
 
   await check(
-    "Responsive layout: every page at 1440, 820, 390 and 360 pixels",
+    "Kitchen video: reduced-motion/data-saver opt-in and blocked-autoplay recovery remain usable",
     async () => {
-      for (const width of [1440, 820, 390, 360]) {
+      for (const preference of ["reduced-motion", "data-saver", "autoplay-blocked"]) {
+        const { context, page } = await newPage({ reducedMotion: preference === "reduced-motion" ? "reduce" : "no-preference" });
+        if (preference === "data-saver") {
+          await page.addInitScript(() => {
+            const connection = new EventTarget();
+            connection.saveData = true;
+            Object.defineProperty(navigator, "connection", { configurable: true, value: connection });
+          });
+        }
+        if (preference === "autoplay-blocked") {
+          await page.addInitScript(() => {
+            const original = HTMLMediaElement.prototype.play;
+            let attempts = 0;
+            HTMLMediaElement.prototype.play = function () {
+              attempts += 1;
+              if (attempts === 1) return Promise.reject(new DOMException("Simulated browser autoplay policy", "NotAllowedError"));
+              return original.call(this);
+            };
+          });
+        }
+        await visit(page);
+        const video = page.locator("#kitchen-video");
+        await video.evaluate((element) => element.scrollIntoView({ block: "center", behavior: "instant" }));
+        await page.waitForTimeout(250);
+        assert.ok(await video.evaluate((element) => element.paused), `${preference}: video remains paused`);
+        assert.equal(await page.locator(".video-toggle").getAttribute("aria-label"), "Küchenvideo abspielen");
+        await page.locator(".video-toggle").click();
+        await page.waitForFunction(() => !document.querySelector("#kitchen-video").paused);
+        assert.ok(await video.evaluate((element) => element.muted && element.playsInline));
+        await context.close();
+      }
+    },
+  );
+
+  await check(
+    "GSAP intro completes and interrupts; Lenis and ScrollTrigger respond to preference changes",
+    async () => {
+      const { context, page } = await newPage({ reducedMotion: "no-preference" });
+      await visit(page);
+      await page.waitForFunction(() => !window.AlbertoMotion.getState().introRunning);
+      let state = await page.evaluate(() => window.AlbertoMotion.getState());
+      assert.equal(state.desktopPointer, true);
+      assert.equal(state.smoothScroll, true);
+      assert.equal(state.tickerActive, true);
+      assert.ok(state.triggerCount > 0, "Below-fold marketing reveals use ScrollTrigger");
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.replay()), true);
+      await page.waitForFunction(() => !window.AlbertoMotion.getState().introRunning, null, { timeout: 2500 });
+      assert.equal(await page.locator(".brand img").evaluate((image) => getComputedStyle(image).opacity), "1");
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.replay()), true);
+      await page.keyboard.press("Tab");
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().introRunning), false, "Keyboard navigation immediately finishes decorative motion");
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().pendingReveals), 0, "Keyboard navigation exposes all content");
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      // State uses media-change snapshots so inspection cannot consume a
+      // pending MediaQueryList notification during a preference switch.
+      await page.waitForFunction(() => !window.AlbertoMotion.getState().smoothScroll);
+      state = await page.evaluate(() => window.AlbertoMotion.getState());
+      assert.equal(state.reducedMotion, true);
+      assert.equal(state.smoothScroll, false);
+      assert.equal(state.tickerActive, false);
+      assert.equal(state.introRunning, false);
+      assert.equal(state.triggerCount, 0);
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.waitForFunction(() => window.AlbertoMotion.getState().smoothScroll);
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().reducedMotion), false);
+      await page.setViewportSize({ width: 820, height: 1000 });
+      await page.waitForFunction(() => !window.AlbertoMotion.getState().smoothScroll);
+      await page.setViewportSize({ width: 1440, height: 1000 });
+      await page.waitForFunction(() => window.AlbertoMotion.getState().smoothScroll);
+      await context.close();
+    },
+  );
+
+  await check(
+    "Touch scrolling stays native and mobile dialog locks, restores and dismisses correctly",
+    async () => {
+      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "no-preference" });
+      await visit(page);
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().smoothScroll), false);
+      await page.evaluate(() => { window.AlbertoMotion.finishIntro(); window.scrollTo(0, 460); });
+      const initialScroll = await page.evaluate(() => window.scrollY);
+      // Use a real on-screen touch. locator.click() first scrolls a sticky
+      // header into view and changes the very position this check measures.
+      const toggleBounds = await page.locator(".nav-toggle").boundingBox();
+      assert.ok(toggleBounds && toggleBounds.y >= 0 && toggleBounds.y + toggleBounds.height < 844, "Sticky menu trigger is available at the current scroll position");
+      await page.touchscreen.tap(toggleBounds.x + toggleBounds.width / 2, toggleBounds.y + toggleBounds.height / 2);
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().dialogLocked), true);
+      assert.ok(await page.evaluate(() => ["hidden", "clip"].includes(getComputedStyle(document.body).overflowY) || getComputedStyle(document.body).position === "fixed"));
+      await page.keyboard.press("Escape");
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().dialogLocked), false);
+      assert.ok(Math.abs((await page.evaluate(() => window.scrollY)) - initialScroll) < 3, "Dialog restores page scroll position");
+      await page.locator(".nav-toggle").click();
+      await page.locator(".menu-close").click();
+      assert.ok(!(await page.locator("#mobile-menu").isVisible()));
+      assert.ok(await page.locator(".nav-toggle").evaluate((element) => document.activeElement === element));
+      await context.close();
+    },
+  );
+
+  await check(
+    "Gallery lightbox pauses desktop Lenis, restores focus and closes on backdrop",
+    async () => {
+      const { context, page } = await newPage({ reducedMotion: "no-preference" });
+      await visit(page, "galerie");
+      const image = page.locator("[data-lightbox]").first();
+      await image.click();
+      let state = await page.evaluate(() => window.AlbertoMotion.getState());
+      assert.equal(state.dialogLocked, true);
+      assert.equal(state.smoothScrollStopped, true);
+      assert.equal(state.tickerActive, false);
+      await page.locator("#lightbox").click({ position: { x: 2, y: 2 } });
+      assert.ok(!(await page.locator("#lightbox").isVisible()));
+      await page.waitForFunction(() => !window.AlbertoMotion.getState().smoothScrollStopped);
+      state = await page.evaluate(() => window.AlbertoMotion.getState());
+      assert.equal(state.tickerActive, true);
+      assert.equal(state.dialogLocked, false);
+      assert.ok(await image.evaluate((element) => document.activeElement === element));
+      await context.close();
+    },
+  );
+
+  await check(
+    "Unavailable optional animation libraries preserve content, menu search and native navigation",
+    async () => {
+      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "no-preference" });
+      await page.route(/assets\/vendor\/(gsap|ScrollTrigger|lenis)\.min\.js$/, (route) => route.fulfill({ status: 200, contentType: "application/javascript", body: "/* Optional motion library unavailable in this test. */" }));
+      await visit(page);
+      assert.ok(await page.locator("h1").isVisible());
+      assert.equal(await page.locator(".brand img").evaluate((image) => getComputedStyle(image).opacity), "1");
+      assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().smoothScroll), false);
+      await page.locator(".nav-toggle").click();
+      await page.locator('#mobile-menu a[href="speisekarte.html"]').click();
+      await page.waitForURL("**/speisekarte.html");
+      await page.locator("#dish-search").fill("Carbonara");
+      await page.waitForTimeout(300);
+      assert.ok((await page.locator(".menu-item:visible").count()) > 0);
+      assert.ok((await page.locator(".menu-item:visible").count()) < sourceMenu.length);
+      await noOverflow(page, "Unavailable optional animation libraries");
+      await context.close();
+    },
+  );
+
+  await check(
+    "Responsive layout: every page at 1440, 820, 390, 360 and 320 pixels",
+    async () => {
+      for (const width of [1440, 820, 390, 360, 320]) {
         const { context, page } = await newPage({
           viewport: { width, height: width > 1000 ? 1000 : 844 },
           isMobile: width < 600,
@@ -601,12 +926,12 @@ async function main() {
         for (const slug of pages) {
           await visit(page, slug);
           await noOverflow(page, `${slug} at ${width}px`);
-          if (slug === "index" && [1440, 820, 390].includes(width))
-            await screenshot(page, `${width}-home`);
-          if (slug === "feiern" && width === 1440)
-            await screenshot(page, "desktop-events");
+          if ([1440, 390].includes(width))
+            await screenshot(page, `${width}-${slug}`);
+          if (slug === "index" && width === 820)
+            await screenshot(page, `${width}-index`);
           if (slug === "speisekarte" && width === 390) {
-            await page.locator('[data-category="pizza"]').click();
+            await page.locator("#menu-category-select").selectOption("pizza");
             await noOverflow(page, `filtered menu at ${width}px`);
             await screenshot(page, "mobile-menu");
           }
@@ -636,6 +961,54 @@ async function main() {
         "Nonfunctional search is hidden without JS",
       );
       await noOverflow(page, "no-JavaScript menu");
+      await visit(page);
+      const video = page.locator("#kitchen-video");
+      assert.ok(await video.evaluate((element) => element.controls && element.paused && element.preload === "none"), "Native video controls remain available when JavaScript is disabled");
+      assert.equal(await page.locator(".video-toggle").count(), 0);
+      await context.close();
+    },
+  );
+
+  await check(
+    "Offline ZIP opening: all nine file:// pages load styles, local fonts, navigation and assets",
+    async () => {
+      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+      for (const slug of pages) {
+        try {
+          await page.goto(`file://${path.join(root, `${slug}.html`)}`, { waitUntil: "networkidle" });
+        } catch (error) {
+          if (!String(error).includes("ERR_BLOCKED_BY_ADMINISTRATOR")) throw error;
+          await context.close();
+          throw Object.assign(new Error("Managed browser blocks local file URLs"), {
+            skipReason: "Chromium administrator policy blocks file:// URLs. Policy was not changed; all nine pages, styles and assets are verified over the local HTTP server. Direct file opening requires a check outside this managed browser.",
+          });
+        }
+        await page.evaluate(() => document.fonts.ready);
+        assert.ok(await page.locator("h1").isVisible(), `${slug}: offline main heading`);
+        const styles = await page.evaluate(() => ({
+          sheets: document.styleSheets.length,
+          background: getComputedStyle(document.body).backgroundColor,
+          titleFont: getComputedStyle(document.querySelector("h1")).fontFamily,
+          bodyFont: getComputedStyle(document.body).fontFamily,
+          loadedFonts: [...document.fonts].filter((font) => font.status === "loaded").map((font) => font.family.replace(/["']/g, "")),
+        }));
+        assert.ok(styles.sheets >= 3, `${slug}: local CSS loaded`);
+        assert.notEqual(styles.background, "rgba(0, 0, 0, 0)");
+        assert.match(styles.titleFont, /Cormorant/);
+        assert.match(styles.bodyFont, /Manrope/);
+        assert.ok(styles.loadedFonts.some((font) => font.includes("Manrope")), `${slug}: local Manrope font loaded`);
+        assert.ok(styles.loadedFonts.some((font) => font.includes("Cormorant")), `${slug}: local Cormorant font loaded`);
+        assert.equal(await page.locator(".brand img").evaluate((image) => image.complete && image.naturalWidth > 0), true);
+        if (slug === "speisekarte") {
+          await page.locator("#dish-search").fill("Carbonara");
+          assert.equal(await page.locator(".menu-item:visible").count(), 1);
+        }
+        await noOverflow(page, `${slug}: offline file`);
+      }
+      await page.locator(".nav-toggle").click();
+      await page.locator('#mobile-menu a[href="speisekarte.html"]').click();
+      await page.waitForURL("**/speisekarte.html");
+      assert.equal(new URL(page.url()).protocol, "file:");
       await context.close();
     },
   );
@@ -660,14 +1033,21 @@ async function main() {
     if (browser) await browser.close();
     if (server) server.kill("SIGTERM");
     fs.mkdirSync(screenshots, { recursive: true });
-    fs.writeFileSync(
-      path.join(screenshots, "results.json"),
-      JSON.stringify(
-        { failures, browserErrors: [...browserErrors], screenshots },
-        null,
-        2,
-      ),
-    );
+    const hashedFiles = [
+      ...fs.readdirSync(root).filter((file) => /\.(html|css|js)$/.test(file) || file === "menu.json"),
+      ...fs.readdirSync(path.join(root, "scripts")).filter((file) => /\.(py|cjs)$/.test(file)).map((file) => `scripts/${file}`),
+      ...fs.readdirSync(path.join(root, "templates")).filter((file) => file.endsWith(".html")).map((file) => `templates/${file}`),
+      "tests/browser.cjs", "tests/menu-2026.json", "tests/v1-menu.json",
+    ].sort();
+    const sourceHashes = Object.fromEntries(hashedFiles.map((file) => [file, crypto.createHash("sha256").update(fs.readFileSync(path.join(root, file))).digest("hex")]));
+    const report = {
+      completedAt: new Date().toISOString(),
+      passed, failures, skipped, browserErrors: [...browserErrors], metrics, screenshots,
+      sourceCommit, menuSource: menuReference.source, menuSourceSHA256: menuReference.source_sha256,
+      sourceHashes, viewports: [1440, 820, 390, 360, 320],
+    };
+    fs.writeFileSync(path.join(screenshots, "results.json"), `${JSON.stringify(report, null, 2)}\n`);
+    fs.writeFileSync(path.join(__dirname, "delivery-results.json"), `${JSON.stringify(report, null, 2)}\n`);
     if (failures.length) {
       console.error(
         `\n${failures.length} check(s) failed. Details: ${path.join(screenshots, "results.json")}`,
@@ -675,6 +1055,6 @@ async function main() {
       for (const failure of failures)
         console.error(`\n${failure.name}\n${failure.error}`);
       process.exitCode = 1;
-    } else console.log(`\nAll checks passed. Screenshots: ${screenshots}`);
+    } else console.log(`\n${passed.length} checks passed, ${skipped.length} skipped. Screenshots: ${screenshots}`);
   }
 })();

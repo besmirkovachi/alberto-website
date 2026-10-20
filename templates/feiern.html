@@ -1,97 +1,118 @@
-<section class="event-hero container">
+<section class="event-hero container" aria-labelledby="event-title">
   <div class="event-hero-copy">
     <p class="eyebrow">
       <span class="tiny-dot"></span> Private Feiern bei Alberto
     </p>
-    <h1>Für Ihre<br /><em>besonderen</em><br />Momente.</h1>
+    <h1 id="event-title">Ihre Feier.<br /> <em>Ein eigener Raum bei Alberto.</em></h1>
     <p>
-      Ein eigener Raum. Ihre Lieblingsmenschen.<br />Und ein Tisch voller
-      italienischer Lebensfreude.
+      Laden Sie Ihre Gäste ein und genießen Sie das Zusammensein. Unser
+      separater Raum im Obergeschoss bietet einen persönlichen Rahmen für Ihren
+      Anlass – mit italienischer Küche und herzlicher Gastfreundschaft.
     </p>
-    <a class="button" href="tel:+4976216869205"
-      >Ihre Feier besprechen <span aria-hidden="true">↗</span></a
+    <a class="button" href="#feier-anfragen"
+      >Ihre Feier anfragen <span aria-hidden="true">↓</span></a
     >
   </div>
-  <div class="event-hero-image">
+  <div class="event-hero-image" data-parallax>
     {{image:room|Festlich gedeckter separater Raum im Obergeschoss bei
     Alberto||eager}}<span class="image-note">Il piacere di stare insieme.</span>
   </div>
 </section>
-<section class="intro section-space container">
+<section class="intro event-story section-space container">
   <div class="intro-label reveal">
     <p class="eyebrow">Ein Raum für Sie</p>
     <span class="line-flower" aria-hidden="true">✳</span>
   </div>
   <div class="reveal">
-    <h2>Ein Stockwerk höher.<br /><em>Ganz unter sich.</em></h2>
+    <h2>Im Obergeschoss.<br /> <em>In Ihrer Runde.</em></h2>
     <div class="intro-bottom">
       <p>
-        Im Obergeschoss von Alberto wartet ein separater Raum auf Ihre Feier.
-        Für ein Wiedersehen, einen Geburtstag oder ein Fest im Familienkreis –
-        mit Platz für das, was diesen Tag besonders macht.
+        Ein Geburtstag, ein Wiedersehen oder ein Fest mit der Familie: Manche
+        Anlässe möchte man in einem eigenen Raum verbringen. Im Obergeschoss von
+        Alberto können Sie gemeinsam essen, sich unterhalten und miteinander
+        feiern.
       </p>
       <p>
-        Die Gestaltung und Bestuhlung stimmen wir auf Ihren Anlass ab. Sprechen
-        Sie mit uns über Ihre Ideen und die Möglichkeiten.
+        Wie die Tische stehen und was kulinarisch zu Ihrem Anlass passt,
+        besprechen wir persönlich mit Ihnen. Erzählen Sie uns von Ihren
+        Vorstellungen – gemeinsam klären wir, was möglich ist.
       </p>
     </div>
   </div>
 </section>
-<section class="event-photo-pair container">
+<section class="event-photo-pair container" aria-label="Unser Raum im Obergeschoss">
   <figure class="reveal">
     <a
       href="assets/room2.webp"
       data-lightbox
-      data-caption="Ein Raum für gemeinsame Momente"
+      data-caption="Ein eigener Raum für gemeinsame Zeit."
       >{{image:room2|Lange gedeckte Tafel im hellen Veranstaltungsraum}}</a
     >
-    <figcaption>Ihr Anlass gibt den Rahmen vor.</figcaption>
+    <figcaption>Ein eigener Raum für gemeinsame Zeit.</figcaption>
   </figure>
   <figure class="reveal">
     <a
       href="assets/room3.webp"
       data-lightbox
-      data-caption="Ein eigener Rahmen für Ihre Feier"
+      data-caption="Ihr Anlass. Ihre Gäste. Alberto."
       >{{image:room3|Gedeckte Tische und warme Beleuchtung im Obergeschoss}}</a
     >
-    <figcaption>Wir kümmern uns um die Gastfreundschaft.</figcaption>
+    <figcaption>Ihr Anlass. Ihre Gäste. Alberto.</figcaption>
   </figure>
 </section>
 <section class="occasions container section-space">
   <div class="reveal">
     <p class="eyebrow">Zusammen ist es schöner</p>
-    <h2>Was gibt es<br />zu <em>feiern?</em></h2>
+    <h2>Was möchten Sie<br /> <em>feiern?</em></h2>
   </div>
   <div class="occasion-list reveal">
     <div>
-      <span>01</span>
-      <h3>Geburtstage & Jubiläen</h3>
+      <span aria-hidden="true">01</span>
+      <div class="occasion-copy">
+        <h3>Geburtstage &amp; Jubiläen</h3>
+        <p>Mit den Menschen zusammenkommen, die Ihnen wichtig sind.</p>
+      </div>
     </div>
     <div>
-      <span>02</span>
-      <h3>Familienfeiern & Wiedersehen</h3>
+      <span aria-hidden="true">02</span>
+      <div class="occasion-copy">
+        <h3>Familienfeiern &amp; Wiedersehen</h3>
+        <p>Zeit füreinander nehmen und gemeinsam am Tisch sitzen.</p>
+      </div>
     </div>
     <div>
-      <span>03</span>
-      <h3>Private Anlässe & Gruppenessen</h3>
+      <span aria-hidden="true">03</span>
+      <div class="occasion-copy">
+        <h3>Private Anlässe &amp; Gruppenessen</h3>
+        <p>Einen gemeinsamen Abend in eigener Runde verbringen.</p>
+      </div>
     </div>
     <div>
-      <span>04</span>
-      <h3>Teamabende & kleine Veranstaltungen</h3>
+      <span aria-hidden="true">04</span>
+      <div class="occasion-copy">
+        <h3>Teamabende &amp; kleine Veranstaltungen</h3>
+        <p>Abseits des Alltags zusammen essen und ins Gespräch kommen.</p>
+      </div>
     </div>
+    <p class="occasion-note">Die Möglichkeiten für Ihren Anlass stimmen wir individuell mit Ihnen ab.</p>
   </div>
 </section>
-<section class="event-contact">
+<section class="event-contact" id="feier-anfragen" aria-labelledby="event-contact-title">
   <div class="container reveal">
+    <span class="event-ornament" aria-hidden="true">✳</span>
     <p class="eyebrow">Alles beginnt mit einem Gespräch.</p>
-    <h2>Erzählen Sie uns<br />von <em>Ihrer Idee.</em></h2>
+    <h2 id="event-contact-title">Lassen Sie uns<br /> <em>Ihre Feier besprechen.</em></h2>
     <p>
-      Verfügbarkeit, Bestuhlung und kulinarische Möglichkeiten besprechen wir
-      persönlich. Rufen Sie uns an – wir freuen uns auf Ihren Anlass.
+      Sie haben einen Termin im Sinn? Rufen Sie uns an oder schreiben Sie uns.
+      Nennen Sie uns Ihren Wunschtermin, den Anlass und die voraussichtliche
+      Gästezahl. Wir besprechen mit Ihnen die Verfügbarkeit und die weiteren
+      Einzelheiten.
     </p>
-    <a class="event-phone" href="tel:+4976216869205"
-      >+49 7621 686 92 05 <span aria-hidden="true">↗</span></a
-    >
-    <p class="small">Mo, Di & Do–So · 11:30–14:00 und 17:00–22:30</p>
+    <div class="event-contact-actions">
+      <a class="button" href="tel:+4976216869205">Feier telefonisch anfragen <span aria-hidden="true">↗</span></a>
+      <a class="text-link" href="mailto:info@restaurant-alberto.de?subject=Anfrage%20f%C3%BCr%20eine%20private%20Feier">Anfrage per E-Mail <span aria-hidden="true">↗</span></a>
+    </div>
+    <a class="event-phone" href="tel:+4976216869205">+49 7621 686 92 05</a>
+    <p class="small">Mo, Di &amp; Do–So · 11:30–14:00 und 17:00–22:30</p>
   </div>
 </section>

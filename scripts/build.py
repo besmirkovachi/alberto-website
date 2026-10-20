@@ -6,6 +6,7 @@ import json
 import os
 import re
 from urllib.parse import urlsplit
+from social import social_links
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = os.environ.get('SITE_URL', '').rstrip('/')
@@ -41,23 +42,23 @@ def image_token(match):
     parts[1]=' '.join(parts[1].split())
     return photo(parts[0],parts[1],parts[2] if len(parts)>2 else '',len(parts)>3 and parts[3]=='eager')
 
-def nav(page, mobile=False):
-    links = ([('index','Startseite')]+NAV) if mobile else NAV
+def nav(page, mobile=False, items=None):
+    links = ([('index','Startseite')]+NAV) if mobile else (NAV if items is None else items)
     return ''.join(f'<a href="{slug}.html" {"aria-current=page" if slug==page else ""}><span>{label}</span>{"<span aria-hidden=true>↗</span>" if mobile else ""}</a>' for slug,label in links)
 
 def header(page):
     return f'''<a class="skip-link" href="#main">Zum Inhalt springen</a>
 <header class="site-header"><div class="header-inner">
+<nav class="desktop-nav nav-left" aria-label="Restaurant entdecken">{nav(page,items=NAV[:3])}</nav>
 <a class="brand" href="index.html" aria-label="Alberto Ristorante · Pizzeria – Startseite"><img src="assets/logo.png" alt="Alberto" width="1600" height="300"><span>RISTORANTE · PIZZERIA</span></a>
-<nav class="desktop-nav" aria-label="Hauptnavigation">{nav(page)}</nav>
-<a class="header-call" href="tel:+4976216869205">Anrufen <span aria-hidden="true">↗</span></a>
+<nav class="desktop-nav nav-right" aria-label="Besuch planen">{nav(page,items=NAV[3:])}</nav>
 <button class="nav-toggle" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false"><span>Menü</span><span class="menu-lines" aria-hidden="true"></span></button>
 </div></header>
 <dialog class="mobile-menu" id="mobile-menu" aria-label="Hauptnavigation"><div class="mobile-menu-top"><span class="eyebrow">Benvenuti da Alberto</span><button class="icon-button menu-close" aria-label="Menü schließen">×</button></div><nav aria-label="Mobile Hauptnavigation">{nav(page,True)}</nav><div class="mobile-menu-bottom"><span class="tricolore" aria-hidden="true"></span><p>Ein Stück Italien.<br>Mitten in Weil am Rhein.</p><a href="tel:+4976216869205">+49 7621 686 92 05 ↗</a></div></dialog>
 <noscript><nav class="nojs-nav" aria-label="Seitennavigation">{nav(page,True)}</nav></noscript>'''
 
 def footer():
-    return f'''<footer class="site-footer"><div class="container footer-top"><div class="footer-intro"><span class="eyebrow">A presto, bei Alberto.</span><p class="footer-heading">Das gute Leben<br>beginnt am <em>Tisch.</em></p><span class="tricolore" aria-hidden="true"></span></div><div><h2>Hier sind wir</h2><address>Ristorante Pizzeria Alberto<br>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><h2>Unsere Öffnungszeiten</h2><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><p class="footer-muted">Mittwoch Ruhetag</p><a href="tel:+4976216869205">+49 7621 686 92 05</a></div></div><div class="container footer-bottom"><a class="footer-logo" href="index.html" aria-label="Alberto – Startseite"><img src="assets/logo.png" width="1600" height="300" alt="Alberto"></a><div class="social-links"><a href="https://www.instagram.com/ristorantealberto/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.facebook.com/share/18fm5KVA2n/" target="_blank" rel="noopener noreferrer">Facebook ↗</a></div><div class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><span>© Alberto</span></div></div></footer>
+    return f'''<footer class="site-footer"><div class="container footer-top"><div class="footer-intro"><span class="eyebrow">A presto, bei Alberto.</span><p class="footer-heading">Das gute Leben<br>beginnt am <em>Tisch.</em></p><span class="tricolore" aria-hidden="true"></span></div><div><h2>Hier sind wir</h2><address>Ristorante Pizzeria Alberto<br>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><h2>Unsere Öffnungszeiten</h2><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><p class="footer-muted">Mittwoch Ruhetag</p><a href="tel:+4976216869205">+49 7621 686 92 05</a></div></div><nav class="container footer-nav" aria-label="Weitere Seiten">{nav('')}</nav><div class="container footer-bottom"><a class="footer-logo" href="index.html" aria-label="Alberto – Startseite"><img src="assets/logo.png" width="1600" height="300" alt="Alberto"></a><div class="footer-social"><p class="eyebrow">Alberto auf Social Media</p>{social_links()}</div><div class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><span>© Alberto</span></div></div></footer>
 <div class="mobile-actions"><a href="tel:+4976216869205"><span aria-hidden="true">↗</span> Anrufen</a><a href="speisekarte.html">Speisekarte <span aria-hidden="true">↗</span></a></div>
 <dialog class="lightbox" id="lightbox" aria-label="Bildergalerie"><button class="icon-button lightbox-close" aria-label="Bild schließen">×</button><div class="lightbox-stage"><button class="icon-button lightbox-prev" aria-label="Vorheriges Bild">←</button><figure><img alt=""><figcaption id="lightbox-caption" aria-live="polite"></figcaption></figure><button class="icon-button lightbox-next" aria-label="Nächstes Bild">→</button></div></dialog>'''
 
@@ -65,20 +66,53 @@ def contact():
     return f'''<section class="visit section-space" aria-labelledby="visit-title"><div class="container visit-grid"><div class="reveal"><p class="eyebrow"><span class="tiny-dot"></span> Ci vediamo</p><h2 id="visit-title">Ein guter Ort.<br>Für eine <em>gute Zeit.</em></h2><p>Mittags eine kleine Auszeit. Abends noch ein bisschen bleiben.<br class="desktop-only"> Wir freuen uns auf Sie.</p><a class="text-link" href="kontakt.html">Kontakt & Anfahrt <span aria-hidden="true">↗</span></a></div><div class="visit-details reveal"><div><span class="eyebrow">Besuchen</span><address>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><span class="eyebrow">Genießen</span><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><span class="muted">Mittwoch Ruhetag</span></div><a class="visit-phone" href="tel:+4976216869205">+49 7621 686 92 05 <span aria-hidden="true">↗</span></a></div></div></section>'''
 
 def menu():
-    source=json.loads((ROOT/'menu.json').read_text())
-    categories=[('pizza','Pizza', [*source[4]['items'],*source[5]['items']]),('antipasti','Antipasti & Suppen',source[0]['items']),('salate','Salate',source[1]['items']),('pasta','Pasta & Risotto',[*source[2]['items'],*source[3]['items']]),('fleisch','Fleisch & Steak',source[6]['items']),('fisch','Fisch & Beilagen',[i for i in source[7]['items'] if i['group']!='DESSERT']),('dolci','Dolci',[i for i in source[7]['items'] if i['group']=='DESSERT']),('getraenke','Getränke & Bier',[*source[8]['items'],*source[9]['items']]),('wein','Wein & Aperitivo',[*source[10]['items'],*source[11]['items']])]
-    sidebar='<aside class="menu-sidebar"><p class="eyebrow">Worauf haben Sie Lust?</p><nav aria-label="Speisekartenkategorien"><a href="#menu-list" data-category="all" aria-current="true">Alles entdecken <span>↗</span></a>'
-    for key,label,items in categories:
-        sidebar+=f'<a href="#{key}" data-category="{key}">{label}<span>{len(items):02}</span></a>'
+    categories=json.loads((ROOT/'menu.json').read_text())
+    # Category order, printed notes and variants follow Alberto's 2026 PDF.
+    group_labels={
+        'SPAGHETTI':'Spaghetti', 'PENNE':'Penne', 'GNOCCHI':'Gnocchi',
+        'TORTELLONI':'Tortelloni', 'TAGLIATELLE':'Tagliatelle',
+        'Vom KALB / SCHWEIN':'Vom Kalb / Schwein', 'Vom RIND':'Vom Rind',
+        'ALKOHOLFREIE GETRÄNKE':'Alkoholfreie Getränke', 'FLASCHEN':'Flaschen',
+        'WARME GETRÄNKE':'Warme Getränke', 'VOM FASS':'Vom Fass',
+        'FLASCHEN (0,75 l)':'Flaschen · 0,75 l', 'OFFENE':'Offene Weine',
+    }
+    sidebar='<aside class="menu-sidebar"><p class="eyebrow">Worauf haben Sie Lust?</p><div class="menu-category-picker js-only"><label for="menu-category-select">Kategorie wählen</label><select id="menu-category-select" aria-controls="menu-list"><option value="all">Alles entdecken</option>'
+    for category in categories:
+        sidebar+=f'<option value="{escape(category["id"],quote=True)}">{escape(category["title"])}</option>'
+    sidebar+='</select></div><nav aria-label="Speisekartenkategorien" tabindex="0" data-lenis-prevent><a href="#menu-list" data-category="all" aria-current="true">Alles entdecken <span>↗</span></a>'
+    for category in categories:
+        key,label,items=category['id'],category['title'],category['items']
+        sidebar+=f'<a href="#{escape(key,quote=True)}" data-category="{escape(key,quote=True)}">{escape(label)}<span>{len(items):02}</span></a>'
     sidebar+='</nav><span class="tricolore" aria-hidden="true"></span><p class="menu-sidebar-note">Gutes Essen.<br>Ganz nach Ihrem Geschmack.</p></aside>'
-    result=f'<div class="menu-layout container">{sidebar}<div id="menu-list" class="menu-list"><div class="menu-search js-only"><label for="dish-search">Lieblingsgericht finden</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="dish-search" type="search" placeholder="Zum Beispiel Pizza, Carbonara …" autocomplete="off"><button type="button" id="clear-search" aria-label="Suche zurücksetzen" hidden>×</button></div><p id="menu-count" class="muted" role="status"></p></div><div id="no-results" hidden><h2>Nichts gefunden?</h2><p>Versuchen Sie einen anderen Suchbegriff oder entdecken Sie die ganze Karte.</p><button class="button" id="reset-menu">Alle Gerichte anzeigen ↗</button></div>'
-    for key,label,items in categories:
-        result+=f'<section class="menu-category" id="{key}" data-menu-category="{key}" aria-labelledby="title-{key}"><div class="menu-category-heading"><h2 id="title-{key}">{label}</h2><span>{"Ø 36 cm · Ausnahmen angegeben" if key=="pizza" else "Buon appetito"}</span></div><div class="menu-items">'
+    result=f'<div class="menu-layout container">{sidebar}<div id="menu-list" class="menu-list"><div class="menu-search js-only"><label for="dish-search">Lieblingsgericht finden</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="dish-search" type="search" placeholder="Zum Beispiel Pizza, Carbonara …" autocomplete="off" enterkeyhint="search" spellcheck="false"><button type="button" id="clear-search" aria-label="Suche zurücksetzen" hidden>×</button></div><p id="menu-count" class="muted" role="status"></p></div><div id="no-results" hidden><h2>Nichts gefunden?</h2><p>Versuchen Sie einen anderen Suchbegriff oder entdecken Sie die ganze Karte.</p><button class="button" id="reset-menu">Alle Gerichte anzeigen ↗</button></div>'
+    for category in categories:
+        key,label,items=category['id'],category['title'],category['items']
+        result+=f'<section class="menu-category" id="{escape(key,quote=True)}" data-menu-category="{escape(key,quote=True)}" aria-labelledby="title-{escape(key,quote=True)}">'
+        if key=='desserts':
+            result+='<span id="dolci" class="menu-anchor-alias" aria-hidden="true"></span>'
+        result+=f'<div class="menu-category-heading"><h2 id="title-{escape(key,quote=True)}">{escape(label)}</h2>'
+        if category.get('subtitle'): result+=f'<span>{escape(category["subtitle"])}</span>'
+        result+='</div>'
+        if category.get('note'): result+=f'<p class="menu-category-note">{escape(category["note"])}</p>'
+        result+='<div class="menu-items">'
         for item in items:
             group=item.get('group','')
-            result+=f'<article class="menu-item" data-search="{escape(" ".join([item["name"],item["description"],group,label]),quote=True)}">'
-            if group: result+=f'<span class="dish-group">{escape(group)}</span>'
-            result+=f'<div class="dish-title"><h3>{escape(item["name"])}</h3><span class="dish-price">{escape(item["price"])}</span></div>'
+            variants=item.get('variants',[])
+            sizes=' '.join(v['size'] for v in variants) if variants else item.get('size','')
+            # Shared portion notes (e.g. Familienpizza Ø 50 cm) must not make
+            # every product in the category match a specific dish's name.
+            search=' '.join([item['name'],item['description'],group,label,sizes])
+            result+=f'<article class="menu-item" data-source-page="{int(item["source_page"])}" data-source-row="{int(item["source_row"])}" data-group="{escape(group,quote=True)}" data-search="{escape(search,quote=True)}">'
+            if group in group_labels: result+=f'<span class="dish-group">{escape(group_labels[group])}</span>'
+            result+=f'<div class="dish-title"><h3>{escape(item["name"])}</h3>'
+            if not variants: result+=f'<span class="dish-price">{escape(item["price"])}</span>'
+            result+='</div>'
+            if variants:
+                result+='<ul class="dish-variants" aria-label="Größen und Preise">'
+                for variant in variants:
+                    result+=f'<li><span class="dish-size">{escape(variant["size"])}</span><span class="dish-price">{escape(variant["price"])}</span></li>'
+                result+='</ul>'
+            elif item.get('size'): result+=f'<span class="dish-size">{escape(item["size"])}</span>'
             if item['description']: result+=f'<p>{escape(item["description"])}</p>'
             result+='</article>'
         result+='</div></section>'
@@ -98,15 +132,20 @@ if SITE_URL: schema.update(url=SITE_URL,image=SITE_URL+'/assets/hero.webp',hasMe
 
 for page,(title,desc) in PAGES.items():
     body=(ROOT/'templates'/f'{page}.html').read_text()
-    body=body.replace('{{MENU}}',menu() if page=='speisekarte' else '').replace('{{GALLERY}}',gallery() if page=='galerie' else '').replace('{{CONTACT}}',contact())
+    body=body.replace('{{SOCIAL}}', social_links()).replace('{{MENU}}',menu() if page=='speisekarte' else '').replace('{{GALLERY}}',gallery() if page=='galerie' else '').replace('{{CONTACT}}',contact())
     body=re.sub(r'\{\{image:([^}]+)\}\}',image_token,body)
+    css_files=['premium.css']
+    if page == 'speisekarte': css_files.append('menu-premium.css')
+    if page in ('ueber-uns','galerie','feiern'): css_files.append('story-pages.css')
+    if page in ('bestellen','kontakt','impressum','datenschutz'): css_files.append('service-pages.css')
+    page_styles=''.join(f'<link rel="stylesheet" href="{name}">' for name in css_files)
     canonical=SITE_URL+('/' if page=='index' else '/'+page+'.html') if SITE_URL else ''
     metadata=f'<link rel="canonical" href="{escape(canonical)}"><meta property="og:url" content="{escape(canonical)}">' if canonical else ''
     html=f'''<!doctype html>
-<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#18392e">
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#173b2e">
 <title>{escape(title)} | Ristorante Pizzeria Alberto</title><meta name="description" content="{escape(desc,quote=True)}"><meta name="robots" content="{"index,follow" if INDEXABLE else "noindex,follow"}">
 <meta property="og:type" content="website"><meta property="og:locale" content="de_DE"><meta property="og:site_name" content="Ristorante Pizzeria Alberto"><meta property="og:title" content="{escape(title,quote=True)}"><meta property="og:description" content="{escape(desc,quote=True)}"><meta property="og:image" content="{SITE_URL+'/assets/hero.webp' if SITE_URL else 'assets/hero.webp'}"><meta property="og:image:alt" content="Pizza und italienische Küche bei Alberto"><meta name="twitter:card" content="summary_large_image">{metadata}
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="assets/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css"><script src="script.js" defer></script><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False)}</script></head>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="assets/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="assets/vendor/lenis.css">{page_styles}<script src="assets/vendor/gsap.min.js" defer></script><script src="assets/vendor/ScrollTrigger.min.js" defer></script><script src="assets/vendor/lenis.min.js" defer></script><script src="script.js" defer></script><script src="motion.js" defer></script><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False)}</script></head>
 <body class="page-{page}">{header(page)}<main id="main">{body}</main>{footer()}</body></html>'''
     arrow='<svg class="arrow-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 19 19 5M5 5h14v14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>'
     flower='<svg class="flower-icon" viewBox="0 0 100 100" width="50" height="50" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M50 6v88M6 50h88M19 19l62 62M19 81l62-62"/><circle cx="50" cy="50" r="16"/></g></svg>'

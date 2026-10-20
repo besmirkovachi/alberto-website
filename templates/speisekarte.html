@@ -1,17 +1,20 @@
-<section class="page-intro menu-intro container">
-  <div>
+<section class="page-intro menu-intro container" aria-labelledby="menu-page-title">
+  <div class="menu-intro-copy">
     <p class="eyebrow"><span class="tiny-dot"></span> La nostra carta</p>
-    <h1>Worauf haben<br />Sie <em>Appetit?</em></h1>
-    <p>Die Klassiker Italiens. Und vielleicht Ihr neues Lieblingsgericht.</p>
+    <h1 id="menu-page-title">Worauf haben<br /> Sie <em>Appetit?</em></h1>
+    <p class="menu-intro-description">Die Klassiker Italiens. Und vielleicht Ihr neues Lieblingsgericht.</p>
   </div>
-  <div class="menu-intro-photo">
-    {{image:pizza|Pizza mit Rucola und Parmesan||eager}}<span
-      >Buon appetito!</span
-    >
-  </div>
+  <figure class="menu-intro-photo">
+    {{image:pizza|Pizza mit Rucola und Parmesan||eager}}
+    <figcaption>Buon appetito!</figcaption>
+  </figure>
 </section>
+<aside class="menu-request-note container" aria-labelledby="menu-request-title">
+  <h2 id="menu-request-title">Hinweis zu Sonderwünschen</h2>
+  <p>Zusätzliche Zutaten, Änderungen und Sonderwünsche können mit einem Aufpreis verbunden sein. Eventuelle Mehrkosten werden gesondert berechnet.</p>
+</aside>
 {{MENU}}
-<section class="simple-cta">
+<section class="simple-cta menu-order-cta">
   <div class="container">
     <p class="eyebrow">Da asporto · A domicilio</p>
     <h2>Lieber <em>zu Hause genießen?</em></h2>

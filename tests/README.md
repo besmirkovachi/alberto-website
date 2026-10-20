@@ -1,20 +1,29 @@
-# Browser checks
+# Browser checks — menu 2026
 
-Build the site first with `python3 scripts/build.py`, then run:
+Build first with `python3 scripts/build.py`, then run `node tests/browser.cjs`.
 
-```sh
-node tests/browser.cjs
-```
+Playwright and Chromium are development-only tools. The script starts and stops its own local Python HTTP server. Use an installed `playwright` module or set `PLAYWRIGHT_MODULE`; the managed environment also provides it at `/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright`. `CHROMIUM_PATH` defaults to `/usr/bin/chromium`.
 
-The script uses Playwright and Chromium already installed in the development environment. It starts and stops its own local Python HTTP server. It does not add runtime dependencies to the website or alter the generated pages.
+Options:
 
-For another machine, install Playwright separately and either make `require('playwright')` available or set `PLAYWRIGHT_MODULE` to its module path. Set `CHROMIUM_PATH` to the browser executable when it is not `/usr/bin/chromium`.
+- `BASE_URL`: use an existing local server.
+- `SCREENSHOT_DIR`: destination for screenshots and report (default `/tmp/alberto-review`).
 
-Optional variables:
+The independent `menu-2026.json` fixture preserves the PDF's source hash, category order, raw source rows, descriptions, prices and portions. It was prepared from two independent PDF audits before the production menu rewrite. The old `v1-menu.json` stays unchanged as a historical reference; it is no longer the expected current menu. No checkout of the old Git repository is needed to test the new menu.
 
-- `BASE_URL`: use an existing server instead of starting one.
-- `SCREENSHOT_DIR`: change the default `/tmp/alberto-review` output directory.
+Checks cover:
 
-The suite checks the nine pages, local asset and anchor links, metadata and restaurant schema, source menu fidelity, search and category navigation, gallery filtering and lightbox navigation, mobile dialog focus, reduced motion, JavaScript-free fallbacks, browser errors, and horizontal overflow at desktop, tablet and two phone widths. Full-page screenshots and a JSON report are saved for visual review.
+- All nine pages, local assets/anchors, metadata and schema.
+- 151 menu rows, 153 prices, 18 categories, exact portions and removal of old products.
+- Category selection, search, Back/Forward, legacy links, malformed hashes and literal markup input.
+- Rapid typing, composition/accents and a synthetic input-to-render measurement under 4× CPU throttling.
+- Original hero, GSAP intro, interruption, runtime Reduced Motion, native touch scrolling and desktop Lenis.
+- Video viewport playback, manual pause, reduced motion/data saver, browser autoplay rejection and JavaScript-free controls.
+- Gallery filtering/lightbox and mobile dialog focus, scroll restoration and Escape.
+- Three social SVG links on every footer and on Kontakt.
+- All nine pages at 1440, 820, 390, 360 and 320 pixels.
+- Content and navigation without JavaScript or optional animation libraries.
 
-Automated checks do not replace reviewing the screenshots, reading legal content before publication, or checking the final public domain and delivery links.
+The direct `file://` opening check is attempted. If Chromium explicitly returns `ERR_BLOCKED_BY_ADMINISTRATOR`, only that check is recorded as skipped with its reason. Browser policy is never disabled. All pages and assets still undergo the local HTTP checks; the skipped case must not be reported as verified direct file opening.
+
+`delivery-results.json` records passed/failed/skipped checks, browser errors, lab measurements and SHA-256 hashes of tested source files. `scripts/package.py` rejects failures or changed sources. Screenshots must also be reviewed visually. These checks are not a field INP measurement, a real iPhone/Safari test, or a live test of ordering/reservation providers.
