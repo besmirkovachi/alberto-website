@@ -807,6 +807,120 @@ async function main() {
   );
 
   await check(
+    "Homepage photograph fills the opening on desktop and small phones",
+    async () => {
+      assert.equal(
+        crypto.createHash("sha256").update(fs.readFileSync(path.join(root, "assets/hero.webp"))).digest("hex"),
+        "af94d4bcf74310bb1c8fd1b8aee5ce47e49ef222a3973d4224cab979d3769858",
+        "The large hero retains Alberto's original photograph",
+      );
+      for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 568 }]) {
+        const { context, page } = await newPage({
+          viewport,
+          isMobile: viewport.width < 600,
+          hasTouch: viewport.width < 600,
+        });
+        try {
+          await visit(page);
+          const geometry = await page.evaluate(() => {
+            const rect = (selector) => {
+              const bounds = document.querySelector(selector).getBoundingClientRect();
+              return { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height, right: bounds.right, bottom: bounds.bottom };
+            };
+            return {
+              width: document.documentElement.clientWidth,
+              height: window.innerHeight,
+              header: rect(".site-header"),
+              media: rect(".hero-media"),
+              title: rect("#hero-title"),
+              action: rect(".hero-primary"),
+              imageSource: document.querySelector(".hero-photo").getAttribute("src"),
+            };
+          });
+          assert.equal(geometry.imageSource, "assets/hero.webp");
+          assert.ok(geometry.media.width >= geometry.width * 0.98, `${viewport.width}px: photo spans the viewport`);
+          assert.ok(geometry.media.height >= geometry.height * 0.75, `${viewport.width}px: photo dominates the opening`);
+          assert.ok(Math.abs(geometry.media.y - geometry.header.bottom) <= 2, `${viewport.width}px: photo begins directly under the header`);
+          for (const name of ["title", "action"]) {
+            const bounds = geometry[name];
+            assert.ok(bounds.x >= 0 && bounds.right <= geometry.width + 1, `${viewport.width}px: ${name} fits horizontally`);
+            assert.ok(bounds.y >= geometry.media.y && bounds.bottom <= geometry.media.bottom + 1, `${viewport.width}px: ${name} sits inside the large photograph`);
+          }
+          await noOverflow(page, `Homepage opening at ${viewport.width}×${viewport.height}`);
+          metrics[`hero-${viewport.width}x${viewport.height}`] = geometry;
+        } finally {
+          await context.close();
+        }
+      }
+    },
+  );
+
+  await check(
+    "Automatic logo intro is visible on fresh entry and reload despite the old session flag or blocked storage",
+    async () => {
+      const scenarios = [
+        { name: "desktop", viewport: { width: 1440, height: 900 } },
+        { name: "mobile", viewport: { width: 390, height: 844 } },
+        { name: "blocked-storage", viewport: { width: 1440, height: 900 }, blockedStorage: true },
+      ];
+      for (const scenario of scenarios) {
+        const { context, page } = await newPage({
+          viewport: scenario.viewport,
+          isMobile: scenario.viewport.width < 600,
+          hasTouch: scenario.viewport.width < 600,
+          reducedMotion: "no-preference",
+        });
+        try {
+          await page.addInitScript(({ blockedStorage }) => {
+            if (blockedStorage) {
+              Object.defineProperty(window, "sessionStorage", {
+                configurable: true,
+                get() { throw new DOMException("Storage is disabled for this test", "SecurityError"); },
+              });
+            } else {
+              sessionStorage.setItem("alberto-premium-v1-intro-seen", "1");
+            }
+          }, { blockedStorage: Boolean(scenario.blockedStorage) });
+          for (const entry of ["fresh", "reload"]) {
+            if (entry === "fresh") await page.goto(`${baseURL}/index.html`, { waitUntil: "domcontentloaded" });
+            else await page.reload({ waitUntil: "domcontentloaded" });
+            await page.waitForFunction(() => {
+              const logo = document.querySelector(".firma-logo");
+              const caption = logo?.querySelector(".firma-caption");
+              return window.AlbertoMotion?.getState().introRunning &&
+                getComputedStyle(logo).visibility === "visible" &&
+                Number(getComputedStyle(logo).opacity) > 0.9 &&
+                Number(getComputedStyle(caption).opacity) > 0.9;
+            }, null, { timeout: 2000 });
+            const visible = await page.locator(".firma-logo").evaluate((logo) => {
+              const bounds = logo.getBoundingClientRect();
+              const image = logo.querySelector("img");
+              return {
+                x: bounds.x, y: bounds.y, right: bounds.right, bottom: bounds.bottom,
+                viewportWidth: innerWidth, viewportHeight: innerHeight,
+                imageLoaded: image.complete && image.naturalWidth > 0,
+                pointerEvents: getComputedStyle(logo).pointerEvents,
+              };
+            });
+            assert.ok(visible.imageLoaded, `${scenario.name}/${entry}: original logo is decoded`);
+            assert.ok(visible.x >= 0 && visible.right <= visible.viewportWidth && visible.y >= 0 && visible.bottom <= visible.viewportHeight, `${scenario.name}/${entry}: animated logo is onscreen`);
+            assert.equal(visible.pointerEvents, "none", "Decorative entrance cannot intercept navigation");
+            if (entry === "fresh" && !scenario.blockedStorage)
+              await page.screenshot({ path: path.join(screenshots, `intro-${scenario.name}.png`) });
+            await page.waitForFunction(() => !window.AlbertoMotion.getState().introRunning, null, { timeout: 2500 });
+            assert.equal(await page.locator(".brand img").evaluate((image) => getComputedStyle(image).opacity), "1");
+            assert.equal(await page.locator(".firma-logo").evaluate((logo) => getComputedStyle(logo).visibility), "hidden");
+          }
+          await visit(page, "index", "#benvenuti");
+          assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().introRunning), false, "An anchor visit does not replay the opening over the requested section");
+        } finally {
+          await context.close();
+        }
+      }
+    },
+  );
+
+  await check(
     "GSAP intro completes and interrupts; Lenis and ScrollTrigger respond to preference changes",
     async () => {
       const { context, page } = await newPage({ reducedMotion: "no-preference" });

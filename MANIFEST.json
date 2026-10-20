@@ -9,19 +9,19 @@
   "menu_categories": 18,
   "menu_source": "Alberto_Menü_2026.pdf",
   "menu_source_sha256": "1759cca442c4eea2817cd8e91efb962c6fc67c1ac68f37f9d057d5b474f49fa6",
-  "checks_passed": 18,
+  "checks_passed": 20,
   "checks_skipped": [
     {
       "name": "Offline ZIP opening: all nine file:// pages load styles, local fonts, navigation and assets",
       "reason": "Chromium administrator policy blocks file:// URLs. Policy was not changed; all nine pages, styles and assets are verified over the local HTTP server. Direct file opening requires a check outside this managed browser."
     }
   ],
-  "verified_at": "2026-10-20T12:51:40.729Z",
+  "verified_at": "2026-10-20T22:15:56.675Z",
   "published": false,
   "sha256": {
-    "KONTROLLET.md": "5e710ce126dd6ba020aec81d651cf640647756394880e409cb1a09395107861c",
+    "KONTROLLET.md": "77b1b4138a4f0ab6b644ee9b04a0ef10ae82fb9d32448d2e63d79225016925e9",
     "LEXO-FILLIMISHT.txt": "237f7ab80b057b267ee0010c1aa6377e1e6865d81e95604984117cdddd65079a",
-    "README.md": "09fc28f61d1f89f3e3bcb5393d4843721c2c68064c1676b06c3e5761e820a072",
+    "README.md": "1bb41cd04d8e5a028a1ec35447b45059024d7a318d8cfc52814f0f19529a71a2",
     "THIRD-PARTY.md": "7a1c90dbdc88a21cc1bdb82a844816a5f6c3a7631f6b387f2679696db3f7df15",
     "assets/antipasti.webp": "5b697c547c95ac195f66d6183cae0ffc1d15d82569bcf4b579075d06b6a81bdc",
     "assets/dessert.webp": "46a8fffcbcd68d6b361d739af8d491f9c7c58a41dfa53e0e4e76c5cc0244d338",
@@ -79,14 +79,14 @@
     "feiern.html": "950c1203881cf9a22e8c716b61544267915f81f1ced020b9673655c32fc962b8",
     "galerie.html": "4799d6f8df813bcf822da99a68ddcfd883745047a95064bae2b6a331932c6d4c",
     "impressum.html": "1dd701b394dee9c2e36933aebf277b523e8e1d9724b53a4e88d3841943033861",
-    "index.html": "f443783863bedc766d328e766ce4f9dde727ae714722d0ef387c7a96976923cc",
+    "index.html": "2d91140bc444f68fb11d5e69bad0a2a171580c1f883ac6350a0ff5aff0e9f1ff",
     "kontakt.html": "a05d347da0aa66d3a2836c9eca37431aa004c0b454ac132a77c5cebcdef45f0f",
     "menu-premium.css": "6f7d051a3e8ffeb8e5447cce943a848bc21b3f098f19c7cc8fcc92c72a1599e8",
     "menu.json": "68bcb25a474b95eda3c730f99bad572e333e59f86ff7b6b88abaa7c6bab38b16",
-    "motion.js": "3f7c64c8f0450db1b7ba8cf41a37e2f07c83217c69ad4de066e6c82573767924",
+    "motion.js": "c7e30bf7a2cba0393483f40d806db565d331067ca793f68c6810aabac78ee81b",
     "package-lock.json": "583acf30a14f375928b5f7e60e0de659c563606087dd3ab439d779a053a3aedd",
     "package.json": "411783a03dc1a5b17d863ca50b48df46b60c82edf8d05f89afc3544d8e16f5de",
-    "premium.css": "d4a02827f8c879c4ff9a226f91e7ccda26795e137e51d249ae2c5d1c971a2898",
+    "premium.css": "3969a5f9ee09797c212b437ab73cb88fd8aa6fa54bafa1a5b3f92a5af84b467f",
     "robots.txt": "331ea9090db0c9f6f597bd9840fd5b171830f6e0b3ba1cb24dfa91f0c95aedc1",
     "script.js": "1a049eb58529936f0b62fd645d2388b5bffa1b046a88a7c29ad6e68a8321009f",
     "scripts/build.py": "22a258f220bbb467824743e75182bf8e6dbe4e50da222317c333179c9e796a70",
@@ -102,15 +102,16 @@
     "templates/feiern.html": "cd72d8e9b4f1ee541a3684745af5b9eafbb4985130ab4561e8fb12d4ca1ccbc8",
     "templates/galerie.html": "7e14a2f6c6b7666140316bc5164107839054b0421759d399e65a4039cd68df37",
     "templates/impressum.html": "0a61e0a7cd8ca444442559f46238feaf634c7ebaacdd9b49b842e57f963a3f77",
-    "templates/index.html": "e5c8a3bd894eadc63225b7f4ae55d0aa67c32d0b72ff0d6f54054fb60d551db1",
+    "templates/index.html": "96f73a7ea392ddca883102faffbc09f7b758d3d50873bbe19c5ef98e8a6be655",
     "templates/kontakt.html": "570b69b7066208ab57d1d0b0f7c729445634de01e8ccd87c6b2200295f8f8a64",
     "templates/speisekarte.html": "c242018e88e814fc2549e87620dcca6f9c737e597798148ac2f9bc0b443be337",
     "templates/ueber-uns.html": "ba9609f4692d3c7c0c58b5a3504c73b2f4d619de133f158c587e377a09b983e0",
-    "tests/README.md": "1094dc0839bc631045ba50a64dc61640bf63c7218214883f8b7d8522147df09e",
-    "tests/browser.cjs": "4a8c855701f950e21aa1e2646667b6894d266cb1c53055a45be2172fad0848b3",
-    "tests/delivery-results.json": "46466743dd3ce244ccbab6f3c4c68c262479aaf8b94a4fb7fe4a98b60554f0b2",
+    "tests/README.md": "f82d0f92692f383c417df023f7355fbc4f9c49ed78c10546781ff0a254505619",
+    "tests/browser.cjs": "1d526447b9d42acb9d90bbe47c3ad5eacd79abd45f7247e29e8773a2c99d95ba",
+    "tests/delivery-results.json": "b19dbf36402d8c9f431a504f58b5788f3d0cd50a17e5236477bb2fbcc4ea933c",
     "tests/menu-2026.json": "2827b120f6f5f32a939ceb9ca773c4437ba057d233604d749fbb060651ee5d0d",
     "tests/v1-menu.json": "c6a1a812773020ee6abd05ba09aaa8e2a8bc75636afa4f7b730c8fcd9eb17a29",
     "ueber-uns.html": "005ca3e2596b8c7446cc6bf83811c039164cba110825cdba0884fa623cd71d07"
-  }
+  },
+  "revision_base_commit": "40421e252c14247efa5ea853f3423b66acd0e382"
 }

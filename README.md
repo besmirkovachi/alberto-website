@@ -1,6 +1,6 @@
 # Alberto Website V1 — Premium · Menu 2026
 
-Website me nëntë faqe, bazuar në branch-in e konfirmuar `codex/alberto-premium-v1`, commit `43749a496c5e66064a33e21137de92f53aaf341a`, dhe në variantin premium të dorëzuar më parë. Menuja është përditësuar nga **Alberto_Menü_2026.pdf**. Kjo kopje e re nuk zëvendëson website-in origjinal dhe nuk është publikuar.
+Website me nëntë faqe, bazuar në branch-in e konfirmuar `codex/alberto-premium-v1`, commit `43749a496c5e66064a33e21137de92f53aaf341a`, dhe në variantin premium të dorëzuar më parë. Menuja është përditësuar nga **Alberto_Menü_2026.pdf**. Përditësimet zhvillohen në branch-e të veçanta dhe shqyrtohen me pull request drejt V1; ky variant mbetet i papublikuar.
 
 ## Hapja e website-it
 
@@ -18,6 +18,12 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 Pastaj hap `http://127.0.0.1:8000`.
 
+## Homepage — fotografia dhe hyrja
+
+Fotografia origjinale mbush gjerësinë e ekranit dhe pothuajse gjithë lartësinë e parë, me titullin dhe butonat mbi të. Kompozimi përshtatet për desktop dhe telefon. Hyrja “Firma Alberto” zbulon logon me ngjyrat italiane dhe e vendos në header; shenja e vjetër e sesionit nuk e fsheh më animacionin.
+
+Baza e këtij ndryshimi në GitHub: `codex/alberto-premium-v1`, commit `40421e252c14247efa5ea853f3423b66acd0e382`.
+
 ## Çfarë ndryshoi
 
 - Menuja 2026: 151 rreshta të krahasueshëm, 153 çmime individuale, 18 kategori në rendin e PDF-së; emra, përshkrime, porcione dhe madhësi sipas burimit.
@@ -34,7 +40,7 @@ Cream `#F5F1E8`, jeshile `#173B2E`, e kuqe `#A93D32`; Cormorant Garamond dhe Man
 
 ## Lëvizja dhe përdorshmëria
 
-GSAP 3.15.0 + ScrollTrigger koordinojnë hyrjen “Firma Alberto” dhe animacionet diskrete. Lenis 1.3.26 përdoret vetëm në desktop me pointer të saktë; telefoni ruan scroll-in natyral. Reduced Motion çaktivizon hyrjen lëvizëse dhe scroll-in e zbutur. Hyrja shfaqet një herë për sesion dhe ndërpritet gjatë ndërveprimit; nuk bllokon navigimin.
+GSAP 3.15.0 + ScrollTrigger koordinojnë hyrjen “Firma Alberto” dhe animacionet diskrete. Lenis 1.3.26 përdoret vetëm në desktop me pointer të saktë; telefoni ruan scroll-in natyral. Reduced Motion çaktivizon hyrjen lëvizëse dhe scroll-in e zbutur. Hyrja me logon origjinale shfaqet në çdo hapje të re të Homepage (rreth 1.7 sekonda), përfshirë rifreskimin. Ndërpritet menjëherë gjatë ndërveprimit dhe nuk bllokon navigimin. Lidhjet drejt seksioneve, rikthimi te pozicioni i ruajtur, Reduced Motion dhe kursimi i të dhënave e ruajnë hapjen statike.
 
 Videoja niset automatikisht vetëm kur është e dukshme dhe shfletuesi e lejon. Reduced Motion ose kursimi i të dhënave e kalojnë në nisje manuale. Pauza e përdoruesit respektohet. Pa JavaScript ruhen kontrollet native; nëse autoplay bllokohet mbetet butoni për nisje manuale.
 
@@ -81,4 +87,4 @@ python3 scripts/package.py
 
 Testet kërkojnë Playwright dhe Chromium vetëm gjatë zhvillimit; udhëzimet janë te `tests/README.md`. Paketimi kontrollon raportin e testimit dhe integritetin SHA-256. ZIP-i i ri quhet `ALBERTO-WEBSITE-V1-MENU-2026.zip`.
 
-Ky variant mbetet draft me `noindex` dhe `robots.txt: Disallow: /`. Nuk kryen Commit, Push, Merge apo Publish. Për domain-in përfundimtar gjeneratori mbështet `SITE_URL=https://domain-i` dhe `SITE_INDEXABLE=1`; këto nuk janë aktivizuar. Faqet ligjore ruajnë të dhënat ekzistuese të V1.
+Ky variant mbetet draft me `noindex` dhe `robots.txt: Disallow: /`. Ndryshimet e Homepage dorëzohen për shqyrtim në GitHub; nuk janë bashkuar ose publikuar. Për domain-in përfundimtar gjeneratori mbështet `SITE_URL=https://domain-i` dhe `SITE_INDEXABLE=1`; këto nuk janë aktivizuar. Faqet ligjore ruajnë të dhënat ekzistuese të V1.

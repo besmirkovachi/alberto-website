@@ -21,10 +21,12 @@
   const kicker = document.querySelector(".hero-kicker");
   const introContent = [...lines, ...supporting, ...(kicker ? [kicker] : []), ...(photo ? [photo] : [])];
   const rule = document.querySelector(".firma-rule");
-  const sessionKey = "alberto-premium-v1-intro-seen";
   const revealRecords = [];
   let intro = null;
+  let introPending = false;
   let introClean = false;
+  let viewportWidth = window.innerWidth;
+  let viewportHeight = window.innerHeight;
   let logoPlacement = null;
   let menuTween = null;
   let lenis = null;
@@ -82,6 +84,7 @@
   }
 
   function finishIntro() {
+    introPending = false;
     // Keyboard navigation and content filters can call this repeatedly after
     // the opening has ended. Do not rewrite every hero style on each input.
     if (introClean && !intro && !logoPlacement) return;
@@ -117,27 +120,17 @@
     if (!logo || !photo || !gsap || prefersReducedMotion || connection?.saveData || document.hidden || window.scrollY > 32 || document.querySelector("dialog[open]")) return false;
     if (!replay && window.location.hash) return false;
 
-    if (!replay) {
-      try {
-        if (sessionStorage.getItem(sessionKey)) return false;
-        sessionStorage.setItem(sessionKey, "1");
-      } catch (_) {
-        // If session storage is unavailable, keep the usable static opening.
-        return false;
-      }
-    }
-
     try {
       introClean = false;
       const logoImage = logoParts[0];
       const source = logoImage?.getBoundingClientRect();
       const frame = logo?.getBoundingClientRect();
       const destination = headerLogo?.getBoundingClientRect();
-      const hasLogo = source?.width > 0 && destination?.width > 0 && frame?.width > 0;
+      const hasLogo = logoImage?.naturalWidth > 0 && source?.width > 0 && destination?.width > 0 && frame?.width > 0;
 
       intro = gsap.timeline({ onComplete: finishIntro });
       if (kicker) intro.fromTo(kicker, { opacity: 0 }, { opacity: 1, duration: 0.2, ease }, 0.04);
-      if (photo) intro.fromTo(photo, { scale: 1.018 }, { scale: 1, duration: 1.1, ease }, 0);
+      if (photo) intro.fromTo(photo, { scale: 1.025 }, { scale: 1, duration: 1.7, ease }, 0);
       if (lines.length) intro.fromTo(lines, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42, stagger: 0.04, ease }, 0.04);
       if (supporting.length) intro.fromTo(supporting, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease }, 0.1);
 
@@ -182,21 +175,23 @@
             clipPath: `polygon(${left}% 0, ${left}% 0, ${left}% 100%, ${left}% 100%)`,
           }, {
             clipPath: `polygon(${left}% 0, ${right}% 0, ${right}% 100%, ${left}% 100%)`,
-            duration: 0.28,
+            duration: 0.34,
             ease,
-          }, 0.06 + index * 0.16);
+          }, 0.08 + index * 0.18);
         });
-        if (rule) intro.fromTo(rule, { opacity: 0, scaleX: 0.3, transformOrigin: "left center" }, { opacity: 1, scaleX: 1, duration: 0.32, ease }, 0.24);
-        if (logoCaption) intro.fromTo(logoCaption, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.2, ease }, 0.24);
+        if (rule) intro.fromTo(rule, { opacity: 0, scaleX: 0.3, transformOrigin: "left center" }, { opacity: 1, scaleX: 1, duration: 0.32, ease }, 0.42);
+        if (logoCaption) intro.fromTo(logoCaption, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.2, ease }, 0.52);
         const stationery = [logoMat, logoCaption, rule].filter(Boolean);
-        if (stationery.length) intro.to(stationery, { opacity: 0, duration: 0.16, ease }, 0.68);
+        // A short readable hold makes the signature register before it lands
+        // in the header. It never captures pointer events or locks scrolling.
+        if (stationery.length) intro.to(stationery, { opacity: 0, duration: 0.16, ease }, 1.04);
 
         const scale = destination.width / source.width;
         const x = destination.left - frame.left - (source.left - frame.left) * scale;
         const y = destination.top - frame.top - (source.top - frame.top) * scale;
-        intro.to(logo, { x, y, scale, duration: 0.52, ease: moveEase }, 0.8);
-        intro.to(logo, { opacity: 0, duration: 0.08, ease }, 1.26);
-        intro.to(headerLogo, { opacity: 1, duration: 0.08, ease }, 1.26);
+        intro.to(logo, { x, y, scale, duration: 0.58, ease: moveEase }, 1.12);
+        intro.to(logo, { opacity: 0, duration: 0.08, ease }, 1.64);
+        intro.to(headerLogo, { opacity: 1, duration: 0.08, ease }, 1.64);
       }
       return true;
     } catch (error) {
@@ -204,6 +199,31 @@
       console.warn("Alberto: introductory motion unavailable.", error);
       return false;
     }
+  }
+
+  async function startOpening() {
+    if (!logo || !photo || !gsap || prefersReducedMotion || connection?.saveData) return;
+    // Each fresh homepage entry gets its opening; a previous tab visit or
+    // disabled browser storage must not permanently hide the signature.
+    // Decode the two existing assets first so the mark cannot animate empty.
+    const images = [photo, logoParts[0]].filter(Boolean);
+    const ready = () => images.every((image) => image.complete && image.naturalWidth > 0);
+    if (ready()) {
+      playIntro({ replay: embeddedDemo });
+      return;
+    }
+    introPending = true;
+    let timeout;
+    const decoded = await Promise.race([
+      Promise.allSettled(images.map((image) => Promise.resolve().then(() => image.decode()))).then(ready),
+      new Promise((resolve) => { timeout = window.setTimeout(() => resolve(false), 1200); }),
+    ]);
+    window.clearTimeout(timeout);
+    const canStart = introPending && decoded;
+    introPending = false;
+    // Slow assets leave the static, usable hero in place. Never start a late
+    // opening after someone has already scrolled, clicked or used the keyboard.
+    if (canStart) playIntro({ replay: embeddedDemo });
   }
 
   function showReveal(record) {
@@ -385,6 +405,7 @@
     revealWithin(event.target);
   });
   document.addEventListener("keydown", (event) => {
+    if (introPending) finishIntro();
     if (keyboardScrollKeys.has(event.key)) {
       finishIntro();
       finishMenu();
@@ -395,8 +416,18 @@
     }
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "f") revealRecords.forEach(showReveal);
   });
-  window.addEventListener("scroll", () => { if (intro) finishIntro(); }, { passive: true });
-  window.addEventListener("resize", () => { if (intro) finishIntro(); }, { passive: true });
+  window.addEventListener("pointerdown", finishIntro, { passive: true });
+  window.addEventListener("scroll", () => { if (intro || introPending) finishIntro(); }, { passive: true });
+  window.addEventListener("resize", () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    // Mobile browsers can dispatch an initial resize after a cached reload
+    // without changing the viewport. Keep that event from cancelling entry.
+    if (width === viewportWidth && height === viewportHeight) return;
+    viewportWidth = width;
+    viewportHeight = height;
+    if (intro || introPending) finishIntro();
+  }, { passive: true });
   window.addEventListener("pagehide", () => {
     finishIntro();
     finishMenu();
@@ -457,6 +488,7 @@
     get lenis() { return lenis; },
     getState: () => ({
       introRunning: Boolean(intro),
+      introPending,
       reducedMotion: prefersReducedMotion,
       smoothScroll: Boolean(lenis),
       smoothScrollPaused: Boolean(lenis?.isStopped),
@@ -488,5 +520,5 @@
       console.warn(`Alberto: ${setup.name} unavailable.`, error);
     }
   });
-  playIntro({ replay: embeddedDemo });
+  startOpening();
 })();

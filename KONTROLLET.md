@@ -1,5 +1,13 @@
 # Kontrolli i dorëzimit — Alberto V1 Premium · Menu 2026
 
+## Përditësimi i Homepage
+
+Fotografia origjinale tani mbush gjerësinë dhe pjesën kryesore të ekranit të parë. Hyrja GSAP e logos luhet në çdo hapje të re dhe rifreskim; preferencat e lëvizjes, lidhjet me ankorë dhe ndërprerja gjatë ndërveprimit respektohen.
+
+Baza e ndryshimit: `codex/alberto-premium-v1` në commit `40421e252c14247efa5ea853f3423b66acd0e382`. 20 grupe kontrollesh kaluan, zero dështime dhe zero gabime JavaScript/HTTP; një kontroll file:// u shënua skipped për shkak të politikës së Chromium. 20 grupe kontrollesh kaluan, zero dështime dhe zero gabime JavaScript/HTTP; një kontroll file:// u shënua skipped për shkak të politikës së Chromium. Rezultati aktual i ekzekutueshëm dhe matjet ruhen në `tests/delivery-results.json`; shënimet më poshtë dokumentojnë dorëzimin e mëparshëm të menusë. Pamjet e Homepage u shqyrtuan në 1440×900, 390×844 dhe 320×568 në Chromium. Telefona fizikë dhe Safari nuk u testuan.
+
+## Dorëzimi i mëparshëm i menusë
+
 Baza: `codex/alberto-premium-v1`, commit `43749a496c5e66064a33e21137de92f53aaf341a`. Menuja e re: **Alberto_Menü_2026.pdf**. Implementimi është në një kopje të re; repository origjinal, kopja premium e mëparshme dhe ZIP-i i vjetër janë të pandryshuar. Nuk u bë Commit, Push, Merge apo Publish.
 
 ## Rezultati përfundimtar
