@@ -1,5 +1,5 @@
 {
-  "completedAt": "2026-10-20T12:51:40.729Z",
+  "completedAt": "2026-10-20T22:27:57.236Z",
   "passed": [
     "All nine pages: metadata, semantics, local links and referenced assets",
     "Social cards stay readable after touch interaction and keyboard focus",
@@ -12,6 +12,8 @@
     "Reduced motion: original hero stays visible, intro and smooth scrolling are disabled",
     "Kitchen video: lazy viewport autoplay, inline muted loop, persistent manual pause and preference change",
     "Kitchen video: reduced-motion/data-saver opt-in and blocked-autoplay recovery remain usable",
+    "Homepage photograph fills the opening on desktop and small phones",
+    "Automatic logo intro is visible on fresh entry and reload despite the old session flag or blocked storage",
     "GSAP intro completes and interrupts; Lenis and ScrollTrigger respond to preference changes",
     "Touch scrolling stays native and mobile dialog locks, restores and dismisses correctly",
     "Gallery lightbox pauses desktop Lenis, restores focus and closes on backdrop",
@@ -32,13 +34,124 @@
     "search": {
       "environment": "Headless Chromium, 390×844 touch emulation, 4× CPU throttling; synthetic lab measurement, not field INP or a physical phone",
       "samples": 50,
-      "inputToSecondAnimationFrameP95Ms": 46.9,
-      "maximumMs": 93.3,
+      "inputToSecondAnimationFrameP95Ms": 62.3,
+      "maximumMs": 85.7,
       "longTasksOver50Ms": 3,
-      "longestTaskMs": 77
+      "longestTaskMs": 91
+    },
+    "hero-1440x900": {
+      "width": 1440,
+      "height": 900,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 104,
+        "right": 1425,
+        "bottom": 104
+      },
+      "media": {
+        "x": 0,
+        "y": 104,
+        "width": 1425,
+        "height": 796,
+        "right": 1425,
+        "bottom": 900
+      },
+      "title": {
+        "x": 63.359375,
+        "y": 477.015625,
+        "width": 649.515625,
+        "height": 194.984375,
+        "right": 712.875,
+        "bottom": 672
+      },
+      "action": {
+        "x": 63.359375,
+        "y": 778,
+        "width": 207.40625,
+        "height": 54,
+        "right": 270.765625,
+        "bottom": 832
+      },
+      "imageSource": "assets/hero.webp"
+    },
+    "hero-390x844": {
+      "width": 390,
+      "height": 844,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 82,
+        "right": 390,
+        "bottom": 82
+      },
+      "media": {
+        "x": 0,
+        "y": 82,
+        "width": 390,
+        "height": 707,
+        "right": 390,
+        "bottom": 789
+      },
+      "title": {
+        "x": 24,
+        "y": 521.140625,
+        "width": 342,
+        "height": 92.359375,
+        "right": 366,
+        "bottom": 613.5
+      },
+      "action": {
+        "x": 24,
+        "y": 703,
+        "width": 183.875,
+        "height": 50,
+        "right": 207.875,
+        "bottom": 753
+      },
+      "imageSource": "assets/hero.webp"
+    },
+    "hero-320x568": {
+      "width": 320,
+      "height": 568,
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 82,
+        "right": 320,
+        "bottom": 82
+      },
+      "media": {
+        "x": 0,
+        "y": 82,
+        "width": 320,
+        "height": 540,
+        "right": 320,
+        "bottom": 622
+      },
+      "title": {
+        "x": 22,
+        "y": 379.4375,
+        "width": 276,
+        "height": 84.5625,
+        "right": 298,
+        "bottom": 464
+      },
+      "action": {
+        "x": 22,
+        "y": 542,
+        "width": 158.34375,
+        "height": 50,
+        "right": 180.34375,
+        "bottom": 592
+      },
+      "imageSource": "assets/hero.webp"
     }
   },
-  "screenshots": "/workspace/alberto-menu-2026-qa/screenshots",
+  "screenshots": "/workspace/alberto-hero-qa/longer",
   "sourceCommit": "43749a496c5e66064a33e21137de92f53aaf341a",
   "menuSource": "Alberto_Menü_2026.pdf",
   "menuSourceSHA256": "1759cca442c4eea2817cd8e91efb962c6fc67c1ac68f37f9d057d5b474f49fa6",
@@ -48,12 +161,12 @@
     "feiern.html": "950c1203881cf9a22e8c716b61544267915f81f1ced020b9673655c32fc962b8",
     "galerie.html": "4799d6f8df813bcf822da99a68ddcfd883745047a95064bae2b6a331932c6d4c",
     "impressum.html": "1dd701b394dee9c2e36933aebf277b523e8e1d9724b53a4e88d3841943033861",
-    "index.html": "f443783863bedc766d328e766ce4f9dde727ae714722d0ef387c7a96976923cc",
+    "index.html": "2d91140bc444f68fb11d5e69bad0a2a171580c1f883ac6350a0ff5aff0e9f1ff",
     "kontakt.html": "a05d347da0aa66d3a2836c9eca37431aa004c0b454ac132a77c5cebcdef45f0f",
     "menu-premium.css": "6f7d051a3e8ffeb8e5447cce943a848bc21b3f098f19c7cc8fcc92c72a1599e8",
     "menu.json": "68bcb25a474b95eda3c730f99bad572e333e59f86ff7b6b88abaa7c6bab38b16",
-    "motion.js": "3f7c64c8f0450db1b7ba8cf41a37e2f07c83217c69ad4de066e6c82573767924",
-    "premium.css": "d4a02827f8c879c4ff9a226f91e7ccda26795e137e51d249ae2c5d1c971a2898",
+    "motion.js": "f743f382fb2601ece1c7c88845b655b6e2fd0e35c41783083961b83345a807bc",
+    "premium.css": "3969a5f9ee09797c212b437ab73cb88fd8aa6fa54bafa1a5b3f92a5af84b467f",
     "script.js": "1a049eb58529936f0b62fd645d2388b5bffa1b046a88a7c29ad6e68a8321009f",
     "scripts/build.py": "22a258f220bbb467824743e75182bf8e6dbe4e50da222317c333179c9e796a70",
     "scripts/package.py": "6d338bd60246b5fc4c2f463e18ddf6932ca6b61b3cf75e5b00e6d7b3860aa7cc",
@@ -68,11 +181,11 @@
     "templates/feiern.html": "cd72d8e9b4f1ee541a3684745af5b9eafbb4985130ab4561e8fb12d4ca1ccbc8",
     "templates/galerie.html": "7e14a2f6c6b7666140316bc5164107839054b0421759d399e65a4039cd68df37",
     "templates/impressum.html": "0a61e0a7cd8ca444442559f46238feaf634c7ebaacdd9b49b842e57f963a3f77",
-    "templates/index.html": "e5c8a3bd894eadc63225b7f4ae55d0aa67c32d0b72ff0d6f54054fb60d551db1",
+    "templates/index.html": "96f73a7ea392ddca883102faffbc09f7b758d3d50873bbe19c5ef98e8a6be655",
     "templates/kontakt.html": "570b69b7066208ab57d1d0b0f7c729445634de01e8ccd87c6b2200295f8f8a64",
     "templates/speisekarte.html": "c242018e88e814fc2549e87620dcca6f9c737e597798148ac2f9bc0b443be337",
     "templates/ueber-uns.html": "ba9609f4692d3c7c0c58b5a3504c73b2f4d619de133f158c587e377a09b983e0",
-    "tests/browser.cjs": "4a8c855701f950e21aa1e2646667b6894d266cb1c53055a45be2172fad0848b3",
+    "tests/browser.cjs": "1d526447b9d42acb9d90bbe47c3ad5eacd79abd45f7247e29e8773a2c99d95ba",
     "tests/menu-2026.json": "2827b120f6f5f32a939ceb9ca773c4437ba057d233604d749fbb060651ee5d0d",
     "tests/v1-menu.json": "c6a1a812773020ee6abd05ba09aaa8e2a8bc75636afa4f7b730c8fcd9eb17a29",
     "ueber-uns.html": "005ca3e2596b8c7446cc6bf83811c039164cba110825cdba0884fa623cd71d07"
