@@ -1,0 +1,210 @@
+/* Ordering, contact and legal pages — Alberto V1 premium collection. */
+.page-bestellen .delivery-hero {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 88px);
+  padding-top: 62px;
+  align-items: center;
+}
+.page-bestellen .delivery-hero-copy {padding-block: 20px; min-width: 0;}
+.page-bestellen .delivery-hero h1 {
+  font-size: clamp(52px, 6.1vw, 92px);
+  line-height: .99;
+  letter-spacing: -.045em;
+  color: var(--green);
+}
+.page-bestellen .delivery-hero h1 em {color: var(--red);}
+.page-bestellen .delivery-hero-copy > p:not(.eyebrow) {
+  max-width: 440px;
+  font-size: 15px;
+  line-height: 1.85;
+  margin-top: 28px;
+}
+.page-bestellen .delivery-discover {
+  display: inline-flex;
+  gap: 32px;
+  min-height: 48px;
+  margin-top: 22px;
+  font-size: 12px;
+  color: var(--green);
+}
+.page-bestellen .delivery-visual {position: relative; padding-bottom: 28px; min-width: 0;}
+.page-bestellen .delivery-hero-photo {height: clamp(390px, 35vw, 530px); overflow: hidden;}
+.page-bestellen .delivery-hero-photo img {object-position: 65% 50%;}
+.page-bestellen .delivery-minimum {
+  position: absolute;
+  bottom: 0;
+  right: 25px;
+  margin: 0;
+  padding: 24px 30px;
+  background: var(--green);
+  color: var(--paper);
+  border: 0;
+  gap: 22px;
+  max-width: calc(100% - 30px);
+}
+.page-bestellen .delivery-minimum strong {color: var(--paper); font-size: 54px; white-space: nowrap;}
+.page-bestellen .delivery-minimum > span {font-size: 11px; line-height: 1.75;}
+.page-bestellen .order-section {padding-block: 86px 92px;}
+.page-bestellen .order-section .section-heading {margin-bottom: 36px;}
+.page-bestellen .order-section .section-heading h2 {font-size: clamp(44px, 4.5vw, 66px);}
+.page-bestellen .order-options {grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;}
+.page-bestellen .order-option {
+  padding: 32px;
+  border: 1px solid var(--line);
+  background: #fffdf766;
+  min-width: 0;
+}
+.page-bestellen .order-number {
+  font-family: var(--serif);
+  font-size: 38px;
+  line-height: 1;
+  margin-bottom: 32px;
+}
+.page-bestellen .order-option h3 {font-size: clamp(32px, 3vw, 43px); margin-bottom: 20px; color: var(--green);}
+.page-bestellen .order-option p {font-size: 14px; line-height: 1.85; margin-bottom: 30px;}
+.page-bestellen .order-option .button {
+  width: 100%;
+  min-height: 50px;
+  padding: 14px 17px;
+  justify-content: space-between;
+  font-size: 12px;
+  gap: 14px;
+}
+.page-bestellen .order-option-primary {background: var(--green); border-color: var(--green); color: var(--paper);}
+.page-bestellen .order-option-primary h3,.page-bestellen .order-option-primary .order-number {color: var(--paper);}
+.page-bestellen .order-option-primary .button {background: var(--paper); color: var(--green); border-color: var(--paper);}
+.page-bestellen .order-option-primary :focus-visible {outline-color: var(--paper);}
+.page-bestellen .order-note {font-size: 12px; line-height: 1.8; margin-top: 26px; max-width: 750px;}
+.page-bestellen .special-requests {margin-top: 30px;}
+
+/* Address and opening hours form one legible, calm information spread. */
+.page-kontakt .contact-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, .8fr);
+  gap: 60px;
+  align-items: end;
+  padding-block: 66px 56px;
+}
+.page-kontakt .contact-intro h1 {font-size: clamp(56px, 6.1vw, 88px); line-height: 1.01; color: var(--green);}
+.page-kontakt .contact-intro h1 em {color: var(--red);}
+.page-kontakt .contact-intro .contact-intro-location {font-size: 14px; line-height: 1.9; margin: 0 0 6px; max-width: 300px;}
+.page-kontakt .contact-intro-location .tricolore {width: 50px; margin-bottom: 24px;}
+.page-kontakt .contact-layout {grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; padding-bottom: 84px; align-items: stretch;}
+.page-kontakt .contact-panel {background: var(--green); color: var(--paper); padding: clamp(30px, 4vw, 58px); min-width: 0;}
+.page-kontakt .contact-panel .eyebrow {color: var(--paper);}
+.page-kontakt .contact-address address {font-size: clamp(33px, 3.7vw, 53px); line-height: 1.15; margin-block: 26px;}
+.page-kontakt .contact-address address span {color: #e1e2d7; font-size: 12px; display: inline-block; margin-top: 14px;}
+.page-kontakt .contact-address .button {background: var(--paper); border-color: var(--paper); color: var(--green); font-size: 12px; min-height: 50px; padding-inline: 22px;}
+.page-kontakt .contact-direct {border-color: #f5f1e83d; padding-top: 30px; margin-top: 35px;}
+.page-kontakt .contact-tel {font-size: clamp(27px, 3vw, 41px); line-height: 1.2; margin-block: 15px 7px; min-height: 44px; display: inline-flex; align-items: center;}
+.page-kontakt .contact-direct > a:last-child {font-size: 13px; min-height: 44px; display: inline-flex; align-items: center; overflow-wrap: anywhere; max-width: 100%;}
+.page-kontakt .contact-panel :focus-visible {outline-color: var(--paper);}
+.page-kontakt .hours-panel {background: var(--paper-dark); padding: clamp(30px, 4vw, 58px); min-width: 0;}
+.page-kontakt .hours-panel h2 {font-size: clamp(36px, 3.5vw, 50px); line-height: 1.05; margin-bottom: 30px;}
+.page-kontakt .hours-panel h2 em {display: block; color: var(--red);}
+.page-kontakt .hours-list > div {font-size: 14px; line-height: 1.85; padding-block: 19px; gap: 20px; border-color: #173b2e29;}
+.page-kontakt .hours-list dd {font-variant-numeric: tabular-nums; white-space: nowrap;}
+.page-kontakt .hours-panel .tricolore {margin-top: 30px;}
+.page-kontakt .hours-panel > p:last-child {font-size: 12px; line-height: 1.8; margin-top: 20px;}
+.page-kontakt .contact-bottom {gap: 80px; padding-bottom: 100px;}
+.page-kontakt .contact-bottom > div {padding-top: 30px;}
+.page-kontakt .contact-bottom h2 {font-size: clamp(39px, 3.8vw, 54px);}
+.page-kontakt .contact-bottom h2 em {color: var(--red);}
+.page-kontakt .contact-bottom p {font-size: 14px; line-height: 1.85; max-width: 460px; margin-top: 20px;}
+.page-kontakt .contact-bottom .text-link {font-size: 12px; min-height: 44px; margin-top: 16px;}
+.page-kontakt .contact-bottom .social-links {margin-top: 24px;}
+
+/* Legal wording remains intact; the document uses quiet hierarchy, without scroll reveals. */
+:is(.page-impressum,.page-datenschutz) .page-intro {max-width: 1000px; padding-block: 66px 45px;}
+:is(.page-impressum,.page-datenschutz) .page-intro h1 {font-size: clamp(58px, 7vw, 94px); color: var(--green);}
+:is(.page-impressum,.page-datenschutz) .page-intro .tricolore {width: 60px; margin-top: 30px;}
+:is(.page-impressum,.page-datenschutz) .legal-content {max-width: 1000px; padding-bottom: 100px;}
+:is(.page-impressum,.page-datenschutz) .draft-notice {padding: 26px 30px; background: var(--paper-dark); border-left: 3px solid var(--red); margin-bottom: 48px;}
+:is(.page-impressum,.page-datenschutz) .draft-notice strong {font-size: 14px; line-height: 1.65; display: block;}
+:is(.page-impressum,.page-datenschutz) .draft-notice p {font-size: 14px; line-height: 1.8; max-width: 740px; margin-top: 10px;}
+:is(.page-impressum,.page-datenschutz) .legal-section {position: relative; padding: 32px 0 34px 84px; border-top: 1px solid var(--line);}
+:is(.page-impressum,.page-datenschutz) .legal-section h2 {font-size: clamp(30px, 3.3vw, 42px); line-height: 1.15; margin: 0 0 22px; color: var(--green); max-width: 730px;}
+:is(.page-impressum,.page-datenschutz) .legal-number {position: absolute; left: 0; top: 38px; font-family: var(--sans); font-size: 11px; letter-spacing: .04em; color: var(--red);}
+:is(.page-impressum,.page-datenschutz) .legal-section p {font-size: 15px; line-height: 1.95; max-width: 740px; overflow-wrap: anywhere;}
+:is(.page-impressum,.page-datenschutz) .legal-content a {text-decoration-color: #173b2e66; text-decoration-thickness: 1px;}
+@media (hover: hover) and (pointer: fine) {
+  .page-bestellen .order-option-primary .button:hover,
+  .page-kontakt .contact-address .button:hover {background: #fffdf7; border-color: #fffdf7; color: var(--green);}
+  .page-kontakt .contact-direct > a:hover {color: #fffdf7; text-decoration: underline;}
+  :is(.page-impressum,.page-datenschutz) .legal-content a:hover {text-decoration-color: var(--red); color: var(--red);}
+}
+@media (max-width: 1050px) {
+  .page-bestellen .delivery-hero {gap: 36px;}
+  .page-bestellen .delivery-hero h1 {font-size: clamp(50px, 6.4vw, 65px);}
+  .page-bestellen .order-option {padding: 26px 22px;}
+  .page-bestellen .order-option h3 {font-size: 32px;}
+  .page-bestellen .order-option p {font-size: 13px;}
+  .page-kontakt .contact-intro {grid-template-columns: minmax(0, 1fr); gap: 26px;}
+  .page-kontakt .contact-intro .contact-intro-location {max-width: none;}
+  .page-kontakt .contact-intro-location .tricolore {display: none;}
+  .page-kontakt .contact-panel,.page-kontakt .hours-panel {padding: 34px 28px;}
+  .page-kontakt .contact-tel {font-size: 29px;}
+  .page-kontakt .hours-list > div {font-size: 12px; gap: 12px;}
+  .page-kontakt .contact-bottom {gap: 45px;}
+}
+@media (max-width: 760px) {
+  .page-bestellen .delivery-hero {grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 40px;}
+  .page-bestellen .delivery-hero-copy {padding: 0;}
+  .page-bestellen .delivery-hero h1 {font-size: clamp(46px, 9.4vw, 66px); line-height: 1.02;}
+  .page-bestellen .delivery-hero-copy > p:not(.eyebrow) {font-size: 14px; line-height: 1.8; margin-top: 23px;}
+  .page-bestellen .delivery-hero-copy > p:not(.eyebrow) br {display: none;}
+  .page-bestellen .delivery-discover {margin-top: 12px;}
+  .page-bestellen .delivery-hero-photo {height: 320px;}
+  .page-bestellen .delivery-visual {padding-bottom: 22px;}
+  .page-bestellen .delivery-minimum {right: 16px; padding: 19px 23px; gap: 18px;}
+  .page-bestellen .delivery-minimum strong {font-size: 46px;}
+  .page-bestellen .delivery-minimum > span {font-size: 10px;}
+  .page-bestellen .order-section {padding-block: 58px 64px;}
+  .page-bestellen .order-section .section-heading {margin-bottom: 28px; gap: 15px;}
+  .page-bestellen .order-section .section-heading h2 {font-size: 44px;}
+  .page-bestellen .order-options {grid-template-columns: minmax(0, 1fr); gap: 16px;}
+  .page-bestellen .order-option {padding: 27px 25px;}
+  .page-bestellen .order-number {font-size: 30px; margin-bottom: 24px;}
+  .page-bestellen .order-option h3 {font-size: 40px; margin-bottom: 17px;}
+  .page-bestellen .order-option p {font-size: 14px; margin-bottom: 23px;}
+  .page-bestellen .order-option .button {font-size: 12px; min-height: 50px;}
+  .page-bestellen .order-note {font-size: 12px; margin-top: 22px;}
+  .page-kontakt .contact-intro {padding-block: 42px 36px; gap: 25px;}
+  .page-kontakt .contact-intro h1 {font-size: clamp(46px, 10.6vw, 68px); line-height: 1.03;}
+  .page-kontakt .contact-intro .contact-intro-location {font-size: 13px; line-height: 1.85; margin: 0;}
+  .page-kontakt .contact-layout {grid-template-columns: minmax(0, 1fr); gap: 16px; padding-bottom: 58px;}
+  .page-kontakt .contact-panel,.page-kontakt .hours-panel {padding: 30px 25px;}
+  .page-kontakt .contact-address address {font-size: clamp(31px, 8vw, 44px); margin-block: 24px;}
+  .page-kontakt .contact-address .button {font-size: 11px; padding-inline: 15px; width: 100%; justify-content: space-between;}
+  .page-kontakt .contact-tel {font-size: clamp(25px, 7vw, 36px);}
+  .page-kontakt .contact-direct {padding-top: 25px; margin-top: 28px;}
+  .page-kontakt .contact-direct > a:last-child {font-size: 12px;}
+  .page-kontakt .hours-panel h2 {font-size: clamp(35px, 9vw, 46px); margin-bottom: 25px;}
+  .page-kontakt .hours-list > div {font-size: 13px; gap: 15px; padding-block: 17px;}
+  .page-kontakt .hours-panel > p:last-child {font-size: 12px;}
+  .page-kontakt .contact-bottom {grid-template-columns: minmax(0, 1fr); gap: 34px; padding-bottom: 64px;}
+  .page-kontakt .contact-bottom h2 {font-size: 42px;}
+  .page-kontakt .contact-bottom p {font-size: 14px;}
+  :is(.page-impressum,.page-datenschutz) .page-intro {padding-block: 42px 34px;}
+  :is(.page-impressum,.page-datenschutz) .page-intro h1 {font-size: clamp(52px, 11.5vw, 76px);}
+  :is(.page-impressum,.page-datenschutz) .page-intro .tricolore {margin-top: 24px; width: 45px;}
+  :is(.page-impressum,.page-datenschutz) .legal-content {padding-bottom: 55px;}
+  :is(.page-impressum,.page-datenschutz) .draft-notice {padding: 22px; margin-bottom: 30px;}
+  :is(.page-impressum,.page-datenschutz) .draft-notice strong,
+  :is(.page-impressum,.page-datenschutz) .draft-notice p {font-size: 13px;}
+  :is(.page-impressum,.page-datenschutz) .legal-section {padding: 26px 0 30px;}
+  :is(.page-impressum,.page-datenschutz) .legal-section h2 {font-size: 33px; margin-bottom: 18px;}
+  :is(.page-impressum,.page-datenschutz) .legal-number {position: static; display: block; margin-bottom: 14px; font-size: 10px;}
+  :is(.page-impressum,.page-datenschutz) .legal-section p {font-size: 14px; line-height: 1.9;}
+}
+@media (max-width: 360px) {
+  .page-bestellen .delivery-hero h1 {font-size: 43px;}
+  .page-bestellen .delivery-hero-photo {height: 270px;}
+  .page-bestellen .order-option {padding: 25px 20px;}
+  .page-bestellen .order-option h3 {font-size: 35px;}
+  .page-kontakt .contact-panel,.page-kontakt .hours-panel {padding: 27px 21px;}
+  .page-kontakt .contact-address .button {font-size: 10px; padding-inline: 12px; gap: 9px;}
+  .page-kontakt .contact-tel {font-size: 24px;}
+  .page-kontakt .contact-direct > a:last-child {font-size: 11px;}
+  .page-kontakt .hours-list > div {font-size: 11px; gap: 12px;}
+}

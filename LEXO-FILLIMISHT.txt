@@ -1,52 +1,20 @@
-ALBERTO — WEBSITE I RI
+ALBERTO WEBSITE V1 — PREMIUM · MENU 2026
 
-Faqja është ndërtuar nga e para me materialet origjinale të Alberto.
-Përmban 9 faqe: ballinën, menunë, rreth nesh, galerinë, festat private,
-dërgesat, kontaktin, Impressum dhe Datenschutz.
+1. Nxirre TË GJITHË ZIP-in në një dosje të re.
+2. Hape index.html NGA DOSJA E NXJERRË në Chrome ose Edge.
+3. Mbaji assets/, skedarët CSS/JS dhe të gjitha faqet HTML së bashku.
+4. Kontrollo Speisekarte dhe faqet e tjera nga navigimi.
 
-SI TA NISËSH
-Hape dosjen e projektit në Visual Studio Code. Në terminal ekzekuto:
+Nuk nevojitet npm, instalim apo build për website-in e gatshëm.
+Nëse del vetëm tekst, kontrollo që premium.css, style.css dhe assets/
+ndodhen pranë index.html dhe që nuk po e hap skedarin brenda ZIP-it.
+Për server lokal shih README.md.
 
-python3 scripts/build.py
-python3 -m http.server 8000 --bind 127.0.0.1
+Menuja është përditësuar sipas Alberto_Menü_2026.pdf.
+Ka 18 kategori dhe 151 rreshta menuje (153 çmime me variantet e ujërave).
+Fotot origjinale janë ruajtur. Videoja nis pa zë kur hyn në pamje,
+kur shfletuesi e lejon; Reduced Motion respektohet.
+Lidhjet e jashtme të porositjes/hartës/social kërkojnë internet.
 
-Nuk nevojitet npm për ndërtimin ose funksionimin e faqes.
-Mund të përdorësh edhe Live Server për skedarët HTML të gjeneruar.
-
-KU BËHEN NDRYSHIMET
-templates/ — tekstet dhe seksionet e secilës faqe
-menu.json — emrat e gatimeve, përshkrimet dhe çmimet
-scripts/build.py — navigimi, fundfaqja, galeria dhe të dhënat SEO
-style.css — pamja dhe përshtatja për telefon, tablet e desktop
-script.js — animacionet, kërkimi në menu, navigimi dhe galeria
-assets/ — logoja, fotografitë, videoja dhe fontet lokale
-
-Pas ndryshimeve në templates/, menu.json ose scripts/build.py,
-ekzekuto përsëri python3 scripts/build.py.
-Mos redakto drejtpërdrejt faqet HTML në rrënjë: gjenerohen nga këto burime.
-
-SALLA SIPËR
-Ka seksion në ballinë dhe faqe të veçantë për festa private.
-Nuk deklarohet numër fiks personash. Mundësitë, sistemimi dhe
-disponueshmëria diskutohen me restorantin në telefon.
-
-KONTROLLET
-node --check script.js
-node tests/browser.cjs
-
-Testet e shfletuesit përdorin Playwright dhe Chromium.
-Shpjegimet e plota gjenden te README.md dhe tests/README.md.
-
-PARA PUBLIKIMIT ONLINE
-- Plotëso të dhënat e pronarit dhe hostimit te Impressum dhe Datenschutz.
-- Verifiko çmimet dhe kodet e alergjenëve me restorantin. Disa kode në
-  burimin e vjetër janë të paqarta; nuk janë korrigjuar me hamendje.
-- Vendos adresën përfundimtare HTTPS te SITE_URL dhe aktivizo
-  SITE_INDEXABLE=1 vetëm pasi faqja të jetë gati për publikim.
-  Gjenero përsëri faqet për canonical, metadata dhe sitemap.xml.
-- Lidhjet e porosive çojnë te platformat ekzistuese; çmimet online
-  janë ato të platformës përkatëse.
-
-Faqja nuk është publikuar online nga ky projekt.
-Nuk ka sistem rezervimesh, pagesash ose prenotimi të festave.
-Nuk janë shtuar vlerësime ose çmime të fituara të sajuara.
+Baza: codex/alberto-premium-v1, commit 43749a4.
+Kjo është kopje e re për shqyrtim. Nuk është bërë publikim.

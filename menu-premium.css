@@ -1,0 +1,465 @@
+/* The V1 menu stays cream, searchable and readable without JavaScript.
+   Dish text, sizes and prices follow Alberto's supplied 2026 menu. */
+.page-speisekarte .menu-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  align-items: center;
+  gap: clamp(38px, 5vw, 84px);
+  padding-block: 62px 58px;
+}
+.page-speisekarte .menu-intro-copy { min-width: 0; }
+.page-speisekarte .menu-intro .eyebrow { margin-bottom: 24px; color: var(--red); }
+.page-speisekarte .menu-intro h1 {
+  font-size: clamp(70px, 6.6vw, 104px);
+  line-height: .98;
+  letter-spacing: -.045em;
+  color: var(--green);
+}
+.page-speisekarte .menu-intro h1 em { color: var(--red); }
+.page-speisekarte .menu-intro .menu-intro-description {
+  max-width: 350px;
+  margin-top: 25px;
+  font-size: 15px;
+  line-height: 1.85;
+}
+.page-speisekarte .menu-intro-photo {
+  display: block;
+  height: 340px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  position: relative;
+}
+.page-speisekarte .menu-intro-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 49%;
+  border-radius: 0;
+}
+.page-speisekarte .menu-intro-photo figcaption {
+  position: absolute;
+  left: -23px;
+  bottom: 25px;
+  padding: 11px 24px 14px;
+  background: var(--paper);
+  color: var(--red);
+  font-family: var(--serif);
+  font-size: 36px;
+  font-style: italic;
+  line-height: 1.1;
+  transform: rotate(-5deg);
+}
+.page-speisekarte .menu-layout {
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: clamp(32px, 4.2vw, 64px);
+  align-items: start;
+  padding-top: 28px;
+  padding-bottom: 100px;
+  border-top: 1px solid var(--line);
+}
+.page-speisekarte .menu-sidebar {
+  top: calc(var(--header-height) + 24px);
+  min-width: 0;
+  max-height: none;
+  overflow: visible;
+}
+.page-speisekarte .menu-sidebar > .eyebrow {
+  margin: 3px 0 20px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .1em;
+}
+.page-speisekarte .menu-sidebar nav {
+  gap: 0;
+  max-height: calc(100svh - var(--header-height) - 185px);
+  min-height: 180px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #b5b8a9 transparent;
+  scroll-padding-block: 4px;
+}
+.page-speisekarte .menu-sidebar nav:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+.page-speisekarte .menu-category-picker { display: none; }
+.page-speisekarte .menu-sidebar nav a,
+.page-speisekarte .menu-sidebar nav a:hover {
+  min-height: 47px;
+  padding: 12px 13px;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--green);
+  font-size: 12px;
+  line-height: 1.6;
+  transition: background 160ms ease, color 160ms ease;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.page-speisekarte .menu-sidebar nav a > span {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.page-speisekarte .menu-sidebar nav a[aria-current="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--paper);
+}
+.page-speisekarte .menu-sidebar nav a[aria-current="true"] > span { color: var(--paper); }
+.page-speisekarte .menu-sidebar nav a:focus-visible { outline-offset: -3px; }
+.page-speisekarte .menu-sidebar nav a[aria-current="true"]:focus-visible { outline-color: var(--paper); }
+.page-speisekarte .menu-sidebar .tricolore { margin: 28px 0 0 13px; }
+.page-speisekarte .menu-sidebar-note {
+  margin: 14px 12px 4px;
+  color: var(--green);
+  font-size: 25px;
+  line-height: 1.25;
+}
+.page-speisekarte .menu-request-note {
+  margin-bottom: 30px;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  background: var(--paper-dark);
+}
+.page-speisekarte .menu-request-note h2 {
+  margin: 0 0 7px;
+  color: var(--green);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.page-speisekarte .menu-request-note p {
+  max-width: 88ch;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.page-speisekarte .menu-list {
+  min-width: 0;
+  padding: 34px clamp(26px, 3vw, 44px) 40px;
+  background: #fffdf7;
+  border: 1px solid #dedbcf;
+  counter-reset: menu-category;
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+.page-speisekarte .menu-search { margin-bottom: 43px; }
+.page-speisekarte .menu-search label {
+  margin-bottom: 12px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.page-speisekarte .search-field {
+  min-height: 58px;
+  padding-inline: 16px 8px;
+  gap: 12px;
+  border-color: #d6d5c9;
+  background: var(--paper);
+}
+.page-speisekarte .search-field > span { color: var(--green); }
+.page-speisekarte .search-field input {
+  padding-block: 14px;
+  color: var(--green);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.page-speisekarte .search-field input::placeholder { color: #62695f; opacity: 1; }
+.page-speisekarte .search-field button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  touch-action: manipulation;
+}
+.page-speisekarte .menu-search .muted { margin-top: 12px; font-size: 11px; min-height: 20px; }
+.page-speisekarte .menu-category { margin-bottom: 54px; counter-increment: menu-category; }
+.page-speisekarte .menu-anchor-alias {
+  display: block;
+  height: 0;
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+.page-speisekarte .menu-category-heading {
+  align-items: end;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--green);
+}
+.page-speisekarte .menu-category-heading h2 {
+  color: var(--green);
+  font-size: clamp(36px, 3.2vw, 49px);
+  line-height: 1.05;
+  letter-spacing: -.025em;
+}
+.page-speisekarte .menu-category-heading h2::before {
+  content: counter(menu-category, decimal-leading-zero);
+  display: block;
+  margin-bottom: 12px;
+  color: var(--red);
+  font-family: var(--sans);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: .09em;
+}
+.page-speisekarte .menu-category-heading > span {
+  max-width: 138px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: right;
+}
+.page-speisekarte .menu-category-note {
+  max-width: 74ch;
+  margin: 16px 0 0;
+  color: #5e6259;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.page-speisekarte .menu-items {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 36px;
+}
+.page-speisekarte .menu-item { padding-block: 23px; border-color: #e1dfd5; }
+.page-speisekarte .dish-group {
+  margin-bottom: 8px;
+  color: var(--red);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: .075em;
+}
+.page-speisekarte .dish-title { align-items: baseline; gap: 14px; }
+.page-speisekarte .dish-title h3 {
+  min-width: 0;
+  color: var(--green);
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: 0;
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+.page-speisekarte .dish-price {
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.65;
+  max-width: 43%;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.page-speisekarte .dish-size {
+  display: block;
+  margin-top: 5px;
+  color: #5e6259;
+  font-size: 12px;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+}
+.page-speisekarte .dish-variants {
+  display: grid;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.page-speisekarte .dish-variants li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.page-speisekarte .dish-variants .dish-size { margin: 0; }
+.page-speisekarte .menu-item p {
+  max-width: 100%;
+  margin-top: 7px;
+  color: #5e6259;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: break-word;
+}
+.page-speisekarte .allergens { padding-block: 15px; border-color: #d6d5c9; }
+.page-speisekarte .allergens summary {
+  min-height: 44px;
+  gap: 18px;
+  font-size: 13px;
+  color: var(--green);
+  touch-action: manipulation;
+}
+.page-speisekarte .allergens summary > span { flex: 0 0 auto; font-family: Arial, sans-serif; }
+.page-speisekarte .allergens p { font-size: 12px; line-height: 1.85; }
+.page-speisekarte .menu-footnote { font-size: 11px; line-height: 1.85; }
+.page-speisekarte #no-results { padding-block: 12px 46px; }
+.page-speisekarte #no-results h2 { color: var(--green); }
+.page-speisekarte #no-results p { font-size: 14px; }
+.page-speisekarte .menu-order-cta {
+  background: var(--paper-dark);
+  border-block: 1px solid #d6d5c9;
+  padding-block: 75px;
+}
+.page-speisekarte .menu-order-cta h2 { color: var(--green); }
+.page-speisekarte .menu-order-cta h2 em { color: var(--red); }
+.page-speisekarte .menu-order-cta .button { background: var(--green); color: var(--paper); border-color: var(--green); }
+@media (hover: hover) and (pointer: fine) {
+  .page-speisekarte .menu-sidebar nav a:not([aria-current="true"]):hover { background: var(--paper-dark); color: var(--red); }
+  .page-speisekarte .search-field button:hover { background: var(--paper-dark); }
+  .page-speisekarte .menu-order-cta .button:hover { background: var(--red); border-color: var(--red); }
+}
+.page-speisekarte .menu-sidebar nav a:active { background: #dfdfd0; }
+.page-speisekarte .menu-sidebar nav a[aria-current="true"]:active { background: var(--deep); }
+.page-speisekarte .search-field button:active { transform: scale(.96); }
+@media (max-width: 1200px) {
+  .page-speisekarte .menu-intro { gap: 40px; }
+  .page-speisekarte .menu-intro-photo { height: 310px; }
+  .page-speisekarte .menu-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 30px; }
+  .page-speisekarte .menu-list { padding-inline: 30px; }
+  .page-speisekarte .menu-items { grid-template-columns: 1fr; }
+  .page-speisekarte .dish-title h3,
+  .page-speisekarte .dish-price { font-size: 14px; }
+  .page-speisekarte .menu-item p { font-size: 13px; max-width: 95%; }
+}
+@media (max-width: 900px) {
+  .page-speisekarte .menu-intro { grid-template-columns: 1.2fr .8fr; gap: 32px; padding-block: 48px 44px; }
+  .page-speisekarte .menu-intro h1 { font-size: 70px; }
+  .page-speisekarte .menu-intro-photo { height: 280px; padding: 9px; }
+  .page-speisekarte .menu-intro-photo figcaption { left: -16px; padding: 10px 16px; font-size: 31px; }
+  .page-speisekarte .menu-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 25px; }
+  .page-speisekarte .menu-sidebar { position: static; max-height: none; overflow: visible; }
+  .page-speisekarte .menu-sidebar > .eyebrow { margin: 0 0 12px; }
+  .page-speisekarte .menu-sidebar nav {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    gap: 8px;
+    padding: 3px 3px 12px;
+    min-height: 0;
+    max-height: none;
+    scroll-padding-inline: 3px;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+  }
+  .page-speisekarte .menu-sidebar nav a,
+  .page-speisekarte .menu-sidebar nav a:hover,
+  .page-speisekarte .menu-sidebar nav a[aria-current="true"] {
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 10px 17px;
+    white-space: nowrap;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-size: 12px;
+  }
+  .page-speisekarte .menu-sidebar nav a[aria-current="true"] { border-color: var(--green); }
+  .page-speisekarte .menu-sidebar nav a > span { display: none; }
+  .page-speisekarte .menu-sidebar .tricolore,
+  .page-speisekarte .menu-sidebar-note { display: none; }
+  .js .page-speisekarte .menu-sidebar > .eyebrow,
+  .js .page-speisekarte .menu-sidebar nav { display: none; }
+  .js .page-speisekarte .menu-category-picker {
+    display: grid;
+    gap: 10px;
+  }
+  .page-speisekarte .menu-category-picker label {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .page-speisekarte .menu-category-picker select {
+    width: 100%;
+    min-width: 0;
+    min-height: 54px;
+    padding: 12px 14px;
+    border: 1px solid #b5b8a9;
+    border-radius: 2px;
+    background: #fffdf7;
+    color: var(--green);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    touch-action: manipulation;
+  }
+  .page-speisekarte .menu-category-picker select:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+  }
+  .page-speisekarte .menu-list { padding: 30px; }
+}
+@media (max-width: 600px) {
+  .page-speisekarte .menu-intro { position: relative; display: block; padding-block: 37px 30px; }
+  .page-speisekarte .menu-intro .eyebrow { font-size: 9px; margin-bottom: 21px; letter-spacing: .12em; }
+  .page-speisekarte .menu-intro h1 { position: relative; z-index: 1; font-size: clamp(49px, 10.5vw, 62px); line-height: 1; padding-right: 65px; }
+  .page-speisekarte .menu-intro .menu-intro-description { max-width: 330px; padding-right: 20px; margin-top: 23px; font-size: 14px; line-height: 1.8; }
+  .page-speisekarte .menu-intro-photo { position: absolute; top: 63px; right: -3px; width: 95px; height: 132px; padding: 5px; transform: rotate(6deg); }
+  .page-speisekarte .menu-intro-photo figcaption { left: -15px; right: -6px; bottom: 10px; padding: 7px 6px; text-align: center; font-size: 19px; transform: rotate(-6deg); white-space: nowrap; }
+  .page-speisekarte .menu-layout { gap: 20px; padding-top: 22px; padding-bottom: 55px; }
+  .page-speisekarte .menu-request-note { margin-bottom: 24px; padding: 16px 18px; }
+  .page-speisekarte .menu-request-note h2,
+  .page-speisekarte .menu-request-note p { font-size: 12px; }
+  .page-speisekarte .menu-sidebar > .eyebrow { font-size: 9px; }
+  .page-speisekarte .menu-list { padding: 24px 20px 28px; margin-inline: -8px; }
+  .page-speisekarte .menu-search { margin-bottom: 30px; }
+  .page-speisekarte .search-field { min-height: 54px; padding-inline: 12px 4px; gap: 9px; }
+  .page-speisekarte .search-field input { font-size: 16px; }
+  .page-speisekarte .menu-search .muted { font-size: 10px; }
+  .page-speisekarte .menu-category { margin-bottom: 42px; }
+  .page-speisekarte .menu-category-heading { gap: 14px; padding-bottom: 16px; }
+  .page-speisekarte .menu-category-heading h2 { font-size: 37px; }
+  .page-speisekarte .menu-category-heading h2::before { margin-bottom: 10px; font-size: 9px; }
+  .page-speisekarte .menu-category-heading > span { max-width: 110px; font-size: 10px; }
+  .page-speisekarte .menu-item { padding-block: 20px; }
+  .page-speisekarte .dish-title { gap: 12px; }
+  .page-speisekarte .dish-title h3,
+  .page-speisekarte .dish-price { font-size: 14px; }
+  .page-speisekarte .dish-price { max-width: 40%; }
+  .page-speisekarte .menu-item p { max-width: 100%; font-size: 13px; line-height: 1.85; }
+  .page-speisekarte .menu-order-cta { padding-block: 55px; }
+}
+@media (max-width: 380px) {
+  .page-speisekarte .menu-intro h1 { font-size: 47px; padding-right: 42px; }
+  .page-speisekarte .menu-intro-photo { width: 70px; height: 108px; top: 74px; right: -1px; }
+  .page-speisekarte .menu-intro-photo figcaption { font-size: 16px; bottom: 4px; left: -19px; }
+  .page-speisekarte .menu-list { padding-inline: 16px; }
+  .page-speisekarte .menu-category-heading h2 { font-size: 33px; }
+  .page-speisekarte .menu-category-heading > span { max-width: 94px; font-size: 9px; }
+  .page-speisekarte .dish-title { gap: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-speisekarte .menu-sidebar nav a,
+  .page-speisekarte .search-field button { transition: none; }
+  .page-speisekarte .search-field button:active { transform: none; }
+}
+@media print {
+  .page-speisekarte .menu-intro { display: block; padding: 12px 0 20px; }
+  .page-speisekarte .menu-intro .eyebrow { margin-bottom: 12px; }
+  .page-speisekarte .menu-intro h1 { font-size: 36px; padding: 0; }
+  .page-speisekarte .menu-intro .menu-intro-description { max-width: none; margin-top: 10px; font-size: 11px; }
+  .page-speisekarte .menu-layout { display: block; padding: 0; border: 0; }
+  .page-speisekarte .menu-list { margin: 0; padding: 0; border: 0; background: white; }
+  .page-speisekarte .menu-category { margin-bottom: 20px; break-inside: auto; }
+  .page-speisekarte .menu-category-heading { padding-block: 10px; break-after: avoid; }
+  .page-speisekarte .menu-category-heading h2 { font-size: 25px; }
+  .page-speisekarte .menu-category-heading h2::before { display: none; }
+  .page-speisekarte .menu-items { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 25px; }
+  .page-speisekarte .menu-item { padding-block: 9px; break-inside: avoid; }
+  .page-speisekarte .dish-title h3,
+  .page-speisekarte .dish-price { font-size: 10px; }
+  .page-speisekarte .menu-item p { font-size: 9px; line-height: 1.6; }
+  .page-speisekarte .dish-group { font-size: 8px; margin-bottom: 3px; }
+  .page-speisekarte .menu-category-heading > span,
+  .page-speisekarte .menu-category-note,
+  .page-speisekarte .dish-size,
+  .page-speisekarte .menu-footnote { font-size: 9px; }
+  .page-speisekarte .menu-request-note { padding: 10px 12px; margin-bottom: 16px; }
+  .page-speisekarte .menu-request-note h2,
+  .page-speisekarte .menu-request-note p { font-size: 10px; }
+  .page-speisekarte .menu-search,
+  .page-speisekarte #no-results,
+  .page-speisekarte .menu-order-cta { display: none !important; }
+}

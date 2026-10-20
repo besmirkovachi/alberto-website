@@ -1,967 +1,1383 @@
 [
   {
-    "title": "Antipasti & Suppen",
+    "id": "antipasti",
+    "title": "Vorspeisen",
+    "subtitle": "Antipasti",
     "items": [
       {
         "name": "KRABBENCOCKTAIL B,D",
-        "price": "12,20€",
+        "price": "13,50 €",
         "description": "",
-        "group": ""
+        "group": "",
+        "source_page": 2,
+        "source_row": 0
       },
       {
-        "name": "ANTIPASTO MISTO ITALIANO 1,2,4,9,10",
-        "price": "14,50€",
-        "description": "ltalienische Aufschnittplatte",
-        "group": ""
+        "name": "ANTIPASTO MISTO ITALIANO 1,2,4,9,10 (für 2 Pers.)",
+        "price": "20,20 €",
+        "description": "Italienische Aufschnittplatte",
+        "group": "",
+        "source_page": 2,
+        "source_row": 1
       },
       {
-        "name": "CARPACCIO DI MANZANO 1,2,4,9,10",
-        "price": "15,90€",
-        "description": "mit frisch gehobeltem Parmesankäse und Rucola",
-        "group": ""
-      },
+        "name": "CARPACCIO DI MANZO 1,2,4,9,10, G",
+        "price": "16,90 €",
+        "description": "mit frisch gehobeltem Parmesan und Rucola",
+        "group": "",
+        "source_page": 2,
+        "source_row": 2
+      }
+    ]
+  },
+  {
+    "id": "suppen",
+    "title": "Suppen",
+    "items": [
       {
         "name": "TOMATENCREMESUPPE",
-        "price": "7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "SUPPEN"
+        "group": "SUPPEN",
+        "source_page": 2,
+        "source_row": 3
       },
       {
         "name": "MINESTRONE",
-        "price": "8,90€",
+        "price": "8,90 €",
         "description": "",
-        "group": "SUPPEN"
-      },
+        "group": "SUPPEN",
+        "source_page": 2,
+        "source_row": 4
+      }
+    ]
+  },
+  {
+    "id": "bruschetta",
+    "title": "Bruschetta",
+    "items": [
       {
         "name": "BRUSCHETTA CON POMODORO A1",
-        "price": "7,90€",
+        "price": "7,90 €",
         "description": "mit Tomaten und Knoblauch",
-        "group": "BRUSCHETTE"
+        "group": "BRUSCHETTE",
+        "source_page": 2,
+        "source_row": 5
       },
       {
         "name": "BRUSCHETTA CON MOZZARELLA A1,G",
-        "price": "8,50€",
+        "price": "8,50 €",
         "description": "mit Tomaten und Mozzarella",
-        "group": "BRUSCHETTE"
+        "group": "BRUSCHETTE",
+        "source_page": 2,
+        "source_row": 6
       },
       {
         "name": "BRUSCHETTA CON GORGONZOLA A1,G",
-        "price": "8,40€",
-        "description": "mit Tomaten und Gorgonzolakäse",
-        "group": "BRUSCHETTE"
+        "price": "8,40 €",
+        "description": "mit Tomaten und Gorgonzola",
+        "group": "BRUSCHETTE",
+        "source_page": 2,
+        "source_row": 7
       },
       {
         "name": "BRUSCHETTA CON TONNO E CIPOLLA A1,D",
-        "price": "8,70€",
+        "price": "8,70 €",
         "description": "mit Tomaten, Thunfisch und Zwiebeln",
-        "group": "BRUSCHETTE"
+        "group": "BRUSCHETTE",
+        "source_page": 2,
+        "source_row": 8
       }
     ]
   },
   {
+    "id": "salate",
     "title": "Salate",
+    "note": "Dressingauswahl: Italienisch und Französisch G.",
     "items": [
       {
         "name": "INSALATA VERDE",
-        "price": "6,50€",
+        "price": "6,50 €",
         "description": "grüner Salat",
-        "group": ""
+        "group": "",
+        "source_page": 3,
+        "source_row": 0
       },
       {
         "name": "INSALATA MISTA",
-        "price": "8,00€",
+        "price": "8,00 €",
         "description": "gemischter Salat",
-        "group": ""
+        "group": "",
+        "source_page": 3,
+        "source_row": 1
       },
       {
         "name": "INSALATA DI TONNO D",
-        "price": "11,90€",
+        "price": "12,90 €",
         "description": "gemischter Salat, mit Thunfisch und Zwiebeln",
-        "group": ""
+        "group": "",
+        "source_page": 3,
+        "source_row": 2
       },
       {
-        "name": "INSALATA CARPRESE G",
-        "price": "10,90€",
-        "description": "mit Tomaten, Mozzarella und Olivenöl",
-        "group": ""
+        "name": "INSALATA CAPRESE G",
+        "price": "10,90 €",
+        "description": "mit Tomaten, Mozzarella, Basilikum und Olivenöl",
+        "group": "",
+        "source_page": 3,
+        "source_row": 3
       },
       {
         "name": "INSALATA DI POMODORI",
-        "price": "8,00€",
+        "price": "8,00 €",
         "description": "Tomaten und Zwiebeln",
-        "group": ""
+        "group": "",
+        "source_page": 3,
+        "source_row": 4
       },
       {
         "name": "INSALATA ALL’ITALIANA 1,2,9,10,D,G",
-        "price": "13,90€",
-        "description": "grüner Salat, Karotten, Weißkraut, Tomaten, Gurken, Fleischwurst,Käse, Thunfisch, Zwiebeln",
-        "group": ""
+        "price": "15,20 €",
+        "description": "grüner Salat, Karotten, Weißkraut, Tomaten, Gurken, Fleischwurst, Käse, Thunfisch, Zwiebeln",
+        "group": "",
+        "source_page": 3,
+        "source_row": 5
       },
       {
-        "name": "FITNESS TELLER",
-        "price": "16,80€",
+        "name": "FITNESSTELLER",
+        "price": "16,80 €",
         "description": "gemischter Salat mit gebratenen Putenstreifen",
-        "group": ""
+        "group": "",
+        "source_page": 3,
+        "source_row": 6
       }
     ]
   },
   {
-    "title": "Pasta",
+    "id": "kindermenue",
+    "title": "Kindermenü",
+    "subtitle": "Bis 12 Jahre",
     "items": [
       {
-        "name": "NAPOLI",
-        "price": "11,50€",
+        "name": "Mickey Mouse Pizza A1, G",
+        "price": "8,50 €",
+        "description": "",
+        "group": "Kindermenü",
+        "source_page": 3,
+        "source_row": 7
+      },
+      {
+        "name": "Spaghetti Bolognese A1",
+        "price": "8,50 €",
+        "description": "",
+        "group": "Kindermenü",
+        "source_page": 3,
+        "source_row": 8
+      },
+      {
+        "name": "Penne Napoli A1",
+        "price": "7,90 €",
+        "description": "",
+        "group": "Kindermenü",
+        "source_page": 3,
+        "source_row": 9
+      },
+      {
+        "name": "Penne Butter und Parmesan A1, G",
+        "price": "7,50 €",
+        "description": "",
+        "group": "Kindermenü",
+        "source_page": 3,
+        "source_row": 10
+      }
+    ]
+  },
+  {
+    "id": "pasta",
+    "title": "Nudeln",
+    "subtitle": "Pasta",
+    "items": [
+      {
+        "name": "NAPOLI A1",
+        "price": "12,90 €",
         "description": "mit Tomatensauce",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 0
       },
       {
-        "name": "BOLOGNESE",
-        "price": "13,20€",
+        "name": "BOLOGNESE A1",
+        "price": "14,50 €",
         "description": "mit Hackfleischsauce",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 1
       },
       {
-        "name": "AMATRICIANA z16",
-        "price": "13,90€",
+        "name": "AMATRICIANA A1",
+        "price": "14,90 €",
         "description": "mit Speck, Zwiebeln, Knoblauch, Tomatensauce",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 2
       },
       {
-        "name": "AL PESTO",
-        "price": "12,90€",
+        "name": "AL PESTO A1, G",
+        "price": "13,90 €",
         "description": "mit Basilikumsauce",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 3
       },
       {
-        "name": "AGLIO, OLIO E PEPERONCINO",
-        "price": "11,90€",
+        "name": "AGLIO, OLIO E PEPERONCINO A1",
+        "price": "13,90 €",
         "description": "mit Knoblauch, Olivenöl, scharf",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 4
       },
       {
-        "name": "CARBONARA C,G,z16",
-        "price": "13,80€",
+        "name": "CARBONARA A1, C,G",
+        "price": "15,20 €",
         "description": "mit Ei, Speck, Sahne",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 5
       },
       {
-        "name": "FRUTTI DI MARE B,N",
-        "price": "15,90€",
+        "name": "FRUTTI DI MARE A1, B, O",
+        "price": "16,90 €",
         "description": "mit Meeresfrüchten und Tomatensauce",
-        "group": "SPAGHETTI"
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 6
       },
       {
-        "name": "MOOSHÜSLI G",
-        "price": "15,80€",
-        "description": "mit Erbsen, Geschnetzeltem in Tomaten-Sahne-Currysauce",
-        "group": "SPAGHETTI"
+        "name": "MOOSHÜSLI A1, G",
+        "price": "16,80 €",
+        "description": "mit Erbsen, Geschnetzeltem Fleisch in Tomaten-Sahne-Currysauce",
+        "group": "SPAGHETTI",
+        "source_page": 4,
+        "source_row": 7
       },
       {
-        "name": "ALL'. ARRABIATA G",
-        "price": "13,90€",
-        "description": "mit Tomaten, Oliven, sehr scharf",
-        "group": "PENNE"
+        "name": "ALL' ARRABIATA A1, G",
+        "price": "14,50 €",
+        "description": "mit Tomatensauce, Oliven und Chili, sehr scharf",
+        "group": "PENNE",
+        "source_page": 4,
+        "source_row": 8
       },
       {
-        "name": "AL 4 FORMAGGI G",
-        "price": "14,90€",
+        "name": "AL 4 FORMAGGI A1, G",
+        "price": "15,90 €",
         "description": "mit 4 verschiedenen Käsesorten und Sahne",
-        "group": "PENNE"
+        "group": "PENNE",
+        "source_page": 4,
+        "source_row": 9
       },
       {
-        "name": "GORGONZOLA G",
-        "price": "14,50€",
+        "name": "GORGONZOLA A1, G",
+        "price": "15,50 €",
         "description": "mit Gorgonzolakäse und Sahne",
-        "group": "PENNE"
+        "group": "PENNE",
+        "source_page": 4,
+        "source_row": 10
       },
       {
-        "name": "AL 4 FORMAGGI G",
-        "price": "14,90€",
+        "name": "AL 4 FORMAGGI A1, G",
+        "price": "15,90 €",
         "description": "mit 4 verschiedenen Käsesorten und Sahne",
-        "group": "GNOCCHI"
+        "group": "GNOCCHI",
+        "source_page": 4,
+        "source_row": 11
       },
       {
-        "name": "AL SALMONE D,G",
-        "price": "15,90€",
+        "name": "AL SALMONE A1, D,G",
+        "price": "17,90 €",
         "description": "mit Lachs und Sahne",
-        "group": "GNOCCHI"
+        "group": "GNOCCHI",
+        "source_page": 4,
+        "source_row": 12
       },
       {
-        "name": "ALBERTO G,z16",
-        "price": "14,20€",
+        "name": "ALBERTO A1, G",
+        "price": "15,20 €",
         "description": "mit Paprika, Speck, Sahne",
-        "group": "GNOCCHI"
+        "group": "GNOCCHI",
+        "source_page": 4,
+        "source_row": 13
+      },
+      {
+        "name": "SPEZIAL A1, C, G",
+        "price": "15,50 €",
+        "description": "mit Erbsen, Vorderschinken, Sahnesauce",
+        "group": "TORTELLONI",
+        "source_page": 5,
+        "source_row": 0
+      },
+      {
+        "name": "AL PESTO A1, G",
+        "price": "14,90 €",
+        "description": "mit Basilikumsauce",
+        "group": "TORTELLONI",
+        "source_page": 5,
+        "source_row": 1
+      },
+      {
+        "name": "AL 4 FORMAGGI A1 ,G",
+        "price": "16,10 €",
+        "description": "mit 4 verschiedenen Käsesorten und Sahne",
+        "group": "TORTELLONI",
+        "source_page": 5,
+        "source_row": 2
+      },
+      {
+        "name": "AL FUNGHI PORCINI A1",
+        "price": "17,50 €",
+        "description": "mit Steinpilzen",
+        "group": "TAGLIATELLE",
+        "source_page": 5,
+        "source_row": 3
+      },
+      {
+        "name": "ALBERTO A1, B, C",
+        "price": "16,20 €",
+        "description": "mit Champignons, Crevetten",
+        "group": "TAGLIATELLE",
+        "source_page": 5,
+        "source_row": 4
+      },
+      {
+        "name": "AL SALMONE A1, C, D",
+        "price": "18,20 €",
+        "description": "mit Lachs",
+        "group": "TAGLIATELLE",
+        "source_page": 5,
+        "source_row": 5
       }
     ]
   },
   {
-    "title": "Pasta, Risotto & Ofengerichte",
+    "id": "risotto",
+    "title": "Risotto",
     "items": [
       {
-        "name": "SPEZIAL G",
-        "price": "14,50€",
-        "description": "mit Erbsen, Vorderschinken, Sahnesauce",
-        "group": "TORTELLONI"
-      },
-      {
-        "name": "AL PESTO",
-        "price": "13,50€",
-        "description": "mit Basilikumsauce",
-        "group": "TORTELLONI"
-      },
-      {
-        "name": "AL 4 FORMAGGI G",
-        "price": "15,10€",
-        "description": "mit 4 verschiedenen Käsesorten und Sahne",
-        "group": "TORTELLONI"
-      },
-      {
         "name": "AL FUNGHI PORCINI",
-        "price": "16,50€",
+        "price": "17,90 €",
         "description": "mit Steinpilzen",
-        "group": "TAGLIATELLE"
+        "group": "RISOTTO",
+        "source_page": 5,
+        "source_row": 6
       },
       {
-        "name": "ALBERTO",
-        "price": "15,20€",
-        "description": "mit Champignons, Crevetten",
-        "group": "TAGLIATELLE"
-      },
-      {
-        "name": "AL SALMONE",
-        "price": "16,90€",
-        "description": "mit Lachs",
-        "group": "TAGLIATELLE"
-      },
-      {
-        "name": "AL FUNGHI PORCINI",
-        "price": "16,90€",
-        "description": "mit Steinpilzen",
-        "group": "RISOTTO"
-      },
-      {
-        "name": "AL GAMBERETTI B",
-        "price": "16,20€",
-        "description": "mit Krabben, Tomatensauce und Spargel",
-        "group": "RISOTTO"
-      },
-      {
-        "name": "FRUTTI DI MARE B,N",
-        "price": "16,90€",
+        "name": "FRUTTI DI MARE B, O",
+        "price": "17,90 €",
         "description": "mit Meeresfrüchten und Tomatensauce",
-        "group": "RISOTTO"
+        "group": "RISOTTO",
+        "source_page": 5,
+        "source_row": 7
       },
       {
         "name": "VEGETARIANO",
-        "price": "15,20€",
+        "price": "16,20 €",
         "description": "mit verschiedenem Gemüse und Tomatensauce",
-        "group": "RISOTTO"
-      },
-      {
-        "name": "LASAGNE AL FORNO G",
-        "price": "14,90€",
-        "description": "Lasagne überbacken",
-        "group": "OFENGERICHTE (Hausgemacht)"
-      },
-      {
-        "name": "CANNELONI AL FORNO G",
-        "price": "14,90€",
-        "description": "mit Ricotta und Spinat",
-        "group": "OFENGERICHTE (Hausgemacht)"
-      },
-      {
-        "name": "RIGATONI BOLOGNESE AL FORNO G",
-        "price": "14,50€",
-        "description": "mit Hackfleischsauce und Sahne",
-        "group": "OFENGERICHTE (Hausgemacht)"
-      },
-      {
-        "name": "SPAGHETTI AL CARTOCCIO B,N",
-        "price": "18,60€",
-        "description": "in Folie verpackt mit Meeresfrüchten",
-        "group": "OFENGERICHTE (Hausgemacht)"
-      },
-      {
-        "name": "GNOCCHI AL FORNOG",
-        "price": "14,20€",
-        "description": "mit Hackfleischsauce und Käse",
-        "group": "OFENGERICHTE (Hausgemacht)"
+        "group": "RISOTTO",
+        "source_page": 5,
+        "source_row": 8
       }
     ]
   },
   {
-    "title": "Pizza · 36 cm",
+    "id": "ofengerichte",
+    "title": "Ofengerichte",
+    "subtitle": "Hausgemacht",
+    "items": [
+      {
+        "name": "LASAGNE AL FORNO A1, C, G",
+        "price": "16,20 €",
+        "description": "Lasagne überbacken",
+        "group": "OFENGERICHTE (Hausgemacht)",
+        "source_page": 5,
+        "source_row": 9
+      },
+      {
+        "name": "CANNELLONI AL FORNO A1, C, G",
+        "price": "16,20 €",
+        "description": "mit Ricotta und Spinat",
+        "group": "OFENGERICHTE (Hausgemacht)",
+        "source_page": 5,
+        "source_row": 10
+      },
+      {
+        "name": "RIGATONI BOLOGNESE AL FORNO A1, G",
+        "price": "15,90 €",
+        "description": "mit Hackfleischsauce und Sahne",
+        "group": "OFENGERICHTE (Hausgemacht)",
+        "source_page": 5,
+        "source_row": 11
+      },
+      {
+        "name": "GNOCCHI AL FORNO A1, G",
+        "price": "15,90 €",
+        "description": "mit Hackfleischsauce und Käse",
+        "group": "OFENGERICHTE (Hausgemacht)",
+        "source_page": 5,
+        "source_row": 12
+      }
+    ]
+  },
+  {
+    "id": "pizza",
+    "title": "Pizza",
+    "subtitle": "Ø 36 cm · Familienpizza Ø 50 cm",
+    "note": "Alle Änderungen (bei Bestellung) werden gesondert berechnet!",
     "items": [
       {
         "name": "MARGHERITA A1,G",
-        "price": "10,90€",
-        "description": "mit Tomatensoße, Mozzarella und Oregano",
-        "group": ""
+        "price": "11,90 €",
+        "description": "mit Tomatensauce, Mozzarella und Oregano",
+        "group": "",
+        "source_page": 6,
+        "source_row": 0
       },
       {
         "name": "SALAMI 1,2,4,9,A1,G",
-        "price": "12,50€",
+        "price": "13,50 €",
         "description": "mit Tomatensauce, Mozzarella und Salami",
-        "group": ""
+        "group": "",
+        "source_page": 6,
+        "source_row": 1
       },
       {
         "name": "PROSCIUTTO 1,2,4,9,A1,G",
-        "price": "12,80€",
+        "price": "13,90 €",
         "description": "mit Tomatensauce, Mozzarella und Schinken",
-        "group": ""
+        "group": "",
+        "source_page": 6,
+        "source_row": 2
       },
       {
         "name": "NAPOLI A1,D,G",
-        "price": "12,20€",
-        "description": "mit Tomatensoße, Mozzarella, Sardellen und Oregano",
-        "group": ""
+        "price": "13,20 €",
+        "description": "mit Tomatensauce, Mozzarella, Sardellen und Oregano",
+        "group": "",
+        "source_page": 6,
+        "source_row": 3
       },
       {
         "name": "TONNO A1,D,G",
-        "price": "13,20€",
-        "description": "mit Tomatensoße, Mozzarella, Thunfisch und Zwiebeln",
-        "group": ""
+        "price": "14,90 €",
+        "description": "mit Tomatensauce, Mozzarella, Thunfisch und Zwiebeln",
+        "group": "",
+        "source_page": 6,
+        "source_row": 4
       },
       {
         "name": "SPECIALE 1,2,4,9,10,A1,G",
-        "price": "13,90€",
-        "description": "mit Tomatensoße , Mozzarella, Salami, Vorderschinken, Artischocken, Paprika, Champignons, Oregano",
-        "group": ""
+        "price": "15,20 €",
+        "description": "mit Tomatensauce, Mozzarella, Salami, Vorderschinken, Artischocken, Paprika, Champignons, Oregano",
+        "group": "",
+        "source_page": 6,
+        "source_row": 5
       },
       {
         "name": "4 STAGIONI 1,2,4,9,10,A1,G",
-        "price": "13,20€",
-        "description": "mit Tomatensoße, Mozzarella, Vorderschinken, Artischocken, Champignons",
-        "group": ""
+        "price": "14,90 €",
+        "description": "mit Tomatensauce, Mozzarella, Vorderschinken, Artischocken, Champignons",
+        "group": "",
+        "source_page": 6,
+        "source_row": 6
       },
       {
         "name": "NEGRONI 1,2,4,9,A1,G",
-        "price": "12,80€",
-        "description": "mit Tomatensoße, Mozzarella, Salami, Champignons, Oregano",
-        "group": ""
+        "price": "13,90 €",
+        "description": "mit Tomatensauce, Mozzarella, Salami, Champignons, Oregano",
+        "group": "",
+        "source_page": 6,
+        "source_row": 7
       },
       {
         "name": "FUNGHI A1,G",
-        "price": "12,50€",
+        "price": "13,50 €",
         "description": "mit Tomatensauce, Mozzarella, Champignons",
-        "group": ""
+        "group": "",
+        "source_page": 6,
+        "source_row": 8
       },
       {
-        "name": "O SOLE MIO 1,2,4,9,10,A1,G",
-        "price": "13,50€",
+        "name": "O SOLE MIO 1,2,4,9,10,A1,G ,E",
+        "price": "14,80 €",
         "description": "mit Tomatensauce, Mozzarella, Vorderschinken, Champignons, Ei",
-        "group": ""
+        "group": "",
+        "source_page": 6,
+        "source_row": 9
       },
       {
         "name": "HAWAII 1,2,4,9,10,A1,G",
-        "price": "12,80€",
+        "price": "13,80 €",
         "description": "mit Tomatensauce, Mozzarella, Vorderschinken, Ananasstücken",
-        "group": ""
+        "group": "",
+        "source_page": 6,
+        "source_row": 10
       },
       {
-        "name": "SARDELLEN A1,D,G,z16",
-        "price": "13,70€",
-        "description": "mit Tomatensauce, Mozzarella, Zwiebeln, Speck, Sardellen, Peperoni Knoblauch, Oliven",
-        "group": ""
+        "name": "SARDELLEN A1,D,G",
+        "price": "14,90 €",
+        "description": "mit Tomatensauce, Mozzarella, Zwiebeln, Speck, Sardellen, Peperoni, Knoblauch, Oliven",
+        "group": "",
+        "source_page": 6,
+        "source_row": 11
       },
       {
         "name": "CALZONE 1,2,4,9,10,A1,G",
-        "price": "12,90€",
+        "price": "13,90 €",
         "description": "mit Tomatensauce, Mozzarella, Vorderschinken, Champignons",
-        "group": ""
-      }
-    ]
-  },
-  {
-    "title": "Pizza & Kinderpizza",
-    "items": [
+        "group": "",
+        "source_page": 6,
+        "source_row": 12
+      },
       {
         "name": "ITALIA A1,G",
-        "price": "14,90€",
+        "price": "15,90 €",
         "description": "mit Tomatensauce, Mozzarella, Steinpilze, frischen Tomatenscheiben, gehobeltem Parmesan, Rucola",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 0
       },
       {
         "name": "PUTENBRUST A1,G",
-        "price": "14,90€",
+        "price": "15,90 €",
         "description": "mit Tomatensauce, Mozzarella, Putenbruststreifen",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 1
       },
       {
         "name": "SALMONE A1,D,G",
-        "price": "15,20€",
+        "price": "16,50 €",
         "description": "mit Tomatensauce, Mozzarella, Lachs, Knoblauch",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 2
       },
       {
         "name": "GORGONZOLA A1,G",
-        "price": "13,10€",
+        "price": "14,10 €",
         "description": "mit Tomatensauce, Mozzarella, Gorgonzolakäse",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 3
       },
       {
         "name": "4 FORMAGGI A1,G",
-        "price": "13,90€",
+        "price": "15,10 €",
         "description": "mit Tomatensauce und 4 verschiedenen Käsesorten",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 4
       },
       {
         "name": "DIAVOLO 1,2,4,9,A1,G",
-        "price": "14,50€",
+        "price": "15,20 €",
         "description": "mit Tomatensauce, Mozzarella, scharfer Salami",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 5
       },
       {
         "name": "VEGETARIANA A1,G",
-        "price": "12,90€",
+        "price": "14,90 €",
         "description": "mit Tomatensauce, Mozzarella, Gemüse",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 6
       },
       {
-        "name": "FRUTTI DI MARE A1,B,G,N",
-        "price": "14,90€",
+        "name": "FRUTTI DI MARE A1,B,G,O",
+        "price": "15,90 €",
         "description": "mit Tomatensauce, Mozzarella und Meeresfrüchten",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 7
       },
       {
         "name": "PARMA A1,G",
-        "price": "16,20€",
+        "price": "17,20 €",
         "description": "mit Tomatensauce, Mozzarella, frischen Tomatenscheiben, Rucola, gehobeltem Parmesan, Parmaschinken",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 8
       },
       {
         "name": "ALBERTO A1,G",
-        "price": "12,90€",
+        "price": "14,90 €",
         "description": "mit Tomatensauce, Mozzarella, Spinat, Gorgonzolakäse, Knoblauch",
-        "group": ""
+        "group": "",
+        "source_page": 7,
+        "source_row": 9
       },
       {
         "name": "FAMILIENPIZZA (Ø 50 cm) A1,G",
-        "price": "35,50€",
+        "price": "41,20 €",
         "description": "mit Tomatensauce, Mozzarella und 3 Zutaten nach Wahl",
-        "group": ""
-      },
-      {
-        "name": "MICKEY MOUSE A1,G",
-        "price": "8,50€",
-        "description": "mit Tomatensauce, Mozzarella und 1 Zutat nach Wahl",
-        "group": "KINDERPIZZA"
+        "group": "",
+        "source_page": 7,
+        "source_row": 10
       },
       {
         "name": "PIZZA PANE A1",
-        "price": "8,50€",
+        "price": "8,50 €",
         "description": "Pizzabrot mit Olivenöl und Oregano",
-        "group": "KINDERPIZZA"
+        "group": "",
+        "source_page": 7,
+        "source_row": 11
       }
     ]
   },
   {
-    "title": "Fleisch & Steak",
+    "id": "fleisch",
+    "title": "Fleischgerichte",
+    "note": "Alle Fleisch- und Fischgerichte enthalten eine Beilage (Pommes oder Kroketten) und einen grünen Salat. Dressingauswahl: Italienisch und Französisch G.",
     "items": [
       {
-        "name": "SCALOPPINE AL VINO BIANCO z17",
-        "price": "25,50€",
-        "description": "Schnitzel an Weißweinsauce",
-        "group": "Vom KALB / SCHWEIN"
+        "name": "SCALOPPINE AL VINO BIANCO M",
+        "price": "26,50 €",
+        "description": "Schnitzel in Weißweinsauce",
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 0
       },
       {
-        "name": "SCALOPPINE ALLA ROMANA z17",
-        "price": "26,50€",
+        "name": "SCALOPPINE ALLA ROMANA 1, 2, 9, 10, M",
+        "price": "27,20 €",
         "description": "Schnitzel mit Parmaschinken an Weißweinsauce",
-        "group": "Vom KALB / SCHWEIN"
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 1
       },
       {
-        "name": "SCALOPPINE AL LIMONE",
-        "price": "25,90€",
-        "description": "Schnitzel an Zitronensauce",
-        "group": "Vom KALB / SCHWEIN"
+        "name": "SCALOPPINE AL LIMONE A1",
+        "price": "26,90 €",
+        "description": "Schnitzel in Zitronensauce",
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 2
       },
       {
-        "name": "PICCATA MILANESE",
-        "price": "27,00€",
+        "name": "PICCATA MILANESE A1, C, G",
+        "price": "27,90 €",
         "description": "Schnitzel mit Spaghetti Napoli, Parmesan 9",
-        "group": "Vom KALB / SCHWEIN"
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 3
       },
       {
         "name": "SCHWEINESCHNITZEL A1",
-        "price": "19,50€",
+        "price": "19,90 €",
         "description": "Paniert",
-        "group": "Vom KALB / SCHWEIN"
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 4
       },
       {
-        "name": "PAPRIKASCHNITZEL",
-        "price": "19,90€",
+        "name": "PAPRIKASCHNITZEL A1, C, G",
+        "price": "20,50 €",
         "description": "mit Paprika, Tomatensauce",
-        "group": "Vom KALB / SCHWEIN"
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 5
       },
       {
         "name": "CORDON BLEU 1,2,9,10,A1,G",
-        "price": "21,70€",
+        "price": "22,80 €",
         "description": "gefüllt mit Vorderschinken und Käse",
-        "group": "Vom KALB / SCHWEIN"
+        "group": "Vom KALB / SCHWEIN",
+        "source_page": 8,
+        "source_row": 6
       },
       {
         "name": "BISTECCA AL PEPE",
-        "price": "33,90€",
+        "price": "32,50 €",
         "description": "Pfeffersteak",
-        "group": "Vom RIND"
+        "group": "Vom RIND",
+        "source_page": 8,
+        "source_row": 7
       },
       {
         "name": "BISTECCA ALLA GRIGLIA",
-        "price": "31,50€",
+        "price": "31,50 €",
         "description": "Steak vom Grill",
-        "group": "Vom RIND"
+        "group": "Vom RIND",
+        "source_page": 8,
+        "source_row": 8
       },
       {
         "name": "BISTECCA AL GORGONZOLA G",
-        "price": "33,70€",
-        "description": "Steak an Gorgonzolasauce",
-        "group": "Vom RIND"
+        "price": "33,70 €",
+        "description": "Steak in Gorgonzolasauce",
+        "group": "Vom RIND",
+        "source_page": 8,
+        "source_row": 9
       },
       {
-        "name": "BISTECCA AL PORCINI G",
-        "price": "35,20€",
-        "description": "Steak an Steinpilzsauce",
-        "group": "Vom RIND"
+        "name": "BISTECCA AI PORCINI G",
+        "price": "35,20 €",
+        "description": "Steak in Steinpilzsauce",
+        "group": "Vom RIND",
+        "source_page": 8,
+        "source_row": 10
       }
     ]
   },
   {
-    "title": "Fisch, Beilagen & Dessert",
+    "id": "fisch",
+    "title": "Fischgerichte",
+    "note": "Alle Fleisch- und Fischgerichte enthalten eine Beilage (Pommes oder Kroketten) und einen grünen Salat. Dressingauswahl: Italienisch und Französisch G.",
     "items": [
       {
-        "name": "CALAMARI FRITTI A1,N",
-        "price": "18,50€",
+        "name": "CALAMARI FRITTI A1, O",
+        "price": "18,50 €",
         "description": "Tintenfisch frittiert",
-        "group": ""
+        "group": "",
+        "source_page": 9,
+        "source_row": 0
       },
       {
-        "name": "CALAMARI ALLA GRIGLIA N",
-        "price": "19,50€",
+        "name": "CALAMARI ALLA GRIGLIA O",
+        "price": "19,50 €",
         "description": "gegrillter Tintenfisch",
-        "group": ""
+        "group": "",
+        "source_page": 9,
+        "source_row": 1
       },
       {
         "name": "SALMONE ALLA GRIGLIA D",
-        "price": "27,50€",
+        "price": "27,50 €",
         "description": "gegrilltes Lachssteak",
-        "group": ""
+        "group": "",
+        "source_page": 9,
+        "source_row": 2
+      }
+    ]
+  },
+  {
+    "id": "beilagen",
+    "title": "Beilagen",
+    "items": [
+      {
+        "name": "KROKETTEN A1, POMMES, BOKKOLI, SPINAT",
+        "price": "5,60 €",
+        "description": "",
+        "group": "BEILAGEN",
+        "source_page": 9,
+        "source_row": 3
+      }
+    ]
+  },
+  {
+    "id": "desserts",
+    "title": "Desserts",
+    "items": [
+      {
+        "name": "PANNA COTTA G",
+        "price": "6,90 €",
+        "description": "",
+        "group": "DESSERT",
+        "source_page": 9,
+        "source_row": 4
       },
       {
-        "name": "KROKETTEN, POMMES, BROCCOLI, SPINAT",
-        "price": "5,20€",
+        "name": "TIRAMISÚ A1, C, G",
+        "price": "7,90 €",
         "description": "",
-        "group": "BEILAGEN"
+        "group": "DESSERT",
+        "source_page": 9,
+        "source_row": 5
       },
       {
-        "name": "PANNACOTTA G",
-        "price": "6,90€",
+        "name": "SCHOKO-SOUFFLÉ A1, C, G",
+        "price": "8,20 €",
         "description": "",
-        "group": "DESSERT"
-      },
-      {
-        "name": "TIRAMISÚ 6,G",
-        "price": "7,90€",
-        "description": "",
-        "group": "DESSERT"
-      },
-      {
-        "name": "SCHOKO-SOUFFLÉ",
-        "price": "8,20€",
-        "description": "",
-        "group": "DESSERT"
+        "group": "DESSERT",
+        "source_page": 9,
+        "source_row": 6
       },
       {
         "name": "EIS PRO KUGEL G",
-        "price": "2,00€",
+        "price": "2,00 €",
         "description": "",
-        "group": "DESSERT"
+        "group": "DESSERT",
+        "source_page": 9,
+        "source_row": 7
       },
       {
         "name": "GEMISCHTES EIS G",
-        "price": "6,00€",
+        "price": "6,00 €",
         "description": "",
-        "group": "DESSERT"
-      },
-      {
-        "name": "EXTRA SAHNE G",
-        "price": "+ 1,00€",
-        "description": "",
-        "group": "DESSERT"
+        "group": "DESSERT",
+        "source_page": 9,
+        "source_row": 8
       }
     ]
   },
   {
+    "id": "getraenke",
     "title": "Getränke",
     "items": [
       {
-        "name": "APFELSAFT-SCHORLE",
-        "price": "0,33 | 3,50€",
+        "name": "APFELSAFTSCHORLE",
+        "price": "3,50 €",
         "description": "",
-        "group": "ALKOHOLFREIE GETRÄNKE"
+        "group": "ALKOHOLFREIE GETRÄNKE",
+        "source_page": 10,
+        "source_row": 0,
+        "size": "0,33 l"
       },
       {
         "name": "ORANGENSAFT",
-        "price": "0,33 | 3,50€",
+        "price": "3,50 €",
         "description": "",
-        "group": "ALKOHOLFREIE GETRÄNKE"
+        "group": "ALKOHOLFREIE GETRÄNKE",
+        "source_page": 10,
+        "source_row": 1,
+        "size": "0,33 l"
       },
       {
-        "name": "JOHANNISBEER-SCHORLE",
-        "price": "0,33 | 3,50€",
+        "name": "JOHANNISBEERSCHORLE",
+        "price": "3,50 €",
         "description": "",
-        "group": "ALKOHOLFREIE GETRÄNKE"
+        "group": "ALKOHOLFREIE GETRÄNKE",
+        "source_page": 10,
+        "source_row": 2,
+        "size": "0,33 l"
       },
       {
-        "name": "Coca-Cola® 4,6,7",
-        "price": "FI. 0,33 | 4,20€",
+        "name": "Coca-Cola 13",
+        "price": "4,20 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 3,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "Coca · Cola Zero® 3,4,5,6,7",
-        "price": "Fl. 0,33 I 4,20€",
+        "name": "Coca-Cola Zero 8, 9, 13",
+        "price": "4,20 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 4,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "Fanta® 2,4,7,8",
-        "price": "Fl. 0,33 I 4,20€",
+        "name": "Fanta 1, 3",
+        "price": "4,20 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 5,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "Sprite® 7",
-        "price": "Fl. 0,33 I 4,20€",
+        "name": "Sprite",
+        "price": "4,20 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 6,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "mezzo mix® 4,7,8",
-        "price": "Fl. 0,33 I 4,20€",
+        "name": "mezzo mix 1, 13",
+        "price": "4,20 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 7,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "ELEPHANT BAY EISTEE PEACH",
-        "price": "0,33 I 4,50€",
+        "name": "Elephant Bay Ice Tea Peach 13",
+        "price": "4,50 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 8,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "ELEPHANT BAY EISTEE BLUEBERRY",
-        "price": "0,33 I 4,50€",
+        "name": "Elephant Bay Ice Tea Lemon 13",
+        "price": "4,50 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 9,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "SELTERS CLASSIC",
-        "price": "0,25 I 3,30€ / 0,75 | 6,90€",
+        "name": "Elephant Bay Ice Tea Blueberry 13",
+        "price": "4,50 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 10,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "SELTERS NATURELL",
-        "price": "0,25 | 3,30€ / 0,75 | 6,90€",
+        "name": "San Pellegrino",
+        "price": "3,50 € / 5,90 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 11,
+        "variants": [
+          {
+            "size": "Fl. 0,25 l",
+            "price": "3,50 €"
+          },
+          {
+            "size": "Fl. 0,50 l",
+            "price": "5,90 €"
+          }
+        ]
       },
       {
-        "name": "BITTER LEMON",
-        "price": "0,20 I 3,50€",
+        "name": "Acqua Panna",
+        "price": "3,50 € / 5,90 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 12,
+        "variants": [
+          {
+            "size": "Fl. 0,25 l",
+            "price": "3,50 €"
+          },
+          {
+            "size": "Fl. 0,50 l",
+            "price": "5,90 €"
+          }
+        ]
       },
       {
-        "name": "TONIC WATER",
-        "price": "0,20 I 3,50€",
+        "name": "BITTER LEMON 14",
+        "price": "3,50 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 10,
+        "source_row": 13,
+        "size": "Fl. 0,20 l"
       },
       {
         "name": "ESPRESSO",
-        "price": "2,50€",
+        "price": "2,50 €",
         "description": "",
-        "group": "WARME GETRÄNKE"
+        "group": "WARME GETRÄNKE",
+        "source_page": 10,
+        "source_row": 14
       },
       {
         "name": "DOPPELTER ESPRESSO",
-        "price": "3,60€",
+        "price": "3,60 €",
         "description": "",
-        "group": "WARME GETRÄNKE"
+        "group": "WARME GETRÄNKE",
+        "source_page": 10,
+        "source_row": 15
       },
       {
         "name": "KAFFEE",
-        "price": "2,80€",
+        "price": "2,80 €",
         "description": "",
-        "group": "WARME GETRÄNKE"
+        "group": "WARME GETRÄNKE",
+        "source_page": 10,
+        "source_row": 16
       },
       {
-        "name": "CAPPUCCINO",
-        "price": "3,60€",
+        "name": "CAPPUCCINO G",
+        "price": "3,60 €",
         "description": "",
-        "group": "WARME GETRÄNKE"
+        "group": "WARME GETRÄNKE",
+        "source_page": 10,
+        "source_row": 17
       },
       {
-        "name": "LATTE MACCHIATO",
-        "price": "3,90€",
+        "name": "LATTE MACCHIATO G",
+        "price": "3,90 €",
         "description": "",
-        "group": "WARME GETRÄNKE"
+        "group": "WARME GETRÄNKE",
+        "source_page": 10,
+        "source_row": 18
       },
       {
         "name": "TEE",
-        "price": "2,90€",
+        "price": "2,90 €",
         "description": "",
-        "group": "WARME GETRÄNKE"
+        "group": "WARME GETRÄNKE",
+        "source_page": 10,
+        "source_row": 19
       }
     ]
   },
   {
+    "id": "bier",
     "title": "Bier",
     "items": [
       {
-        "name": "RADEBERGER PILS",
-        "price": "0,3 | 3,50€",
+        "name": "Lasser Premium-Pils",
+        "price": "3,50 €",
         "description": "",
-        "group": "VOM FASS"
+        "group": "VOM FASS",
+        "source_page": 11,
+        "source_row": 0,
+        "size": "0,3 l"
       },
       {
-        "name": "RADEBERGER PILS",
-        "price": "0,5 | 4,30€",
+        "name": "Lasser Premium-Pils",
+        "price": "4,30 €",
         "description": "",
-        "group": "VOM FASS"
+        "group": "VOM FASS",
+        "source_page": 11,
+        "source_row": 1,
+        "size": "0,5 l"
       },
       {
-        "name": "SCHÖFFERHOFER WEIZEN",
-        "price": "0,3 | 3,50€",
+        "name": "Maisel’s Weisse Hefe-Weißbier",
+        "price": "3,50 €",
         "description": "",
-        "group": "VOM FASS"
+        "group": "VOM FASS",
+        "source_page": 11,
+        "source_row": 2,
+        "size": "0,3 l"
       },
       {
-        "name": "SCHÖFFERHOFER WEIZEN",
-        "price": "0,5 | 4,30€",
+        "name": "Maisel’s Weisse Hefe-Weißbier",
+        "price": "4,30 €",
         "description": "",
-        "group": "VOM FASS"
+        "group": "VOM FASS",
+        "source_page": 11,
+        "source_row": 3,
+        "size": "0,5 l"
       },
       {
-        "name": "SCHÖFFERHOFER WEIZEN 0,0%",
-        "price": "0,5 | 4,30€",
+        "name": "Alkoholfreies Bier 0,0%",
+        "price": "3,80 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 11,
+        "source_row": 4,
+        "size": "Fl. 0,33 l"
       },
       {
-        "name": "CLAUSTHALER ALKOHOLFREI",
-        "price": "0,33 | 3,80€",
+        "name": "Maisel’s Hefe-Weißbier Alkoholfrei 0,0%",
+        "price": "3,80 €",
         "description": "",
-        "group": "FLASCHEN"
+        "group": "FLASCHEN",
+        "source_page": 11,
+        "source_row": 5,
+        "size": "Fl. 0,33 l"
       }
     ]
   },
   {
+    "id": "wein",
     "title": "Wein",
     "items": [
       {
         "name": "PRIMITIVO",
-        "price": "28,50€",
+        "price": "28,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 0
       },
       {
         "name": "MERLOT",
-        "price": "28,50€",
+        "price": "28,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 1
       },
       {
         "name": "CHIANTI",
-        "price": "28,50€",
+        "price": "28,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 2
       },
       {
         "name": "NERO D’AVOLA",
-        "price": "28,50€",
+        "price": "28,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 3
       },
       {
-        "name": "VINO DE SALENTO",
-        "price": "27,50€",
+        "name": "VINO DEL SALENTO",
+        "price": "27,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 4
       },
       {
         "name": "PINOT GRIGIO",
-        "price": "26,50€",
+        "price": "26,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 5
       },
       {
         "name": "FRASCATI",
-        "price": "23,50€",
+        "price": "25,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 6
       },
       {
         "name": "LAMBRUSCO",
-        "price": "22,50€",
+        "price": "24,50 €",
         "description": "",
-        "group": "FLASCHEN (0,75I)"
+        "group": "FLASCHEN (0,75 l)",
+        "source_page": 12,
+        "source_row": 7
       },
       {
         "name": "LAMBRUSCO",
-        "price": "0,2 | 6,50€",
+        "price": "6,50 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 8,
+        "size": "0,2 l"
       },
       {
         "name": "MERLOT",
-        "price": "0,2 | 7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 9,
+        "size": "0,2 l"
       },
       {
         "name": "CHIANTI",
-        "price": "0,2 | 7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 10,
+        "size": "0,2 l"
       },
       {
         "name": "PRIMITIVO",
-        "price": "0,2 | 7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 11,
+        "size": "0,2 l"
       },
       {
         "name": "CHIARETTO",
-        "price": "0,2 | 7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 12,
+        "size": "0,2 l"
       },
       {
         "name": "PINOT GRIGIO",
-        "price": "0,2 | 7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 13,
+        "size": "0,2 l"
       },
       {
         "name": "SCHORLE WEIß",
-        "price": "3,20€",
+        "price": "3,40 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 14
       },
       {
         "name": "SCHORLE ROT",
-        "price": "3,40€",
+        "price": "3,60 €",
         "description": "",
-        "group": "OFFENE"
+        "group": "OFFENE",
+        "source_page": 12,
+        "source_row": 15
       }
     ]
   },
   {
-    "title": "Aperitif & Spirituosen",
+    "id": "aperitifs",
+    "title": "Aperitifs",
     "items": [
       {
         "name": "APEROL SPRITZ",
-        "price": "7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "APERITIF"
+        "group": "APERITIF",
+        "source_page": 13,
+        "source_row": 0
       },
       {
         "name": "LILLET WILD BERRY",
-        "price": "7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "APERITIF"
+        "group": "APERITIF",
+        "source_page": 13,
+        "source_row": 1
       },
       {
         "name": "HUGO",
-        "price": "7,50€",
+        "price": "7,50 €",
         "description": "",
-        "group": "APERITIF"
+        "group": "APERITIF",
+        "source_page": 13,
+        "source_row": 2
       },
       {
         "name": "CAMPARI SODA ORANGE",
-        "price": "7,20€",
+        "price": "7,20 €",
         "description": "",
-        "group": "APERITIF"
+        "group": "APERITIF",
+        "source_page": 13,
+        "source_row": 3
       },
       {
-        "name": "PROSECCO 0,1l",
-        "price": "5,20€",
+        "name": "PROSECCO",
+        "price": "5,20 €",
         "description": "",
-        "group": "APERITIF"
-      },
+        "group": "APERITIF",
+        "source_page": 13,
+        "source_row": 4,
+        "size": "0,1 l"
+      }
+    ]
+  },
+  {
+    "id": "spirituosen",
+    "title": "Spirituosen",
+    "items": [
       {
-        "name": "RAMAZOTTI",
-        "price": "4cl 4,90€",
+        "name": "RAMAZZOTTI",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 5,
+        "size": "4 cl"
       },
       {
         "name": "AVERNA",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 6,
+        "size": "4 cl"
       },
       {
         "name": "APEROL",
-        "price": "4cl 4,70€",
+        "price": "4,70 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 7,
+        "size": "4 cl"
       },
       {
         "name": "JÄGERMEISTER",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 8,
+        "size": "4 cl"
       },
       {
         "name": "GRAPPA",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 9,
+        "size": "4 cl"
       },
       {
         "name": "LIMONCELLO",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 10,
+        "size": "4 cl"
       },
       {
         "name": "SAMBUCA",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 11,
+        "size": "4 cl"
       },
       {
         "name": "FERNET",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 12,
+        "size": "4 cl"
       },
       {
         "name": "WILLIAMS",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 13,
+        "size": "4 cl"
       },
       {
         "name": "MARTINI BIANCO",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 14,
+        "size": "4 cl"
       },
       {
         "name": "MARTINI ROSSO",
-        "price": "4cl 4,90€",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 15,
+        "size": "4 cl"
       },
       {
-        "name": "JACK DANIELS",
-        "price": "4cl 4,90€",
+        "name": "JACK DANIEL’S",
+        "price": "4,90 €",
         "description": "",
-        "group": "SPIRITOUSEN"
+        "group": "SPIRITUOSEN",
+        "source_page": 13,
+        "source_row": 16,
+        "size": "4 cl"
       }
     ]
   }

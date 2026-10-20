@@ -11,11 +11,24 @@
   const lockedDialogs = new Set();
   let savedScrollStyles;
 
+  const notifyDialog = (dialog, open, keyboard = false) => {
+    document.dispatchEvent(new CustomEvent("alberto:dialogchange", {
+      detail: { dialog, open, keyboard },
+    }));
+  };
+  const notifyContent = (scope) => {
+    document.dispatchEvent(new CustomEvent("alberto:contentchange", {
+      detail: { scope },
+    }));
+  };
+
   function lockScroll(dialog) {
     if (lockedDialogs.has(dialog)) return;
     if (!lockedDialogs.size) {
       savedScrollStyles = {
         rootOverflow: root.style.overflow,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
         bodyOverflow: document.body.style.overflow,
         bodyPadding: document.body.style.paddingRight,
       };
@@ -42,6 +55,9 @@
       document.body.style.overflow = savedScrollStyles.bodyOverflow;
       document.body.style.paddingRight = savedScrollStyles.bodyPadding;
       root.classList.remove("modal-open");
+      // Native mobile dialogs may move the document while focusing their first
+      // control. Restore the pre-dialog position before returning focus.
+      window.scrollTo({ left: savedScrollStyles.scrollX, top: savedScrollStyles.scrollY, behavior: "instant" });
       savedScrollStyles = null;
     }
   }
@@ -57,6 +73,7 @@
       active = false;
       unlockScroll(dialog);
       onChange(false);
+      notifyDialog(dialog, false);
       const target = returnFocus;
       returnFocus = null;
       if (target instanceof HTMLElement && target.isConnected) {
@@ -70,13 +87,22 @@
       // with the immediately closed dialog, then ignore its duplicate event.
       finishClose();
     };
-    const open = (trigger = document.activeElement) => {
+    const open = (trigger = document.activeElement, keyboard = false) => {
       if (dialog.open) return;
       returnFocus = trigger;
-      dialog.showModal();
-      active = true;
+      window.AlbertoMotion?.finishIntro();
+      // Measure the scrollbar before the dialog's :has() rule locks the body.
       lockScroll(dialog);
+      try {
+        dialog.showModal();
+      } catch (error) {
+        unlockScroll(dialog);
+        returnFocus = null;
+        throw error;
+      }
+      active = true;
       onChange(true);
+      notifyDialog(dialog, true, keyboard);
     };
 
     dialog.addEventListener("cancel", (event) => {
@@ -106,7 +132,7 @@
       if (toggle) toggle.setAttribute("aria-expanded", String(open));
     });
     if (toggle && controls) {
-      toggle.addEventListener("click", () => controls.open(toggle));
+      toggle.addEventListener("click", (event) => controls.open(toggle, event.detail === 0));
       menu
         .querySelector(".menu-close")
         ?.addEventListener("click", controls.close);
@@ -139,213 +165,6 @@
     updateHeader();
   }
 
-  function reveals() {
-    const elements = all(".reveal");
-    const show = (element) => {
-      element.classList.add("is-visible", "visible");
-    };
-    if (motionPreference.matches || !("IntersectionObserver" in window)) {
-      elements.forEach(show);
-      return;
-    }
-    let observer;
-    try {
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              show(entry.target);
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
-      );
-      elements.forEach((element) => {
-        // Content already in view is never hidden while JavaScript initializes.
-        if (element.getBoundingClientRect().top < window.innerHeight - 24) {
-          show(element);
-        } else {
-          observer.observe(element);
-          element.classList.add("reveal-ready");
-        }
-      });
-      document.addEventListener("focusin", (event) => {
-        const element = event.target.closest?.(".reveal");
-        if (element) {
-          show(element);
-          observer.unobserve(element);
-        }
-      });
-      motionPreference.addEventListener("change", (event) => {
-        if (event.matches) {
-          observer.disconnect();
-          elements.forEach(show);
-        }
-      });
-    } catch (error) {
-      observer?.disconnect();
-      elements.forEach(show);
-    }
-  }
-
-  function cinematicHero() {
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
-    const slides = all(".hero-slide", hero);
-    const dots = all("[data-go-slide]", hero);
-    const pause = hero.querySelector(".slideshow-pause");
-    const visual = hero.querySelector(".hero-visual");
-    if (slides.length < 2 || !pause || !visual) return;
-
-    let current = 0;
-    let paused =
-      motionPreference.matches || Boolean(navigator.connection?.saveData);
-    let inView = true;
-    let hovering = false;
-    let focused = false;
-    let interactionResume = false;
-    let advances = 0;
-    let timer = null;
-    const delay = 6500;
-    const slideContainer = hero.querySelector(".hero-slides");
-    slideContainer.setAttribute("aria-roledescription", "Karussell");
-    slideContainer.setAttribute("role", "group");
-    slides.forEach((slide, index) => {
-      slide.setAttribute("role", "group");
-      slide.setAttribute("aria-roledescription", "Bild");
-      slide.setAttribute("aria-label", `${index + 1} von ${slides.length}`);
-      slide.setAttribute("aria-hidden", String(index !== current));
-    });
-
-    function updateControls() {
-      pause.setAttribute("aria-pressed", String(paused));
-      pause.setAttribute(
-        "aria-label",
-        paused ? "Bildwechsel fortsetzen" : "Bildwechsel pausieren",
-      );
-      pause.textContent = paused ? "▷" : "Ⅱ";
-      pause.hidden = motionPreference.matches;
-    }
-
-    function show(index) {
-      current = (index + slides.length) % slides.length;
-      slides.forEach((slide, position) => {
-        const active = position === current;
-        slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", String(!active));
-      });
-      dots.forEach((dot) => {
-        const active = Number(dot.dataset.goSlide) === current;
-        dot.classList.toggle("is-active", active);
-        dot.setAttribute("aria-pressed", String(active));
-      });
-    }
-
-    function schedule() {
-      window.clearTimeout(timer);
-      timer = null;
-      if (
-        paused ||
-        motionPreference.matches ||
-        document.hidden ||
-        !inView ||
-        ((hovering || focused) && !interactionResume)
-      )
-        return;
-      timer = window.setTimeout(() => {
-        show(current + 1);
-        advances += 1;
-        // A short opening sequence settles after showing all three images.
-        // The visitor can restart it or explore directly with the controls.
-        if (advances >= slides.length - 1) paused = true;
-        updateControls();
-        schedule();
-      }, delay);
-    }
-
-    dots.forEach((dot) =>
-      dot.addEventListener("click", () => {
-        const index = Number(dot.dataset.goSlide);
-        if (!Number.isInteger(index) || index < 0 || index >= slides.length)
-          return;
-        paused = true;
-        interactionResume = false;
-        show(index);
-        updateControls();
-        schedule();
-      }),
-    );
-    pause.addEventListener("click", () => {
-      paused = !paused;
-      // An explicit Play action takes effect even while its control retains
-      // focus or hover. A new focus/hover interaction pauses the tour again.
-      interactionResume = !paused;
-      advances = 0;
-      updateControls();
-      schedule();
-    });
-    visual.addEventListener("pointerenter", (event) => {
-      if (event.pointerType === "mouse") {
-        hovering = true;
-        interactionResume = false;
-        schedule();
-      }
-    });
-    visual.addEventListener("pointerleave", () => {
-      hovering = false;
-      schedule();
-    });
-    visual.addEventListener("focusin", () => {
-      focused = true;
-      interactionResume = false;
-      schedule();
-    });
-    visual.addEventListener("focusout", (event) => {
-      focused = visual.contains(event.relatedTarget);
-      schedule();
-    });
-    document.addEventListener("visibilitychange", schedule);
-    window.addEventListener("pagehide", () => window.clearTimeout(timer));
-    window.addEventListener("pageshow", schedule);
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          inView = entries[0].isIntersecting;
-          schedule();
-        },
-        { threshold: 0.15 },
-      );
-      observer.observe(hero);
-    }
-    motionPreference.addEventListener("change", (event) => {
-      if (event.matches) {
-        paused = true;
-        document.body.classList.remove("intro-play");
-      }
-      updateControls();
-      schedule();
-    });
-
-    if (!motionPreference.matches) {
-      try {
-        const key = "alberto-intro-seen";
-        if (!sessionStorage.getItem(key)) {
-          sessionStorage.setItem(key, "1");
-          document.body.classList.add("intro-play");
-          window.setTimeout(
-            () => document.body.classList.remove("intro-play"),
-            2400,
-          );
-        }
-      } catch (error) {
-        // Browsing and image controls still work when storage is unavailable.
-      }
-    }
-    updateControls();
-    schedule();
-  }
-
   function searchableMenu() {
     const menu = document.querySelector("#menu-list");
     if (!menu) return;
@@ -354,6 +173,7 @@
     const input = menu.querySelector("#dish-search");
     const clear = menu.querySelector("#clear-search");
     const reset = menu.querySelector("#reset-menu");
+    const categorySelect = document.querySelector("#menu-category-select");
     const counter = menu.querySelector("#menu-count");
     const empty = menu.querySelector("#no-results");
     if (!input || !counter || !empty) return;
@@ -367,12 +187,14 @@
     const data = sections.map((section) => ({
       element: section,
       category: section.dataset.menuCategory,
+      title: section.querySelector("h2")?.textContent || "",
       items: all(".menu-item", section).map((element) => ({
         element,
         text: normalize(element.dataset.search || element.textContent),
       })),
     }));
-    const validCategories = new Set(data.map((section) => section.category));
+    const categoryTitles = new Map(data.map((section) => [section.category, section.title]));
+    const validCategories = new Set(categoryTitles.keys());
     const legacy = [
       "antipasti",
       "salate",
@@ -383,11 +205,24 @@
       "fleisch",
       "fisch",
       "getraenke",
-      "getraenke",
+      "bier",
       "wein",
-      "wein",
+      "aperitifs",
     ];
     let category = "all";
+    let lastRender = "";
+    let contentTimer = 0;
+
+    function contentChanged(afterTyping) {
+      window.clearTimeout(contentTimer);
+      if (afterTyping) {
+        // Results update synchronously. Expensive scroll measurements wait until
+        // typing settles, rather than competing with the next input event.
+        contentTimer = window.setTimeout(() => notifyContent(menu), 140);
+      } else {
+        notifyContent(menu);
+      }
+    }
 
     function categoryFromHash() {
       let hash;
@@ -398,6 +233,7 @@
       }
       const old = /^menu-(\d+)$/.exec(hash);
       if (old) hash = legacy[Number(old[1])] || "";
+      if (hash === "dolci") hash = "desserts";
       return validCategories.has(hash) ? hash : "all";
     }
 
@@ -412,8 +248,15 @@
       }
     }
 
-    function render() {
-      const terms = normalize(input.value).split(/\s+/).filter(Boolean);
+    function render(afterTyping = false) {
+      const query = normalize(input.value);
+      const renderKey = `${category}\n${query}`;
+      // Native search can fire after input, and history traversal can dispatch
+      // both popstate and hashchange. Avoid doing the same DOM work twice.
+      if (clear) clear.hidden = input.value.length === 0;
+      if (lastRender === renderKey) return;
+      lastRender = renderKey;
+      const terms = query.split(/\s+/).filter(Boolean);
       let count = 0;
       data.forEach((section) => {
         let visible = 0;
@@ -421,10 +264,10 @@
           const match =
             (category === "all" || category === section.category) &&
             terms.every((term) => item.text.includes(term));
-          item.element.hidden = !match;
+          if (item.element.hidden === match) item.element.hidden = !match;
           if (match) visible += 1;
         });
-        section.element.hidden = !visible;
+        if (section.element.hidden !== !visible) section.element.hidden = !visible;
         count += visible;
       });
       links.forEach((link) => {
@@ -432,17 +275,13 @@
           link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
       });
-      const categoryTitle =
-        category === "all"
-          ? ""
-          : sections
-              .find((section) => section.dataset.menuCategory === category)
-              ?.querySelector("h2")?.textContent;
+      if (categorySelect) categorySelect.value = category;
+      const categoryTitle = category === "all" ? "" : categoryTitles.get(category);
       counter.textContent = count
         ? `${count} ${count === 1 ? "Eintrag" : "Einträge"}${categoryTitle ? ` · ${categoryTitle}` : " auf unserer Karte"}${terms.length ? " für Ihre Suche" : ""}`
         : "Keine passenden Einträge gefunden.";
       empty.hidden = count !== 0;
-      if (clear) clear.hidden = input.value.length === 0;
+      contentChanged(afterTyping);
     }
 
     links.forEach((link) =>
@@ -463,15 +302,21 @@
         render();
         updateHash();
         if (menu.getBoundingClientRect().top < 0) {
-          menu.scrollIntoView({
-            behavior: motionPreference.matches ? "instant" : "smooth",
-            block: "start",
-          });
+          const immediate = event.detail === 0 || motionPreference.matches;
+          if (window.AlbertoMotion) window.AlbertoMotion.scrollToTarget(menu, { immediate });
+          else menu.scrollIntoView({ behavior: immediate ? "instant" : "smooth", block: "start" });
         }
       }),
     );
-    input.addEventListener("input", render);
-    input.addEventListener("search", render);
+    categorySelect?.addEventListener("change", () => {
+      const next = categorySelect.value;
+      if (next !== "all" && !validCategories.has(next)) return;
+      category = next;
+      render();
+      updateHash();
+    });
+    input.addEventListener("input", () => render(true));
+    input.addEventListener("search", () => render(true));
     clear?.addEventListener("click", () => {
       input.value = "";
       render();
@@ -520,6 +365,7 @@
         );
         if (counter)
           counter.textContent = `${count} ${count === 1 ? "Bild" : "Bilder"} angezeigt.`;
+        notifyContent(document.querySelector(".gallery-grid"));
       }),
     );
     if (counter && tiles.length)
@@ -561,7 +407,7 @@
           (item) => !item.closest("[data-gallery-category]")?.hidden,
         );
         show(visibleLinks.indexOf(link));
-        controls.open(link);
+        controls.open(link, event.detail === 0);
       }),
     );
     box
@@ -581,26 +427,150 @@
   function kitchenVideo() {
     const video = document.querySelector("#kitchen-video");
     if (!video) return;
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) video.pause();
-    });
-    window.addEventListener("pagehide", () => video.pause());
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (!entries[0].isIntersecting && !video.paused) video.pause();
-        },
-        { threshold: 0 },
-      );
-      observer.observe(video);
+    // Browsers without viewport observation retain their native controls.
+    if (!("IntersectionObserver" in window)) return;
+
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "video-toggle";
+    toggle.setAttribute("aria-controls", video.id);
+    let visible = false;
+    let autoplayVisible = false;
+    let pageHidden = false;
+    let userPaused = false;
+    let userStarted = false;
+    let autoplayBlocked = false;
+    let reducedMotion = motionPreference.matches;
+    let saveData = Boolean(connection?.saveData);
+    let playRequest = 0;
+    let playPending = false;
+
+    const updateButton = () => {
+      const playing = !video.paused || playPending;
+      toggle.textContent = playing ? "Video pausieren" : "Video abspielen";
+      toggle.setAttribute("aria-label", playing ? "Küchenvideo pausieren" : "Küchenvideo abspielen");
+      toggle.dataset.playing = String(playing);
+    };
+    const shouldPlay = () =>
+      visible && !document.hidden && !pageHidden && !userPaused &&
+      (userStarted || (!reducedMotion && !saveData && !autoplayBlocked &&
+        (autoplayVisible || !video.paused || playPending)));
+
+    function pause() {
+      // Invalidate a pending play promise: a late resolution must not restart
+      // playback after scrolling away, hiding the tab or pressing Pause.
+      playRequest += 1;
+      playPending = false;
+      video.pause();
+      updateButton();
     }
+
+    function syncPlayback() {
+      if (!shouldPlay()) {
+        pause();
+        return;
+      }
+      if (!video.paused || playPending) return;
+      const request = ++playRequest;
+      playPending = true;
+      updateButton();
+      try {
+        const result = video.play();
+        Promise.resolve(result).then(() => {
+          if (request !== playRequest) return;
+          playPending = false;
+          if (!shouldPlay()) pause();
+          else updateButton();
+        }).catch(() => {
+          if (request !== playRequest) return;
+          // Autoplay restrictions are normal browser behavior. Keep the poster
+          // and manual Play available, without unhandled promise rejections.
+          playPending = false;
+          autoplayBlocked = true;
+          userStarted = false;
+          updateButton();
+        });
+      } catch (_) {
+        playPending = false;
+        autoplayBlocked = true;
+        userStarted = false;
+        updateButton();
+      }
+    }
+
+    toggle.addEventListener("click", () => {
+      if (!video.paused || playPending) {
+        userPaused = true;
+        userStarted = false;
+        pause();
+      } else {
+        userPaused = false;
+        userStarted = true;
+        autoplayBlocked = false;
+        // A click can precede the observer callback after a quick scroll.
+        const rect = video.getBoundingClientRect();
+        visible = rect.bottom > 0 && rect.top < window.innerHeight &&
+          rect.right > 0 && rect.left < window.innerWidth;
+        syncPlayback();
+      }
+    });
+    video.addEventListener("play", () => {
+      if (!shouldPlay()) pause();
+      else updateButton();
+    });
+    video.addEventListener("pause", updateButton);
+    video.addEventListener("error", () => {
+      pause();
+      toggle.hidden = true;
+      video.controls = true;
+    });
+    document.addEventListener("visibilitychange", syncPlayback);
+    window.addEventListener("pagehide", () => {
+      pageHidden = true;
+      pause();
+    });
+    window.addEventListener("pageshow", () => {
+      pageHidden = false;
+      syncPlayback();
+    });
+    motionPreference.addEventListener("change", (event) => {
+      reducedMotion = event.matches;
+      // Changing the preference also stops an explicitly started video; the
+      // visitor can choose Play again in manual mode.
+      if (reducedMotion) userStarted = false;
+      syncPlayback();
+    });
+    connection?.addEventListener?.("change", () => {
+      saveData = Boolean(connection.saveData);
+      if (saveData) userStarted = false;
+      syncPlayback();
+    });
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[entries.length - 1];
+      visible = entry.isIntersecting && entry.intersectionRatio > 0;
+      autoplayVisible = entry.intersectionRatio >= 0.5;
+      syncPlayback();
+    }, { threshold: [0, 0.5] });
+
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    updateButton();
+    video.insertAdjacentElement("afterend", toggle);
+    observer.observe(video);
+    // This is last: a failed enhancement must leave the native player usable.
+    video.controls = false;
   }
 
   root.classList.add("js");
+  // Content is visible even when the optional GSAP enhancement cannot load.
+  all(".reveal").forEach((element) => {
+    element.classList.remove("reveal-ready");
+    element.classList.add("is-visible", "visible");
+  });
   [
     navigation,
-    reveals,
-    cinematicHero,
     searchableMenu,
     gallery,
     kitchenVideo,
