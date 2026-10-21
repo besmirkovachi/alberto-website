@@ -38,6 +38,12 @@ Baza e këtij ndryshimi në GitHub: `codex/alberto-premium-v1`, commit `40421e25
 
 Cream `#F5F1E8`, jeshile `#173B2E`, e kuqe `#A93D32`; Cormorant Garamond dhe Manrope. Fotot, logoja, videoja origjinale, oraret dhe lidhjet e porositjes ruhen nga V1.
 
+## Google dhe Lieferando
+
+Homepage ka seksionin Google dhe lidhjen direkte për të shkruar vlerësim. Lieferung ka seksionin Lieferando me tekstin e miratuar. Notat merren nga shërbimi opsional `server/`; nuk ruhen si numra statikë në HTML. Pa konfigurim ose kur burimi nuk përgjigjet, shfaqen lidhjet për vlerësimet aktuale.
+
+**Përditësimi automatik ende nuk është aktiv në hosting.** Duhet host që ekzekuton Node ose përcjell `/api/ratings`, si dhe `GOOGLE_PLACES_API_KEY` në cilësimet private të hostit. GitHub Pages dhe hapja offline nuk ekzekutojnë këtë shërbim. Shih `server/README.md` për konfigurimin dhe kufijtë e verifikimit.
+
 ## Lëvizja dhe përdorshmëria
 
 GSAP 3.15.0 + ScrollTrigger koordinojnë hyrjen “Firma Alberto” dhe animacionet diskrete. Lenis 1.3.26 përdoret vetëm në desktop me pointer të saktë; telefoni ruan scroll-in natyral. Reduced Motion çaktivizon hyrjen lëvizëse dhe scroll-in e zbutur. Hyrja me logon origjinale shfaqet në çdo hapje të re të Homepage (rreth 2.2 sekonda), përfshirë rifreskimin. Ndërpritet menjëherë gjatë ndërveprimit dhe nuk bllokon navigimin. Lidhjet drejt seksioneve, rikthimi te pozicioni i ruajtur, Reduced Motion dhe kursimi i të dhënave e ruajnë hapjen statike.

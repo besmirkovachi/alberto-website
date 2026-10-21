@@ -1,0 +1,42 @@
+/* Provider ratings stay separate from restaurant copy and never invent a score. */
+.guest-reviews {background:var(--paper-dark);border-top:1px solid var(--line)}
+.guest-reviews-grid {display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(36px,7vw,100px);align-items:center}
+.guest-reviews-copy h2,.delivery-reviews h2 {font-size:clamp(40px,4.4vw,68px);line-height:1.02;letter-spacing:-.035em;margin:22px 0}
+.guest-reviews-copy h2 em {color:var(--red)}
+.guest-reviews-copy>p:last-child {max-width:430px;font-size:16px;line-height:1.85}
+.rating-card {padding:clamp(26px,3.5vw,50px);background:var(--paper);border:1px solid #173b2e26;min-width:0}
+.rating-provider {display:block;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:0;margin-bottom:20px}
+.rating-card h3 {font-size:30px;line-height:1.15;margin-bottom:22px}
+.rating-scoreline {display:flex;align-items:center;flex-wrap:wrap;gap:18px}
+.rating-scoreline strong {font-family:var(--serif);font-size:70px;line-height:1;font-weight:500;font-variant-numeric:tabular-nums}
+.rating-stars {position:relative;display:inline-block;white-space:nowrap;font-size:25px;letter-spacing:3px;line-height:1.3}
+.rating-stars>span:first-child {color:#b9b5aa}
+.rating-stars>span:last-child {position:absolute;inset:0 auto 0 0;overflow:hidden;width:0;color:#956414}
+.rating-live>p,.rating-fallback {font-size:14px;line-height:1.8;margin-top:12px}
+.rating-live .rating-updated {font-size:11px;opacity:.8;margin-top:6px}
+.rating-card .button {margin-top:25px;min-height:50px;gap:20px}
+.rating-source {display:flex;align-items:center;gap:10px;width:fit-content;min-height:44px;margin-top:12px;font-size:12px;text-decoration:underline;text-underline-offset:5px}
+.rating-attributions {font-size:11px;line-height:1.6}
+.rating-attributions:empty {display:none}
+.delivery-reviews {display:grid;grid-template-columns:1.6fr 1fr;gap:50px;align-items:center;padding:clamp(30px,5vw,72px);margin-bottom:90px;background:var(--green);color:var(--paper)}
+.delivery-reviews h2 {font-size:clamp(38px,4vw,60px)}
+.delivery-reviews h2 em {color:#e7cfaa}
+.delivery-reviews-copy>p:not(.eyebrow) {font-size:15px;line-height:1.85;max-width:450px}
+.delivery-reviews .button {margin-top:26px;gap:22px}
+.delivery-rating {border-left:1px solid #f5f1e840;padding-left:40px;min-width:0}
+.delivery-rating .rating-stars>span:last-child {color:#e7cfaa}
+.delivery-rating .rating-stars>span:first-child {color:#f5f1e840}
+.delivery-reviews :focus-visible {outline-color:var(--paper)}
+@media (hover:hover) and (pointer:fine) {.rating-source:hover {text-decoration-thickness:2px}}
+@media(max-width:760px) {
+ .guest-reviews-grid,.delivery-reviews {grid-template-columns:minmax(0,1fr);gap:30px}
+ .guest-reviews-copy h2 {font-size:43px}
+ .rating-card {padding:28px 24px}
+ .rating-card h3 {font-size:29px}
+ .rating-scoreline strong {font-size:62px}
+ .rating-stars {font-size:23px;letter-spacing:2px}
+ .rating-card .button {font-size:12px;padding-inline:16px;gap:12px}
+ .delivery-reviews {padding:32px 24px;margin-bottom:60px}
+ .delivery-rating {padding:28px 0 0;border-left:0;border-top:1px solid #f5f1e840}
+ .delivery-reviews .button {font-size:12px;padding-inline:16px;gap:12px}
+}
