@@ -28,10 +28,13 @@ async function readLimited(response) {
       chunks.push(value);
     }
   } finally { await reader.cancel().catch(() => {}); }
-  return Buffer.concat(chunks).toString("utf8");
+  const joined = new Uint8Array(bytes);
+  let offset = 0;
+  for (const chunk of chunks) { joined.set(chunk, offset); offset += chunk.byteLength; }
+  return new TextDecoder().decode(joined);
 }
 
-function createRatingsService({ fetchImpl = fetch, googleKey = process.env.GOOGLE_PLACES_API_KEY, now = Date.now } = {}) {
+function createRatingsService({ fetchImpl = fetch, googleKey = (typeof process !== "undefined" ? process.env.GOOGLE_PLACES_API_KEY : undefined), now = Date.now } = {}) {
   // Coalesce simultaneous requests; do not persist or cache Google Places data.
   const pending = new Map();
   return async function getRating(provider) {

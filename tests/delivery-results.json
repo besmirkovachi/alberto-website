@@ -1,5 +1,5 @@
 {
-  "completedAt": "2026-10-21T10:44:35.481Z",
+  "completedAt": "2026-10-21T11:50:19.341Z",
   "passed": [
     "All nine pages: metadata, semantics, local links and referenced assets",
     "Social cards stay readable after touch interaction and keyboard focus",
@@ -34,10 +34,10 @@
     "search": {
       "environment": "Headless Chromium, 390×844 touch emulation, 4× CPU throttling; synthetic lab measurement, not field INP or a physical phone",
       "samples": 50,
-      "inputToSecondAnimationFrameP95Ms": 48.5,
-      "maximumMs": 88.3,
+      "inputToSecondAnimationFrameP95Ms": 40.9,
+      "maximumMs": 100.7,
       "longTasksOver50Ms": 3,
-      "longestTaskMs": 78
+      "longestTaskMs": 79
     },
     "hero-1440x900": {
       "width": 1440,
@@ -151,14 +151,17 @@
       "imageSource": "assets/hero.webp"
     }
   },
-  "screenshots": "/workspace/alberto-reviews-qa/full",
+  "screenshots": "/tmp/alberto-review-2026",
   "sourceCommit": "43749a496c5e66064a33e21137de92f53aaf341a",
   "menuSource": "Alberto_Menü_2026.pdf",
   "menuSourceSHA256": "1759cca442c4eea2817cd8e91efb962c6fc67c1ac68f37f9d057d5b474f49fa6",
   "sourceHashes": {
+    "_routes.json": "0f0881389438877459099ab37f9c03467654ca5eca776a6e2742c04a42c62a1f",
     "bestellen.html": "d9dfaab72e0204a4778590fb430cfb66a8d30391ad4495d0d648a125f019d41c",
-    "datenschutz.html": "4fb090a20817d4892789724bc0d9ca0396f2321633db9376db286a7f42fb29c9",
+    "datenschutz.html": "5d589bfaf1da992562f3135933cffdbd721f236f8695abe9e03a2057f98a4f37",
     "feiern.html": "950c1203881cf9a22e8c716b61544267915f81f1ced020b9673655c32fc962b8",
+    "functions/_middleware.js": "ac7145f1af91094cc3104995611b9bceb6ebe5c5cebe154426aadf8d5bdc4e57",
+    "functions/api/ratings.js": "b3624d449dcd4761ecd160d8f727bf6758e8a89b2dd826352900b883661e3734",
     "galerie.html": "4799d6f8df813bcf822da99a68ddcfd883745047a95064bae2b6a331932c6d4c",
     "impressum.html": "1dd701b394dee9c2e36933aebf277b523e8e1d9724b53a4e88d3841943033861",
     "index.html": "03f72fc185dd106b3ccac68cc9fb849a3efd0e8a19d610cf1958751ef9f4a201",
@@ -171,17 +174,17 @@
     "ratings.js": "cbf2ac81187e00500bf8119d85f43b1256356411b995fef73082dd245c3595c6",
     "script.js": "1a049eb58529936f0b62fd645d2388b5bffa1b046a88a7c29ad6e68a8321009f",
     "scripts/build.py": "e208d11a31667ece47f3c02138c7cb87e9ddfec45c233348d7d57cb6a75a0518",
-    "scripts/package.py": "17fc9f0622c453f2e0b05db717b13cd150757bf83c4bda2e8766ef4f5cacd4bb",
+    "scripts/package.py": "6ee12f100de81120a3b55c5648d4cc1c156469e4ff5e0a8f68952f3248adba2e",
     "scripts/social.py": "e20477d2dc8aa955984de4c8bd401af9bcab236f1b468091cf6aec22c5d24dbf",
     "scripts/vendor-motion.cjs": "adb743145ebaa1fef86bb728a09f7d6e20aafe3e96a7b7b8648babf09d9c5c27",
     "server/index.cjs": "2c7a33b5d7a501ed01eb6f0e30f5fe1de0d4f1e95dcde5f6ca2d93e463b74be6",
-    "server/ratings.cjs": "478a7fa0f7e1844f1dc166756b8107f9a771d5ab6a0922bfe375723e047d9dec",
+    "server/ratings.cjs": "f0cadc0be3c293f119d940f691f08676ec50c7ce3c443cfe6ea5e9160b89bfec",
     "service-pages.css": "35fe6083a95341b4c75c947a4fa96a0b6511d9b79d2d0105dfdca49868e60eaa",
     "speisekarte.html": "d06805af2c96636cbb46bae422f173e9cf321607655b10a89e531b492099ef45",
     "story-pages.css": "c19c3f82d49fd265951b0ae82edaccb3bafd80f0e9ec2e756caf1389acbf244b",
     "style.css": "ac9bfbcd05de356ce96088756c57c58ec719eb6590e412849ad1ef06f09a5bb2",
     "templates/bestellen.html": "44ed77dedcec80adf2e512b1ed5db6be2d662cabf2f13ad8ba11581e3a833683",
-    "templates/datenschutz.html": "de16c14d04d7ec305a232be064f7864b77235c1439364bce2162dd0d0c1a60dc",
+    "templates/datenschutz.html": "65a5de58fc5e541830f36aaf76542e3656e6aed3041db3eaf1370c77dfcd58c4",
     "templates/feiern.html": "cd72d8e9b4f1ee541a3684745af5b9eafbb4985130ab4561e8fb12d4ca1ccbc8",
     "templates/galerie.html": "7e14a2f6c6b7666140316bc5164107839054b0421759d399e65a4039cd68df37",
     "templates/impressum.html": "0a61e0a7cd8ca444442559f46238feaf634c7ebaacdd9b49b842e57f963a3f77",
@@ -189,7 +192,7 @@
     "templates/kontakt.html": "570b69b7066208ab57d1d0b0f7c729445634de01e8ccd87c6b2200295f8f8a64",
     "templates/speisekarte.html": "c242018e88e814fc2549e87620dcca6f9c737e597798148ac2f9bc0b443be337",
     "templates/ueber-uns.html": "ba9609f4692d3c7c0c58b5a3504c73b2f4d619de133f158c587e377a09b983e0",
-    "tests/browser.cjs": "aaad14fdde1fb13dee49be6c6694eabbe3e4a0c80d70e5972ff338e653f5ce19",
+    "tests/browser.cjs": "aba35573f03cd710de4242e3b81e4949b0e566a19bdc4ed552423780d4c36f7b",
     "tests/menu-2026.json": "2827b120f6f5f32a939ceb9ca773c4437ba057d233604d749fbb060651ee5d0d",
     "tests/ratings-browser.cjs": "5f816b7328663eb925c2837a608e06d12c7c6cb299999ea0d21ad7cf91f331a8",
     "tests/ratings.cjs": "745a855595b3dfece1d8e94b3cd20ec970827e0208bf2759cf45224509dc5b67",

@@ -94,3 +94,7 @@ python3 scripts/package.py
 Testet kërkojnë Playwright dhe Chromium vetëm gjatë zhvillimit; udhëzimet janë te `tests/README.md`. Paketimi kontrollon raportin e testimit dhe integritetin SHA-256. ZIP-i i ri quhet `ALBERTO-WEBSITE-V1-MENU-2026.zip`.
 
 Ky variant mbetet draft me `noindex` dhe `robots.txt: Disallow: /`. Për domain-in përfundimtar gjeneratori mbështet `SITE_URL=https://domain-i` dhe `SITE_INDEXABLE=1`; këto nuk janë aktivizuar. Faqet ligjore ruajnë të dhënat ekzistuese të V1.
+
+## Cloudflare Pages
+
+Native Pages Functions support the ratings endpoint with an empty build command and output directory `.`. See [server/README.md](server/README.md) for Google Secret setup and deployment verification. Live ratings remain unverified until deployment and provider configuration.

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/assets/*",
+    "/style.css",
+    "/premium.css",
+    "/menu-premium.css",
+    "/story-pages.css",
+    "/service-pages.css",
+    "/ratings.css",
+    "/script.js",
+    "/motion.js",
+    "/ratings.js",
+    "/menu.json",
+    "/robots.txt"
+  ]
+}
