@@ -1,3 +1,7 @@
+## Current Google display: manual, no paid API
+
+The homepage displays the owner-provided Google score **4.7/5** and only “Bewerte uns auf Google”, linking directly to writing a review. The score is updated manually in `templates/index.html` and regenerated with `python3 scripts/build.py`. No review count is asserted. The homepage does not load the ratings client or request Google Places. No Google API key or billing activation is needed. The optional Google backend below is unused; Lieferando automatic fetching remains separate.
+
 # Alberto Website V1 — Premium · Menu 2026
 
 Website me nëntë faqe, bazuar në branch-in e konfirmuar `codex/alberto-premium-v1`, commit `43749a496c5e66064a33e21137de92f53aaf341a`, dhe në variantin premium të dorëzuar më parë. Menuja është përditësuar nga **Alberto_Menü_2026.pdf**. Përditësimet zhvillohen në branch-e të veçanta dhe shqyrtohen me pull request drejt V1; ky variant mbetet i papublikuar.

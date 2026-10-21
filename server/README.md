@@ -1,3 +1,7 @@
+## Current Google display: manual, no paid API
+
+The homepage displays the owner-provided Google score **4.7/5** and only “Bewerte uns auf Google”, linking directly to writing a review. The score is updated manually in `templates/index.html` and regenerated with `python3 scripts/build.py`. No review count is asserted. The homepage does not load the ratings client or request Google Places. No Google API key or billing activation is needed. The optional Google backend below is unused; Lieferando automatic fetching remains separate.
+
 # Cloudflare Pages deployment
 
 Production branch: `codex/alberto-premium-v1`. Framework: None. Build command: empty. Output directory: `.`.

@@ -32,6 +32,6 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE || '/opt/codex/runtimes/c
   await page.close();
   // Real fallback previews, without manufactured scores, for the owner's review.
   for(const width of [1440,390]){const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});for(const slug of ['index','bestellen']){await page.goto(`${base}/${slug}.html`);const card=page.locator('[data-rating-provider]');await card.scrollIntoViewIfNeeded();await card.screenshot({path:`${out}/${slug}-${width}.png`});}await page.close();}
-  assert.deepEqual(errors,[]);console.log('PASS live ratings: desktop/mobile layout, direct Google review link, automatic score refresh, changing five-star claim, outage fallback, no browser errors');
+  assert.equal(calls.includes('google'),false,'Manual Google rating must not request the paid API');assert.deepEqual(errors,[]);console.log('PASS live ratings: desktop/mobile layout, direct Google review link, automatic score refresh, changing five-star claim, outage fallback, no browser errors');
  }finally{await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1});

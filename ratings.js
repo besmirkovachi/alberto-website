@@ -7,7 +7,7 @@
   try { endpoint = new URL(configured, location.href); } catch (_) { return; }
   if (endpoint.origin !== location.origin) return;
   const MAX_AGE = 5 * 60 * 1000;
-  const cards = [...document.querySelectorAll("[data-rating-provider]")].map(element => ({ element, provider: element.dataset.ratingProvider, checkedAt: 0, pending: false, visible: false, expiry: null }));
+  const cards = [...document.querySelectorAll('[data-rating-provider]:not([data-rating-mode="manual"])')].map(element => ({ element, provider: element.dataset.ratingProvider, checkedAt: 0, pending: false, visible: false, expiry: null }));
   const number = new Intl.NumberFormat("de-DE");
   const score = new Intl.NumberFormat("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   function reset(card) {
