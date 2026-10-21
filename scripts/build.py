@@ -139,7 +139,7 @@ for page,(title,desc) in PAGES.items():
     if page in ('ueber-uns','galerie','feiern'): css_files.append('story-pages.css')
     if page in ('bestellen','kontakt','impressum','datenschutz'): css_files.append('service-pages.css')
     if page in ('index','bestellen'): css_files.append('ratings.css')
-    ratings_assets = '<meta name="alberto-ratings-endpoint" content=""><script src="ratings.js" defer></script>' if page == 'bestellen' else ''
+    ratings_assets = ''  # Provider links are static; no background ratings requests.
     page_styles=''.join(f'<link rel="stylesheet" href="{name}">' for name in css_files)
     canonical=SITE_URL+('/' if page=='index' else '/'+page+'.html') if SITE_URL else ''
     metadata=f'<link rel="canonical" href="{escape(canonical)}"><meta property="og:url" content="{escape(canonical)}">' if canonical else ''

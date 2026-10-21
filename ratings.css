@@ -40,3 +40,9 @@
  .delivery-rating {padding:28px 0 0;border-left:0;border-top:1px solid #f5f1e840}
  .delivery-reviews .button {font-size:12px;padding-inline:16px;gap:12px}
 }
+
+/* Compact provider link inside the existing delivery card. */
+.page-bestellen .lieferando-review-link {display:flex;flex-wrap:wrap;align-items:center;gap:8px;width:fit-content;min-height:44px;margin:-12px 0 12px;font:600 12px/1.4 var(--sans);color:var(--green);text-decoration:none}
+.page-bestellen .lieferando-review-stars {color:#956414;font-size:18px;letter-spacing:2px;white-space:nowrap}
+.page-bestellen .lieferando-review-link:hover {text-decoration:underline;text-underline-offset:4px}
+.page-bestellen .lieferando-review-link:focus-visible {outline:2px solid var(--green);outline-offset:4px}
