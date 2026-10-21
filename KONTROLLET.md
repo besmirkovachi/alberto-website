@@ -1,5 +1,11 @@
 # Kontrolli i dorëzimit — Alberto V1 Premium · Menu 2026
 
+## Vlerësimet Google dhe Lieferando
+
+Shtohen seksionet për vlerësime në Homepage dhe Lieferung, lidhja Google për të shkruar vlerësim dhe shërbimi opsional për marrjen automatike të notave. Pesë teste të shërbimit dhe testi i browser-it për përditësim, ndryshim note dhe dështim burimi kaluan. Testi i browser-it përdor të dhëna prove, jo lidhje aktive me Google.
+
+**Aktivizimi real mbetet i papërfunduar:** hostingu nuk është konfirmuar dhe nuk ka çelës Google Places të konfiguruar. Kërkesa direkte e serverit drejt Lieferando nuk përfundoi me sukses në këtë ambient; faqja publike u lexua përmes mjetit web. Pa lidhje funksionale faqja tregon vetëm lidhjet e burimeve, pa nota të shpikura. Hollësitë te `server/README.md`.
+
 ## Përditësimi i Homepage
 
 Fotografia origjinale tani mbush gjerësinë dhe pjesën kryesore të ekranit të parë. Hyrja GSAP e logos luhet në çdo hapje të re dhe rifreskim; preferencat e lëvizjes, lidhjet me ankorë dhe ndërprerja gjatë ndërveprimit respektohen.
@@ -59,3 +65,7 @@ Chromium headless, pamje 390 × 844 me touch dhe CPU të ngadalësuar 4×; 50 mo
 `tests/delivery-results.json` regjistron kontrollet dhe hash-et e burimeve të testuara. Paketimi ndalon nëse ato ndryshojnë pas kontrollit. `MANIFEST.json` dhe testi CRC verifikojnë skedarët brenda ZIP-it. Paketa e re është **ALBERTO-WEBSITE-V1-MENU-2026.zip**. Për hapje ndiq `LEXO-FILLIMISHT.txt`.
 
 Në këtë përditësim u përdorën udhëzimet emil-design-eng, mobile-native, animation-performance dhe review-animations nga koleksioni i disponueshëm me 10 Skills. Cloud Environment u përdor për ambientin e ekzekutimit. Nuk u shtua framework, bibliotekë ikonash apo shërbim i ri publikimi.
+
+## Cloudflare Pages — vlerësimet
+
+U shtuan Pages Functions për API-n dhe aktivizimin e dy seksioneve pa build command (output `.`). Wrangler 4.151.3 e kompiloi paketën; runtime lokal verifikoi faqet, API-n pa çelës, 400/405 dhe bllokimin e skedarëve teknikë. Pesë teste të provider/server dhe testet e browser-it për rifreskim/fallback kaluan. Google Secret dhe kërkesat reale nga deploy-i mbeten për verifikim; aksesin te pages.dev e bllokon proxy i këtij ambienti. Nuk u bë merge ose deployment në këtë hap.

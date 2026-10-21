@@ -1151,7 +1151,8 @@ async function main() {
       ...fs.readdirSync(root).filter((file) => /\.(html|css|js)$/.test(file) || file === "menu.json"),
       ...fs.readdirSync(path.join(root, "scripts")).filter((file) => /\.(py|cjs)$/.test(file)).map((file) => `scripts/${file}`),
       ...fs.readdirSync(path.join(root, "templates")).filter((file) => file.endsWith(".html")).map((file) => `templates/${file}`),
-      "tests/browser.cjs", "tests/menu-2026.json", "tests/v1-menu.json",
+      "_routes.json", "functions/_middleware.js", "functions/api/ratings.js", "tests/browser.cjs", "tests/menu-2026.json", "tests/v1-menu.json", "tests/ratings.cjs", "tests/ratings-browser.cjs",
+      ...fs.readdirSync(path.join(root, "server")).filter(file => file.endsWith(".cjs")).map(file => `server/${file}`),
     ].sort();
     const sourceHashes = Object.fromEntries(hashedFiles.map((file) => [file, crypto.createHash("sha256").update(fs.readFileSync(path.join(root, file))).digest("hex")]));
     const report = {

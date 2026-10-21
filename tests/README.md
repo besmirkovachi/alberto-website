@@ -29,3 +29,5 @@ Checks cover:
 The direct `file://` opening check is attempted. If Chromium explicitly returns `ERR_BLOCKED_BY_ADMINISTRATOR`, only that check is recorded as skipped with its reason. Browser policy is never disabled. All pages and assets still undergo the local HTTP checks; the skipped case must not be reported as verified direct file opening.
 
 `delivery-results.json` records passed/failed/skipped checks, browser errors, lab measurements and SHA-256 hashes of tested source files. `scripts/package.py` rejects failures or changed sources. Screenshots must also be reviewed visually. These checks are not a field INP measurement, a real iPhone/Safari test, or a live test of ordering/reservation providers.
+
+Automatic rating adapter checks: `node --test tests/ratings.cjs` and `node tests/ratings-browser.cjs`. The latter uses controlled provider fixtures; it does not prove live Google API access. Production HTML contains no fixture scores. See `server/README.md` for activation status.

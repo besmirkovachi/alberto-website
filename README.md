@@ -1,3 +1,7 @@
+## Current Google display: manual, no paid API
+
+The homepage displays the owner-provided Google score **4.7/5** and only “Bewerte uns auf Google”, linking directly to writing a review. The score is updated manually in `templates/index.html` and regenerated with `python3 scripts/build.py`. No review count is asserted. The homepage does not load the ratings client or request Google Places. No Google API key or billing activation is needed. The optional Google backend below is unused; Lieferando automatic fetching remains separate.
+
 # Alberto Website V1 — Premium · Menu 2026
 
 Website me nëntë faqe, bazuar në branch-in e konfirmuar `codex/alberto-premium-v1`, commit `43749a496c5e66064a33e21137de92f53aaf341a`, dhe në variantin premium të dorëzuar më parë. Menuja është përditësuar nga **Alberto_Menü_2026.pdf**. Përditësimet zhvillohen në branch-e të veçanta dhe shqyrtohen me pull request drejt V1; ky variant mbetet i papublikuar.
@@ -37,6 +41,12 @@ Baza e këtij ndryshimi në GitHub: `codex/alberto-premium-v1`, commit `40421e25
 - Video e kuzhinës që nis pa zë kur hyn në pamje, me loop, poster, pauzë jashtë pamjes dhe kontroll të përdoruesit.
 
 Cream `#F5F1E8`, jeshile `#173B2E`, e kuqe `#A93D32`; Cormorant Garamond dhe Manrope. Fotot, logoja, videoja origjinale, oraret dhe lidhjet e porositjes ruhen nga V1.
+
+## Google dhe Lieferando
+
+Homepage ka seksionin Google dhe lidhjen direkte për të shkruar vlerësim. Lieferung ka seksionin Lieferando me tekstin e miratuar. Notat merren nga shërbimi opsional `server/`; nuk ruhen si numra statikë në HTML. Pa konfigurim ose kur burimi nuk përgjigjet, shfaqen lidhjet për vlerësimet aktuale.
+
+**Përditësimi automatik ende nuk është aktiv në hosting.** Duhet host që ekzekuton Node ose përcjell `/api/ratings`, si dhe `GOOGLE_PLACES_API_KEY` në cilësimet private të hostit. GitHub Pages dhe hapja offline nuk ekzekutojnë këtë shërbim. Shih `server/README.md` për konfigurimin dhe kufijtë e verifikimit.
 
 ## Lëvizja dhe përdorshmëria
 
@@ -88,3 +98,7 @@ python3 scripts/package.py
 Testet kërkojnë Playwright dhe Chromium vetëm gjatë zhvillimit; udhëzimet janë te `tests/README.md`. Paketimi kontrollon raportin e testimit dhe integritetin SHA-256. ZIP-i i ri quhet `ALBERTO-WEBSITE-V1-MENU-2026.zip`.
 
 Ky variant mbetet draft me `noindex` dhe `robots.txt: Disallow: /`. Për domain-in përfundimtar gjeneratori mbështet `SITE_URL=https://domain-i` dhe `SITE_INDEXABLE=1`; këto nuk janë aktivizuar. Faqet ligjore ruajnë të dhënat ekzistuese të V1.
+
+## Cloudflare Pages
+
+Native Pages Functions support the ratings endpoint with an empty build command and output directory `.`. See [server/README.md](server/README.md) for Google Secret setup and deployment verification. Live ratings remain unverified until deployment and provider configuration.
