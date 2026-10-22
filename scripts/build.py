@@ -9,8 +9,8 @@ from urllib.parse import urlsplit
 from social import social_links
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE_URL = os.environ.get('SITE_URL', '').rstrip('/')
-INDEXABLE = os.environ.get('SITE_INDEXABLE') == '1'
+SITE_URL = os.environ.get('SITE_URL', 'https://restaurantalberto.de').rstrip('/')
+INDEXABLE = os.environ.get('SITE_INDEXABLE', '1') == '1'
 if SITE_URL:
     parsed = urlsplit(SITE_URL)
     if (parsed.scheme != 'https' or not parsed.hostname or parsed.username
@@ -141,7 +141,7 @@ for page,(title,desc) in PAGES.items():
     if page in ('index','bestellen'): css_files.append('ratings.css')
     ratings_assets = ''  # Provider links are static; no background ratings requests.
     page_styles=''.join(f'<link rel="stylesheet" href="{name}">' for name in css_files)
-    canonical=SITE_URL+('/' if page=='index' else '/'+page+'.html') if SITE_URL else ''
+    canonical=SITE_URL+('/' if page=='index' else '/'+page) if SITE_URL else ''
     metadata=f'<link rel="canonical" href="{escape(canonical)}"><meta property="og:url" content="{escape(canonical)}">' if canonical else ''
     html=f'''<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#173b2e">
@@ -154,7 +154,7 @@ for page,(title,desc) in PAGES.items():
     html=html.replace('↗',arrow).replace('✳',flower)
     (ROOT/f'{page}.html').write_text(html)
 if SITE_URL:
-    urls=''.join(f'<url><loc>{escape(SITE_URL+("/" if p=="index" else "/"+p+".html"))}</loc></url>' for p in PAGES)
+    urls=''.join(f'<url><loc>{escape(SITE_URL+("/" if p=="index" else "/"+p))}</loc></url>' for p in PAGES)
     (ROOT/'sitemap.xml').write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
 elif (ROOT/'sitemap.xml').exists():
     (ROOT/'sitemap.xml').unlink()

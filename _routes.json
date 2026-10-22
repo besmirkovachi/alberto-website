@@ -15,6 +15,7 @@
     "/motion.js",
     "/ratings.js",
     "/menu.json",
-    "/robots.txt"
+    "/robots.txt",
+    "/sitemap.xml"
   ]
 }

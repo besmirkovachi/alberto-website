@@ -10,7 +10,7 @@ ARCHIVE = ROOT.parent / 'ALBERTO-WEBSITE-V1-MENU-2026.zip'
 PAGES = ['index', 'speisekarte', 'ueber-uns', 'galerie', 'feiern', 'bestellen', 'kontakt', 'impressum', 'datenschutz']
 FILES = [name + '.html' for name in PAGES] + [
     'style.css', 'premium.css', 'menu-premium.css', 'story-pages.css', 'service-pages.css',
-    '_routes.json', 'script.js', 'motion.js', 'ratings.js', 'ratings.css', 'menu.json', 'package.json', 'package-lock.json', 'robots.txt',
+    '_routes.json', 'script.js', 'motion.js', 'ratings.js', 'ratings.css', 'menu.json', 'package.json', 'package-lock.json', 'robots.txt', 'sitemap.xml', '_headers',
     'README.md', 'LEXO-FILLIMISHT.txt', 'KONTROLLET.md', 'THIRD-PARTY.md',
 ]
 for directory in ['assets', 'templates', 'scripts', 'tests', 'server', 'functions']:
