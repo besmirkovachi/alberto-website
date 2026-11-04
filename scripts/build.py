@@ -44,13 +44,13 @@ def image_token(match):
 
 def nav(page, mobile=False, items=None):
     links = ([('index','Startseite')]+NAV) if mobile else (NAV if items is None else items)
-    return ''.join(f'<a href="{slug}.html" {"aria-current=page" if slug==page else ""}><span>{label}</span>{"<span aria-hidden=true>↗</span>" if mobile else ""}</a>' for slug,label in links)
+    return ''.join(f'<a href="{'/' if slug == 'index' else '/' + slug}" {"aria-current=page" if slug==page else ""}><span>{label}</span>{"<span aria-hidden=true>↗</span>" if mobile else ""}</a>' for slug,label in links)
 
 def header(page):
     return f'''<a class="skip-link" href="#main">Zum Inhalt springen</a>
 <header class="site-header"><div class="header-inner">
 <nav class="desktop-nav nav-left" aria-label="Restaurant entdecken">{nav(page,items=NAV[:3])}</nav>
-<a class="brand" href="index.html" aria-label="Alberto Ristorante · Pizzeria – Startseite"><img src="assets/logo.png" alt="Alberto" width="1600" height="300"><span>RISTORANTE · PIZZERIA</span></a>
+<a class="brand" href="/" aria-label="Alberto Ristorante · Pizzeria – Startseite"><img src="assets/logo.png" alt="Alberto" width="1600" height="300"><span>RISTORANTE · PIZZERIA</span></a>
 <nav class="desktop-nav nav-right" aria-label="Besuch planen">{nav(page,items=NAV[3:])}</nav>
 <button class="nav-toggle" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false"><span>Menü</span><span class="menu-lines" aria-hidden="true"></span></button>
 </div></header>
@@ -58,14 +58,14 @@ def header(page):
 <noscript><nav class="nojs-nav" aria-label="Seitennavigation">{nav(page,True)}</nav></noscript>'''
 
 def footer(page=""):
-    mobile_target = "bestellen.html" if page == "speisekarte" else "speisekarte.html"
+    mobile_target = "/bestellen" if page == "speisekarte" else "/speisekarte"
     mobile_label = "Bestellen" if page == "speisekarte" else "Speisekarte"
-    return f'''<footer class="site-footer"><div class="container footer-top"><div class="footer-intro"><span class="eyebrow">A presto, bei Alberto.</span><p class="footer-heading">Das gute Leben<br>beginnt am <em>Tisch.</em></p><span class="tricolore" aria-hidden="true"></span></div><div><h2>Hier sind wir</h2><address>Ristorante Pizzeria Alberto<br>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><h2>Unsere Öffnungszeiten</h2><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><p class="footer-muted">Mittwoch Ruhetag</p><a href="tel:+4976216869205">+49 7621 686 92 05</a></div></div><nav class="container footer-nav" aria-label="Weitere Seiten">{nav('')}</nav><div class="container footer-bottom"><a class="footer-logo" href="index.html" aria-label="Alberto – Startseite"><img src="assets/logo.png" width="1600" height="300" alt="Alberto"></a><div class="footer-social"><p class="eyebrow">Alberto auf Social Media</p>{social_links()}</div><div class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><span>© Alberto</span></div></div></footer>
+    return f'''<footer class="site-footer"><div class="container footer-top"><div class="footer-intro"><span class="eyebrow">A presto, bei Alberto.</span><p class="footer-heading">Das gute Leben<br>beginnt am <em>Tisch.</em></p><span class="tricolore" aria-hidden="true"></span></div><div><h2>Hier sind wir</h2><address>Ristorante Pizzeria Alberto<br>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><h2>Unsere Öffnungszeiten</h2><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><p class="footer-muted">Mittwoch Ruhetag</p><a href="tel:+4976216869205">+49 7621 686 92 05</a></div></div><nav class="container footer-nav" aria-label="Weitere Seiten">{nav('')}</nav><div class="container footer-bottom"><a class="footer-logo" href="/" aria-label="Alberto – Startseite"><img src="assets/logo.png" width="1600" height="300" alt="Alberto"></a><div class="footer-social"><p class="eyebrow">Alberto auf Social Media</p>{social_links()}</div><div class="legal-links"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><span>© Alberto</span></div></div></footer>
 <div class="mobile-actions"><a href="tel:+4976216869205"><span aria-hidden="true">↗</span> Anrufen</a><a href="{mobile_target}">{mobile_label} <span aria-hidden="true">↗</span></a></div>
 <dialog class="lightbox" id="lightbox" aria-label="Bildergalerie"><button class="icon-button lightbox-close" aria-label="Bild schließen">×</button><div class="lightbox-stage"><button class="icon-button lightbox-prev" aria-label="Vorheriges Bild">←</button><figure><img alt=""><figcaption id="lightbox-caption" aria-live="polite"></figcaption></figure><button class="icon-button lightbox-next" aria-label="Nächstes Bild">→</button></div></dialog>'''
 
 def contact():
-    return f'''<section class="visit section-space" aria-labelledby="visit-title"><div class="container visit-grid"><div class="reveal"><p class="eyebrow"><span class="tiny-dot"></span> Ci vediamo</p><h2 id="visit-title">Ein guter Ort.<br>Für eine <em>gute Zeit.</em></h2><p>Mittags eine kleine Auszeit. Abends noch ein bisschen bleiben.<br class="desktop-only"> Wir freuen uns auf Sie.</p><a class="text-link" href="kontakt.html">Kontakt & Anfahrt <span aria-hidden="true">↗</span></a></div><div class="visit-details reveal"><div><span class="eyebrow">Besuchen</span><address>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><span class="eyebrow">Genießen</span><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><span class="muted">Mittwoch Ruhetag</span></div><a class="visit-phone" href="tel:+4976216869205">+49 7621 686 92 05 <span aria-hidden="true">↗</span></a></div></div></section>'''
+    return f'''<section class="visit section-space" aria-labelledby="visit-title"><div class="container visit-grid"><div class="reveal"><p class="eyebrow"><span class="tiny-dot"></span> Ci vediamo</p><h2 id="visit-title">Ein guter Ort.<br>Für eine <em>gute Zeit.</em></h2><p>Mittags eine kleine Auszeit. Abends noch ein bisschen bleiben.<br class="desktop-only"> Wir freuen uns auf Sie.</p><a class="text-link" href="/kontakt">Kontakt & Anfahrt <span aria-hidden="true">↗</span></a></div><div class="visit-details reveal"><div><span class="eyebrow">Besuchen</span><address>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><span class="eyebrow">Genießen</span><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><span class="muted">Mittwoch Ruhetag</span></div><a class="visit-phone" href="tel:+4976216869205">+49 7621 686 92 05 <span aria-hidden="true">↗</span></a></div></div></section>'''
 
 def menu():
     categories=json.loads((ROOT/'menu.json').read_text())
@@ -130,7 +130,7 @@ def gallery():
     return out+'</div>'
 
 schema={'@context':'https://schema.org','@type':'Restaurant','name':'Ristorante Pizzeria Alberto','telephone':'+4976216869205','email':'info@restaurant-alberto.de','servesCuisine':'Italian','address':{'@type':'PostalAddress','streetAddress':'Holzmattenweg 13','postalCode':'79576','addressLocality':'Weil am Rhein','addressCountry':'DE'},'openingHoursSpecification':[{'@type':'OpeningHoursSpecification','dayOfWeek':['Monday','Tuesday','Thursday','Friday','Saturday','Sunday'],'opens':start,'closes':end} for start,end in [('11:30','14:00'),('17:00','22:30')]]}
-if SITE_URL: schema.update(url=SITE_URL,image=SITE_URL+'/assets/hero.webp',hasMenu=SITE_URL+'/speisekarte.html')
+if SITE_URL: schema.update(url=SITE_URL,image=SITE_URL+'/assets/hero.webp',hasMenu=SITE_URL+'/speisekarte')
 
 for page,(title,desc) in PAGES.items():
     body=(ROOT/'templates'/f'{page}.html').read_text()

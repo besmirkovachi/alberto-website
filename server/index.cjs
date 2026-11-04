@@ -4,6 +4,18 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const { createRatingsService } = require("./ratings.cjs");
 const ROOT = path.resolve(__dirname, "..");
+// Resolve only the nine public clean URLs; retain existing .html behavior.
+const PAGE_FILES = new Map([
+  ["/", "index.html"],
+  ["/speisekarte", "speisekarte.html"],
+  ["/ueber-uns", "ueber-uns.html"],
+  ["/galerie", "galerie.html"],
+  ["/feiern", "feiern.html"],
+  ["/bestellen", "bestellen.html"],
+  ["/kontakt", "kontakt.html"],
+  ["/impressum", "impressum.html"],
+  ["/datenschutz", "datenschutz.html"],
+]);
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".svg": "image/svg+xml", ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".woff2": "font/woff2", ".mp4": "video/mp4", ".txt": "text/plain", ".xml": "application/xml" };
 function createServer({ getRating = createRatingsService() } = {}) {
   return http.createServer(async (req, res) => {
@@ -19,7 +31,8 @@ function createServer({ getRating = createRatingsService() } = {}) {
         if (req.method === "HEAD") return res.end();
         return res.end(JSON.stringify(await getRating(provider)));
       }
-      const name = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname).slice(1);
+      const pathname = decodeURIComponent(url.pathname);
+      const name = PAGE_FILES.get(pathname) || pathname.slice(1);
       // Serve only public website files; never .env, server source or Git metadata.
       const publicRoot = /^(?:[a-z][a-z0-9-]*\.(?:html|css|js)|menu\.json|robots\.txt|sitemap\.xml)$/.test(name);
       const publicAsset = /^assets\/(?:[a-zA-Z0-9_-]+\/)*[a-zA-Z0-9_.-]+\.(?:css|js|svg|webp|png|jpg|woff2|mp4)$/.test(name);

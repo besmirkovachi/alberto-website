@@ -2,7 +2,7 @@
 
 Build first with `python3 scripts/build.py`, then run `node tests/browser.cjs`.
 
-Playwright and Chromium are development-only tools. The script starts and stops its own local Python HTTP server. Use an installed `playwright` module or set `PLAYWRIGHT_MODULE`; the managed environment also provides it at `/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright`. `CHROMIUM_PATH` defaults to `/usr/bin/chromium`.
+Playwright and Chromium are development-only tools. The script starts and stops `tests/static-server.py`, a test-only Python server that resolves clean page URLs for both GET and HEAD. It does not emulate Cloudflare redirects, Functions, or production headers. Use `BASE_URL` to test against a local Cloudflare Pages runtime. Use an installed `playwright` module or set `PLAYWRIGHT_MODULE`; the managed environment also provides it at `/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright`. `CHROMIUM_PATH` defaults to `/usr/bin/chromium`.
 
 Options:
 
@@ -26,7 +26,7 @@ Checks cover:
 - All nine pages at 1440, 820, 390, 360 and 320 pixels.
 - Content and navigation without JavaScript or optional animation libraries.
 
-The direct `file://` opening check is attempted. If Chromium explicitly returns `ERR_BLOCKED_BY_ADMINISTRATOR`, only that check is recorded as skipped with its reason. Browser policy is never disabled. All pages and assets still undergo the local HTTP checks; the skipped case must not be reported as verified direct file opening.
+The old direct `file://` navigation check is replaced by clean-URL direct-entry and refresh tests on desktop and mobile, including HEAD requests, query strings, menu fragments and the mobile action bar. Root-relative clean URLs require HTTP hosting; opening extracted HTML files directly is no longer a supported navigation mode. Browser policy is never disabled.
 
 `delivery-results.json` records passed/failed/skipped checks, browser errors, lab measurements and SHA-256 hashes of tested source files. `scripts/package.py` rejects failures or changed sources. Screenshots must also be reviewed visually. These checks are not a field INP measurement, a real iPhone/Safari test, or a live test of ordering/reservation providers.
 

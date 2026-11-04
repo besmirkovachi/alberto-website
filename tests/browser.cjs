@@ -83,13 +83,8 @@ async function serve() {
   server = spawn(
     "python3",
     [
-      "-m",
-      "http.server",
+      path.join(__dirname, "static-server.py"),
       String(port),
-      "--bind",
-      "127.0.0.1",
-      "--directory",
-      root,
     ],
     { stdio: "ignore" },
   );
@@ -98,7 +93,7 @@ async function serve() {
   );
   for (let attempt = 0; attempt < 40; attempt += 1) {
     try {
-      if ((await fetch(`${baseURL}/index.html`)).ok) return;
+      if ((await fetch(`${baseURL}/`)).ok) return;
     } catch {}
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
@@ -135,14 +130,18 @@ async function newPage(options = {}) {
   return { context, page };
 }
 
+function pagePath(slug) {
+  return slug === "index" ? "/" : `/${slug}`;
+}
+
 async function visit(page, slug = "index", suffix = "") {
-  const response = await page.goto(`${baseURL}/${slug}.html${suffix}`, {
+  const response = await page.goto(`${baseURL}${pagePath(slug)}${suffix}`, {
     waitUntil: "networkidle",
   });
   // Navigating between fragments on the same page has no HTTP response.
   if (response)
     assert.equal(response.status(), 200, `${slug} must return HTTP 200`);
-  assert.equal(new URL(page.url()).pathname, `/${slug}.html`);
+  assert.equal(new URL(page.url()).pathname, pagePath(slug));
   await page.evaluate(() => document.fonts.ready);
 }
 
@@ -364,8 +363,11 @@ async function main() {
         );
       }
       for (const url of anchorReferences) {
-        const localPath = path.join(root, decodeURIComponent(url.pathname));
-        if (!fs.existsSync(localPath) || !localPath.endsWith(".html")) continue;
+        const pathname = decodeURIComponent(url.pathname);
+        const file = pathname === "/" ? "index.html" : pathname.slice(1) + (path.extname(pathname) ? "" : ".html");
+        const localPath = path.join(root, file);
+        assert.ok(fs.existsSync(localPath), `Missing anchor page: ${pathname}`);
+        if (!localPath.endsWith(".html")) continue;
         const source = fs.readFileSync(localPath, "utf8");
         const id = decodeURIComponent(url.hash.slice(1));
         assert.ok(
@@ -704,8 +706,8 @@ async function main() {
         "Focus restored to menu trigger",
       );
       await toggle.click();
-      await page.locator('#mobile-menu a[href="feiern.html"]').click();
-      await page.waitForURL("**/feiern.html");
+      await page.locator('#mobile-menu a[href="/feiern"]').click();
+      await page.waitForURL("**/feiern");
       assert.ok((await page.locator("h1").textContent()).length > 5);
       await screenshot(page, "mobile-events");
       await context.close();
@@ -882,7 +884,7 @@ async function main() {
             }
           }, { blockedStorage: Boolean(scenario.blockedStorage) });
           for (const entry of ["fresh", "reload"]) {
-            if (entry === "fresh") await page.goto(`${baseURL}/index.html`, { waitUntil: "domcontentloaded" });
+            if (entry === "fresh") await page.goto(`${baseURL}/`, { waitUntil: "domcontentloaded" });
             else await page.reload({ waitUntil: "domcontentloaded" });
             await page.waitForFunction(() => {
               const logo = document.querySelector(".firma-logo");
@@ -1017,8 +1019,8 @@ async function main() {
       assert.equal(await page.locator(".brand img").evaluate((image) => getComputedStyle(image).opacity), "1");
       assert.equal(await page.evaluate(() => window.AlbertoMotion.getState().smoothScroll), false);
       await page.locator(".nav-toggle").click();
-      await page.locator('#mobile-menu a[href="speisekarte.html"]').click();
-      await page.waitForURL("**/speisekarte.html");
+      await page.locator('#mobile-menu a[href="/speisekarte"]').click();
+      await page.waitForURL("**/speisekarte");
       await page.locator("#dish-search").fill("Carbonara");
       await page.waitForTimeout(300);
       assert.ok((await page.locator(".menu-item:visible").count()) > 0);
@@ -1068,7 +1070,7 @@ async function main() {
         sourceMenu.length,
       );
       assert.ok(
-        await page.locator('noscript nav a[href="feiern.html"]').isVisible(),
+        await page.locator('noscript nav a[href="/feiern"]').isVisible(),
       );
       assert.ok(
         !(await page.locator("#dish-search").isVisible()),
@@ -1084,46 +1086,37 @@ async function main() {
   );
 
   await check(
-    "Offline ZIP opening: all nine file:// pages load styles, local fonts, navigation and assets",
+    "Clean URLs: direct entry, refresh, HEAD, query strings and menu fragments",
     async () => {
-      const { context, page } = await newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-      for (const slug of pages) {
-        try {
-          await page.goto(`file://${path.join(root, `${slug}.html`)}`, { waitUntil: "networkidle" });
-        } catch (error) {
-          if (!String(error).includes("ERR_BLOCKED_BY_ADMINISTRATOR")) throw error;
-          await context.close();
-          throw Object.assign(new Error("Managed browser blocks local file URLs"), {
-            skipReason: "Chromium administrator policy blocks file:// URLs. Policy was not changed; all nine pages, styles and assets are verified over the local HTTP server. Direct file opening requires a check outside this managed browser.",
-          });
+      for (const width of [1440, 390]) {
+        const { context, page } = await newPage({ viewport: { width, height: 844 } });
+        for (const slug of pages) {
+          const route = pagePath(slug);
+          for (const suffix of ["", "?source=url-test"]) {
+            const response = await page.goto(`${baseURL}${route}${suffix}`, { waitUntil: "networkidle" });
+            assert.equal(response.status(), 200);
+            assert.equal(response.request().redirectedFrom(), null, "Clean URL must load directly");
+            assert.ok(await page.locator(`body.page-${slug}`).count(), "Correct page, not homepage fallback");
+            const refreshed = await page.reload({ waitUntil: "networkidle" });
+            assert.equal(refreshed.status(), 200);
+            assert.equal(new URL(page.url()).pathname, route);
+            assert.equal(new URL(page.url()).search, suffix);
+            assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"), `https://restaurantalberto.de${route}`);
+            const head = await page.request.head(`${baseURL}${route}${suffix}`);
+            assert.equal(head.status(), 200);
+          }
+          const bottom = page.locator(".mobile-actions a");
+          assert.equal(await bottom.nth(0).getAttribute("href"), "tel:+4976216869205");
+          assert.equal(await bottom.nth(1).getAttribute("href"), slug === "speisekarte" ? "/bestellen" : "/speisekarte");
         }
-        await page.evaluate(() => document.fonts.ready);
-        assert.ok(await page.locator("h1").isVisible(), `${slug}: offline main heading`);
-        const styles = await page.evaluate(() => ({
-          sheets: document.styleSheets.length,
-          background: getComputedStyle(document.body).backgroundColor,
-          titleFont: getComputedStyle(document.querySelector("h1")).fontFamily,
-          bodyFont: getComputedStyle(document.body).fontFamily,
-          loadedFonts: [...document.fonts].filter((font) => font.status === "loaded").map((font) => font.family.replace(/["']/g, "")),
-        }));
-        assert.ok(styles.sheets >= 3, `${slug}: local CSS loaded`);
-        assert.notEqual(styles.background, "rgba(0, 0, 0, 0)");
-        assert.match(styles.titleFont, /Cormorant/);
-        assert.match(styles.bodyFont, /Manrope/);
-        assert.ok(styles.loadedFonts.some((font) => font.includes("Manrope")), `${slug}: local Manrope font loaded`);
-        assert.ok(styles.loadedFonts.some((font) => font.includes("Cormorant")), `${slug}: local Cormorant font loaded`);
-        assert.equal(await page.locator(".brand img").evaluate((image) => image.complete && image.naturalWidth > 0), true);
-        if (slug === "speisekarte") {
-          await page.locator("#dish-search").fill("Carbonara");
-          assert.equal(await page.locator(".menu-item:visible").count(), 1);
+        for (const fragment of ["pizza", "pasta"]) {
+          await visit(page, "speisekarte", `#${fragment}`);
+          await page.reload({ waitUntil: "networkidle" });
+          assert.equal(new URL(page.url()).hash, `#${fragment}`);
+          assert.ok(await page.locator(`#${fragment}`).isVisible());
         }
-        await noOverflow(page, `${slug}: offline file`);
+        await context.close();
       }
-      await page.locator(".nav-toggle").click();
-      await page.locator('#mobile-menu a[href="speisekarte.html"]').click();
-      await page.waitForURL("**/speisekarte.html");
-      assert.equal(new URL(page.url()).protocol, "file:");
-      await context.close();
     },
   );
 
@@ -1151,7 +1144,7 @@ async function main() {
       ...fs.readdirSync(root).filter((file) => /\.(html|css|js)$/.test(file) || file === "menu.json"),
       ...fs.readdirSync(path.join(root, "scripts")).filter((file) => /\.(py|cjs)$/.test(file)).map((file) => `scripts/${file}`),
       ...fs.readdirSync(path.join(root, "templates")).filter((file) => file.endsWith(".html")).map((file) => `templates/${file}`),
-      "_routes.json", "functions/_middleware.js", "functions/api/ratings.js", "tests/browser.cjs", "tests/menu-2026.json", "tests/v1-menu.json", "tests/ratings.cjs", "tests/ratings-browser.cjs",
+      "_routes.json", "functions/_middleware.js", "functions/api/ratings.js", "tests/browser.cjs", "tests/static-server.py", "tests/menu-2026.json", "tests/v1-menu.json", "tests/ratings.cjs", "tests/ratings-browser.cjs",
       ...fs.readdirSync(path.join(root, "server")).filter(file => file.endsWith(".cjs")).map(file => `server/${file}`),
     ].sort();
     const sourceHashes = Object.fromEntries(hashedFiles.map((file) => [file, crypto.createHash("sha256").update(fs.readFileSync(path.join(root, file))).digest("hex")]));
