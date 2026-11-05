@@ -19,8 +19,8 @@ if SITE_URL:
 if INDEXABLE and not SITE_URL:
     raise SystemExit('Set the confirmed SITE_URL before enabling search indexing.')
 PAGES = {
-    'index': ('Italienisches Restaurant & Pizzeria in Weil am Rhein', 'Ein Stück Italien in Weil am Rhein. Entdecken Sie Pizza, Pasta und italienische Gastfreundschaft im Ristorante Pizzeria Alberto.'),
-    'speisekarte': ('Speisekarte · Pizza, Pasta & italienische Küche', 'Die Speisekarte von Alberto: Pizza, Pasta, Risotto, Antipasti, Fleisch, Fisch und Desserts. Alle Gerichte und Preise auf einen Blick.'),
+    'index': ('Italienisches Restaurant & Pizzeria in Weil am Rhein', 'Italienisch essen gehen in Weil am Rhein: Pizza, Pasta und mehr im Ristorante Pizzeria Alberto. Speisekarte entdecken und telefonisch einen Tisch reservieren.'),
+    'speisekarte': ('Speisekarte Alberto Weil am Rhein – Pizza & Pasta', 'Entdecken Sie die italienische Speisekarte von Alberto in Weil am Rhein: Pizza, Pasta, Risotto, Fleisch, Fisch und Desserts. Gerichte und Preise im Überblick.'),
     'ueber-uns': ('Über uns · Italienisch im Herzen', 'Lernen Sie Ristorante Pizzeria Alberto in Weil am Rhein kennen. Italienische Küche und persönliche Gastfreundschaft seit 2023.'),
     'galerie': ('Galerie · Ein Blick zu Alberto', 'Einblicke in unsere Küche, unsere Gerichte und den separaten Raum für private Feiern bei Alberto in Weil am Rhein.'),
     'feiern': ('Private Feiern · Ihr Raum bei Alberto', 'Ein separater Raum im Obergeschoss für Geburtstage, Familienfeiern und gemeinsame Abende. Möglichkeiten und Verfügbarkeit telefonisch besprechen.'),
@@ -145,9 +145,10 @@ for page,(title,desc) in PAGES.items():
     page_styles=''.join(f'<link rel="stylesheet" href="{name}">' for name in css_files)
     canonical=SITE_URL+('/' if page=='index' else '/'+page) if SITE_URL else ''
     metadata=f'<link rel="canonical" href="{escape(canonical)}"><meta property="og:url" content="{escape(canonical)}">' if canonical else ''
+    document_title = title if page == 'speisekarte' else title + ' | Ristorante Pizzeria Alberto'
     html=f'''<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#173b2e">
-<title>{escape(title)} | Ristorante Pizzeria Alberto</title><meta name="description" content="{escape(desc,quote=True)}"><meta name="robots" content="{"index,follow" if INDEXABLE else "noindex,follow"}">
+<title>{escape(document_title)}</title><meta name="description" content="{escape(desc,quote=True)}"><meta name="robots" content="{"index,follow" if INDEXABLE else "noindex,follow"}">
 <meta property="og:type" content="website"><meta property="og:locale" content="de_DE"><meta property="og:site_name" content="Ristorante Pizzeria Alberto"><meta property="og:title" content="{escape(title,quote=True)}"><meta property="og:description" content="{escape(desc,quote=True)}"><meta property="og:image" content="{SITE_URL+'/assets/hero.webp' if SITE_URL else 'assets/hero.webp'}"><meta property="og:image:alt" content="Pizza und italienische Küche bei Alberto"><meta name="twitter:card" content="summary_large_image">{metadata}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="assets/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="assets/vendor/lenis.css">{page_styles}{ratings_assets}<script src="assets/vendor/gsap.min.js" defer></script><script src="assets/vendor/ScrollTrigger.min.js" defer></script><script src="assets/vendor/lenis.min.js" defer></script><script src="script.js" defer></script><script src="motion.js" defer></script><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False)}</script></head>
 <body class="page-{page}">{header(page)}<main id="main">{body}</main>{footer(page)}</body></html>'''
