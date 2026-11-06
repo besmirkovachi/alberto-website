@@ -68,8 +68,10 @@ def header(page):
 def footer(page=""):
     mobile_target = "/bestellen" if page == "speisekarte" else "/speisekarte"
     mobile_label = "Bestellen" if page == "speisekarte" else "Speisekarte"
+    call_label = "Reservieren" if page == "kontakt" else "Anrufen"
+    call_icon = '<svg class="arrow-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.69 2.79a2 2 0 0 1-.45 2.11L8.09 9.89a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.89.34 1.83.57 2.79.69A2 2 0 0 1 22 16.92z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>' if page == "kontakt" else "↗"
     return f'''<footer class="site-footer"><div class="container footer-top"><div class="footer-intro"><span class="eyebrow">A presto, bei Alberto.</span><p class="footer-heading">Das gute Leben<br>beginnt am <em>Tisch.</em></p><span class="tricolore" aria-hidden="true"></span></div><div><h2>Hier sind wir</h2><address>Ristorante Pizzeria Alberto<br>Holzmattenweg 13<br>79576 Weil am Rhein</address><a class="subtle-link" href="{MAP}" target="_blank" rel="noopener noreferrer">Route planen ↗</a></div><div><h2>Unsere Öffnungszeiten</h2><p>Mo, Di & Do–So<br>11:30–14:00 · 17:00–22:30</p><p class="footer-muted">Mittwoch Ruhetag</p><a href="tel:+4976216869205">+49 7621 686 92 05</a></div></div><nav class="container footer-nav" aria-label="Weitere Seiten">{nav('')}</nav><div class="container footer-bottom"><a class="footer-logo" href="/" aria-label="Alberto – Startseite"><img src="assets/logo.png" width="1600" height="300" alt="Alberto"></a><div class="footer-social"><p class="eyebrow">Alberto auf Social Media</p>{social_links()}</div><div class="legal-links"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><span>© Alberto</span></div></div></footer>
-<div class="mobile-actions"><a href="tel:+4976216869205"><span aria-hidden="true">↗</span> Anrufen</a><a href="{mobile_target}">{mobile_label} <span aria-hidden="true">↗</span></a></div>
+<div class="mobile-actions"><a href="tel:+4976216869205"><span aria-hidden="true">{call_icon}</span> {call_label}</a><a href="{mobile_target}">{mobile_label} <span aria-hidden="true">↗</span></a></div>
 <dialog class="lightbox" id="lightbox" aria-label="Bildergalerie"><button class="icon-button lightbox-close" aria-label="Bild schließen">×</button><div class="lightbox-stage"><button class="icon-button lightbox-prev" aria-label="Vorheriges Bild">←</button><figure><img alt=""><figcaption id="lightbox-caption" aria-live="polite"></figcaption></figure><button class="icon-button lightbox-next" aria-label="Nächstes Bild">→</button></div></dialog>'''
 
 def contact():
@@ -168,6 +170,10 @@ for page,(title,desc) in PAGES.items():
     if page == 'bestellen':
         document_title = 'Essen bestellen in Weil am Rhein | Pizza & Pasta – Alberto'
         document_desc = 'Pizza und Pasta bei Alberto in Weil am Rhein bestellen: direkt online oder telefonisch. Lieferung und Abholung – hier geht’s zur Bestellung.'
+    # Kontakt SEO copy is separate from the unchanged Open Graph copy.
+    if page == 'kontakt':
+        document_title = 'Tisch reservieren in Weil am Rhein | Kontakt – Alberto'
+        document_desc = 'Reservieren Sie Ihren Tisch bei Ristorante Pizzeria Alberto in Weil am Rhein telefonisch: +49 7621 686 92 05. Hier finden Sie Öffnungszeiten und Anfahrt.'
     html=f'''<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#173b2e">
 <title>{escape(document_title)}</title><meta name="description" content="{escape(document_desc,quote=True)}"><meta name="robots" content="{"index,follow" if INDEXABLE else "noindex,follow"}">
