@@ -31,6 +31,14 @@ PAGES = {
 }
 NAV = [('speisekarte','Speisekarte'),('ueber-uns','Über uns'),('galerie','Galerie'),('feiern','Private Feiern'),('bestellen','Lieferung'),('kontakt','Kontakt')]
 SIZES = {'hero':(1536,1024),'pizza':(1024,1536),'antipasti':(1024,1536),'steak':(1024,1536),'dessert':(1536,1152),'fish':(1536,1152),'risotto':(1152,1536),'pasta':(1152,1536),'room':(1152,1536),'room2':(1152,1536),'room3':(1152,1536),'event':(1152,1536)}
+SIZES.update({
+    'alberto-gastraum-weinregal-tisch': (1200, 1600),
+    'alberto-gastraum-lange-tafel': (1200, 1600),
+    'alberto-gastraum-vierertisch': (1200, 1600),
+    'alberto-tischdekoration-rose-leuchte': (1200, 1600),
+    'alberto-gastraum-tafel-am-fenster': (1200, 1600),
+    'alberto-gastraum-tisch-am-fenster': (1200, 1600),
+})
 MAP = 'https://www.google.com/maps/search/?api=1&amp;query=Ristorante+Pizzeria+Alberto+Holzmattenweg+13+Weil+am+Rhein'
 
 def photo(name, alt, cls='', eager=False):
@@ -122,6 +130,15 @@ def menu():
     return result
 
 GALLERY=[('pizza','Pizza mit Rucola und gehobeltem Parmesan','kueche','Pizza, amore e basta.'),('room','Festlich gedeckte Tische im separaten Raum im Obergeschoss','raeume','Platz für Ihre Menschen.'),('risotto','Risotto vor dem leuchtenden Alberto-Schriftzug','kueche','Ein Teller. Ganz viel Italien.'),('hero','Pizza und Fleischgericht auf einem gedeckten Tisch bei Alberto','kueche','Gemeinsam schmeckt’s besser.'),('antipasti','Antipasti mit Käse, Tomaten und italienischem Aufschnitt','kueche','Ein guter Anfang.'),('room2','Heller Feierraum mit einer langen gedeckten Tafel','raeume','Ein besonderer Rahmen.'),('dessert','Auf einem Teller angerichtete Desserts','kueche','La dolce vita.'),('fish','Fischfilets mit Pasta und Gemüse','kueche','Noch mehr zu entdecken.'),('room3','Blick in den separaten Raum mit gedeckten Tischen','raeume','Zeit, zusammenzukommen.'),('steak','Fleischgericht und Pizza am Tisch','kueche','Für den großen Appetit.')]
+
+GALLERY.extend([
+    ('alberto-gastraum-weinregal-tisch', 'Gedeckter Holztisch mit roter Rose, Tischleuchte und Weinregal im Ristorante Pizzeria Alberto', 'raeume', 'Ein Tisch zum Wohlfühlen.'),
+    ('alberto-gastraum-lange-tafel', 'Lange gedeckte Tafel mit dunklen Stühlen und warmen Tischleuchten bei Alberto', 'raeume', 'Gemeinsam am langen Tisch.'),
+    ('alberto-gastraum-vierertisch', 'Blick von oben auf einen gedeckten Vierertisch mit Tischleuchte und roter Rose bei Alberto', 'raeume', 'Für einen gemeinsamen Abend.'),
+    ('alberto-tischdekoration-rose-leuchte', 'Tischdekoration mit roter Rose, schwarzer Tischleuchte und gefalteten Servietten bei Alberto', 'raeume', 'Liebevolle Details am Tisch.'),
+    ('alberto-gastraum-tafel-am-fenster', 'Lange gedeckte Tafel mit Tischleuchten vor den Fenstern im Gastraum von Alberto', 'raeume', 'Platz für gute Gespräche.'),
+    ('alberto-gastraum-tisch-am-fenster', 'Gedeckter Holztisch am Fenster mit roter Rose und warmer Tischbeleuchtung bei Alberto', 'raeume', 'Ein gemütlicher Platz am Fenster.'),
+])
 
 def gallery():
     out='<div class="gallery-filters js-only" role="group" aria-label="Galerie filtern"><button data-gallery-filter="all" aria-pressed="true">Alle Einblicke</button><button data-gallery-filter="kueche" aria-pressed="false">Unsere Küche</button><button data-gallery-filter="raeume" aria-pressed="false">Unsere Räume</button></div><p class="sr-only" id="gallery-count" role="status"></p><div class="gallery-grid">'
