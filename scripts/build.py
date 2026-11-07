@@ -174,6 +174,10 @@ for page,(title,desc) in PAGES.items():
     if page == 'kontakt':
         document_title = 'Tisch reservieren in Weil am Rhein | Kontakt – Alberto'
         document_desc = 'Reservieren Sie Ihren Tisch bei Ristorante Pizzeria Alberto in Weil am Rhein telefonisch: +49 7621 686 92 05. Hier finden Sie Öffnungszeiten und Anfahrt.'
+    # Feiern SEO copy is separate from the unchanged Open Graph copy.
+    if page == 'feiern':
+        document_title = 'Geburtstag & Familienfeier in Weil am Rhein | Alberto'
+        document_desc = 'Geburtstag, Familienfeier oder Gruppenessen in Weil am Rhein: Entdecken Sie den separaten Raum bei Alberto. Termin und Möglichkeiten persönlich anfragen.'
     html=f'''<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#173b2e">
 <title>{escape(document_title)}</title><meta name="description" content="{escape(document_desc,quote=True)}"><meta name="robots" content="{"index,follow" if INDEXABLE else "noindex,follow"}">
