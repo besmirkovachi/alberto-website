@@ -186,6 +186,10 @@ for page,(title,desc) in PAGES.items():
     if page == 'ueber-uns':
         document_title = 'Über uns | Ristorante Pizzeria Alberto in Weil am Rhein'
         document_desc = 'Lernen Sie Ristorante Pizzeria Alberto in Weil am Rhein kennen: italienische Küche, Pizza und Pasta und ein Ort für gemeinsame Zeit mit Familie und Freunden.'
+    # Gallery SEO copy is separate from the unchanged Open Graph copy.
+    if page == 'galerie':
+        document_title = 'Galerie | Ristorante Pizzeria Alberto in Weil am Rhein'
+        document_desc = 'Entdecken Sie Ristorante Pizzeria Alberto in Weil am Rhein in Bildern: italienische Gerichte, gemütlicher Gastraum und ein separater Raum für private Feiern.'
     html=f'''<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#173b2e">
 <title>{escape(document_title)}</title><meta name="description" content="{escape(document_desc,quote=True)}"><meta name="robots" content="{"index,follow" if INDEXABLE else "noindex,follow"}">
