@@ -41,6 +41,12 @@
 .lunch-fisch { width: 12%; height: 144px; top: 96px; right: 1.1%; transform: rotate(7deg); }
 .lunch-fisch img { object-position: center 72%; }
 .lunch-body { padding: 0 0 45px; }
+.lunch-launch {
+  margin: 22px 0 0; padding: 4px 0 5px 18px;
+  border-left: 2px solid var(--lunch-gold); color: var(--green);
+}
+.lunch-launch h2 { margin: 0; font: 500 clamp(24px,2.2vw,33px)/1.14 var(--serif); }
+.lunch-launch p { margin: 4px 0 0; font: 400 14px/1.5 var(--sans); }
 .lunch-calendar-bar { position: relative; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--lunch-rule); }
 #lunch-calendar .lunch-label { min-height: 20px; padding-right: 140px; }
 #lunch-week { font-size: clamp(31px,3vw,44px); line-height: 1.12; margin: 5px 0 13px; }

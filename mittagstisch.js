@@ -126,6 +126,7 @@
     if (newDay) {
       selected = calendar.selection;
       const active = calendar.weekIndex >= 0;
+      element("lunch-launch").hidden = !(calendar.monday === start && calendar.today < start);
       element("lunch-calendar").hidden = false;
       element("lunch-week").textContent = active
         ? weekRange.formatRange(new Date(calendar.monday * dayMs), new Date((calendar.monday + 4) * dayMs))

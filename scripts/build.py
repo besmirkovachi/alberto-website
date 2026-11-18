@@ -35,6 +35,7 @@ PAGES = {
     'datenschutz': ('Datenschutz', 'Informationen zur Datenverarbeitung auf der Website des Ristorante Pizzeria Alberto.'),
 }
 NAV = [('speisekarte','Speisekarte'),('ueber-uns','Über uns'),('galerie','Galerie'),('feiern','Private Feiern'),('bestellen','Lieferung'),('kontakt','Kontakt')]
+HEADER_NAV = [NAV[0], ('mittagstisch', 'Mittagstisch'), *NAV[1:]]
 SIZES = {'hero':(1536,1024),'pizza':(1024,1536),'antipasti':(1024,1536),'steak':(1024,1536),'dessert':(1536,1152),'fish':(1536,1152),'risotto':(1152,1536),'pasta':(1152,1536),'room':(1152,1536),'room2':(1152,1536),'room3':(1152,1536),'event':(1152,1536)}
 SIZES.update({
     'alberto-gastraum-weinregal-tisch': (1200, 1600),
@@ -56,15 +57,15 @@ def image_token(match):
     return photo(parts[0],parts[1],parts[2] if len(parts)>2 else '',len(parts)>3 and parts[3]=='eager')
 
 def nav(page, mobile=False, items=None):
-    links = ([('index','Startseite')]+NAV) if mobile else (NAV if items is None else items)
+    links = ([('index','Startseite')]+HEADER_NAV) if mobile else (NAV if items is None else items)
     return ''.join(f'<a href="{'/' if slug == 'index' else '/' + slug}" {"aria-current=page" if slug==page else ""}><span>{label}</span>{"<span aria-hidden=true>↗</span>" if mobile else ""}</a>' for slug,label in links)
 
 def header(page):
     return f'''<a class="skip-link" href="#main">Zum Inhalt springen</a>
 <header class="site-header"><div class="header-inner">
-<nav class="desktop-nav nav-left" aria-label="Restaurant entdecken">{nav(page,items=NAV[:3])}</nav>
+<nav class="desktop-nav nav-left" aria-label="Restaurant entdecken">{nav(page,items=HEADER_NAV[:4])}</nav>
 <a class="brand" href="/" aria-label="Alberto Ristorante · Pizzeria – Startseite"><img src="assets/logo.png" alt="Alberto" width="1600" height="300"><span>RISTORANTE · PIZZERIA</span></a>
-<nav class="desktop-nav nav-right" aria-label="Besuch planen">{nav(page,items=NAV[3:])}</nav>
+<nav class="desktop-nav nav-right" aria-label="Besuch planen">{nav(page,items=HEADER_NAV[4:])}</nav>
 <button class="nav-toggle" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false"><span>Menü</span><span class="menu-lines" aria-hidden="true"></span></button>
 </div></header>
 <dialog class="mobile-menu" id="mobile-menu" aria-label="Hauptnavigation"><div class="mobile-menu-top"><span class="eyebrow">Benvenuti da Alberto</span><button class="icon-button menu-close" aria-label="Menü schließen">×</button></div><nav aria-label="Mobile Hauptnavigation">{nav(page,True)}</nav><div class="mobile-menu-bottom"><span class="tricolore" aria-hidden="true"></span><p>Ein Stück Italien.<br>Mitten in Weil am Rhein.</p><a href="tel:+4976216869205">+49 7621 686 92 05 ↗</a></div></dialog>
@@ -176,6 +177,7 @@ for page,(title,desc) in PAGES.items():
     if page in ('ueber-uns','galerie','feiern'): css_files.append('story-pages.css')
     if page in ('bestellen','kontakt','impressum','datenschutz'): css_files.append('service-pages.css')
     if page in ('index','bestellen'): css_files.append('ratings.css')
+    if page == 'index': css_files.append('homepage-mittagstisch.css')
     ratings_assets = ''  # Provider links are static; no background ratings requests.
     page_styles=''.join(f'<link rel="stylesheet" href="{name}">' for name in css_files)
     canonical=SITE_URL+('/' if page=='index' else '/'+page) if SITE_URL else ''
