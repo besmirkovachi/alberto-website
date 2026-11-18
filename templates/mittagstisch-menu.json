@@ -1,0 +1,555 @@
+{
+  "closures": [],
+  "recipes": {
+    "Paprikaschnitzel": "Saftiges Schweineschnitzel in würziger Paprika-Tomatensauce.",
+    "Scaloppine al Limone": "Zartes Schweineschnitzel in feiner Zitronensauce.",
+    "Putengeschnetzeltes al Curry": "Zarte Putenstreifen mit Paprika in aromatischer Currysauce.",
+    "Calamari alla Griglia": "Aromatisch gegrillte Calamari.",
+    "Schweinerücken alla Senape": "Saftiges Schweinerückensteak in aromatischer Senfsauce.",
+    "Schweineschnitzel": "Knusprig paniertes Schweineschnitzel.",
+    "Rindersteak Madeira": "Saftig gegrilltes Rindersteak in feiner Madeirasauce.",
+    "Seelachsfilet Provençale": "Zartes Alaska-Seelachsfilet mit Weißwein, Tomaten, Paprika, Knoblauch und Zwiebeln.",
+    "Scaloppine alla Valdostana": "Schweineschnitzel mit Schinken, Mozzarella und Tomatensauce überbacken.",
+    "Schweinesteak al Pepe": "Saftig gegrilltes Schweinesteak in aromatischer Pfeffersauce.",
+    "Pangasiusfilet al Limone": "Zartes Pangasiusfilet in feiner Zitronen-Buttersauce.",
+    "Putenstreifen al Limone": "Zarte Putenstreifen in feiner Zitronensauce.",
+    "Zürcher Geschnetzeltes": "Zartes Geschnetzeltes mit Champignons in cremiger Rahmsauce.",
+    "Seelachsfilet al Limone": "Zartes Alaska-Seelachsfilet in feiner Zitronen-Buttersauce.",
+    "Lachsfilet all’Arancia": "Zartes Lachsfilet in fein abgestimmter Orangensauce.",
+    "Piccata Milanese": "Zartes Schweineschnitzel in goldener Ei-Parmesan-Panade.",
+    "Scaloppine al Vino Bianco": "Zartes Schweineschnitzel in feiner Weißweinsauce.",
+    "Lachsfilet all’Estragone": "Zartes Lachsfilet in aromatischer Estragonsauce.",
+    "Schnitzel": "Paniertes Schnitzel in cremiger Champignon-Rahmsauce.",
+    "Seelachsfilet al Vino Bianco": "Zartes Alaska-Seelachsfilet in feiner Weißweinsauce.",
+    "Cordon Bleu": "Knusprig paniertes Schweineschnitzel, gefüllt mit Vorderschinken und Käse.",
+    "Involtini alla Calabrese": "Zarte Involtini in würziger Pfeffersauce.",
+    "Lachsfilet alla Griglia": "Saftig gegrilltes Lachsfilet.",
+    "Pangasiusfilet alla Livornese": "Zartes Pangasiusfilet in mediterraner Tomatensauce mit Kapern, Oliven und Knoblauch.",
+    "Putensteak ai Funghi": "Saftig gegrilltes Putensteak in cremiger Champignon-Rahmsauce.",
+    "Scaloppine alla Romana": "Zartes Schweineschnitzel mit Parmaschinken in feiner Weißweinsauce.",
+    "Pangasiusfilet al Forno": "Zartes Pangasiusfilet, im Ofen gratiniert.",
+    "Scaloppine alla Marsala": "Zartes Schweineschnitzel in aromatischer Marsalasauce.",
+    "Pangasiusfilet Dorato": "Knusprig paniertes Pangasiusfilet.",
+    "Seelachsfilet all’Estragone": "Zartes Alaska-Seelachsfilet in feiner Weißwein-Estragonsauce.",
+    "Pollo alla Cacciatora": "Zartes Hähnchenfleisch in aromatischer Tomatensauce mit Knoblauch und schwarzen Oliven.",
+    "Due Gusti": "Tomatensauce, Mozzarella, Schinken, Salami.",
+    "Funghi": "Tomatensauce, Mozzarella, Champignons.",
+    "Prosciutto": "Tomatensauce, Mozzarella, Schinken.",
+    "Vegetariana": "Tomatensauce, Mozzarella, Gemüse.",
+    "Prosciutto e Cipolla": "Tomatensauce, Mozzarella, Schinken, Zwiebeln.",
+    "Diavolo": "Tomatensauce, Mozzarella, scharfe Salami.",
+    "Prosciutto e Funghi": "Tomatensauce, Mozzarella, Schinken, Champignons.",
+    "Margherita": "Tomatensauce, Mozzarella, Oregano.",
+    "Italia": "Tomatensauce, Mozzarella, Steinpilze, Tomatenscheiben, Parmesan, Rucola.",
+    "Gorgonzola": "Tomatensauce, Mozzarella, Gorgonzola.",
+    "Calzone": "Tomatensauce, Mozzarella, Vorderschinken, Champignons.",
+    "Tonno": "Tomatensauce, Mozzarella, Thunfisch, Zwiebeln.",
+    "Sardellen": "Tomatensauce, Mozzarella, Zwiebeln, Speck, Sardellen, Peperoni, Knoblauch, Oliven.",
+    "4 Stagioni": "Tomatensauce, Mozzarella, Vorderschinken, Artischocken, Champignons.",
+    "Speciale": "Tomatensauce, Mozzarella, Salami, Vorderschinken, Artischocken, Paprika, Champignons, Oregano.",
+    "4 Formaggi": "Tomatensauce, vier verschiedene Käsesorten.",
+    "Salami": "Tomatensauce, Mozzarella, Salami.",
+    "Negroni": "Tomatensauce, Mozzarella, Salami, Champignons, Oregano.",
+    "Hawaii": "Tomatensauce, Mozzarella, Vorderschinken, Ananas.",
+    "Napoli": "Tomatensauce, Mozzarella, Sardellen, Oregano.",
+    "Alberto": "Tomatensauce, Mozzarella, Spinat, Gorgonzola, Knoblauch.",
+    "O Sole Mio": "Tomatensauce, Mozzarella, Vorderschinken, Champignons, Ei.",
+    "Spaghetti Napoli": "Feine Spaghetti in klassischer, fruchtiger Tomatensauce.",
+    "Penne Gorgonzola": "Penne in einer fein-cremigen Sahnesauce mit aromatischem Gorgonzola.",
+    "Tagliatelle Alberto": "Feine Bandnudeln mit Champignons und Crevetten in einer cremigen Tomaten-Sahnesauce.",
+    "Spaghetti Amatriciana": "Spaghetti mit herzhaftem Speck, Zwiebeln und Knoblauch in einer würzigen Tomatensauce.",
+    "Gnocchi Salmone": "Zarte Gnocchi mit feinem Lachs in einer cremigen Sahnesauce.",
+    "Penne Arrabbiata": "Penne in einer pikanten Tomatensauce mit Oliven und feuriger Chili-Note.",
+    "Spaghetti Carbonara": "Feine Spaghetti mit herzhaftem Speck und Ei in einer cremigen Sahnesauce.",
+    "Spaghetti Primavera": "Spaghetti mit einer bunten Gemüseauswahl in aromatischer Tomatensauce.",
+    "Tortelloni Spezial": "Zarte Tortelloni mit Erbsen und Vorderschinken in einer fein-cremigen Sahnesauce.",
+    "Spaghetti al Pesto": "Feine Spaghetti in aromatischer Basilikumsauce.",
+    "Gnocchi Alberto": "Zarte Gnocchi mit Paprika und herzhaftem Speck in einer cremigen Sahnesauce.",
+    "Tortelloni Emiliana": "Feine Tortelloni mit Erbsen, Speck und Parmaschinken in einer cremigen Tomaten-Sahnesauce.",
+    "Spaghetti Gamberetti": "Spaghetti mit zarten Garnelen, Cherrytomaten und Rucola in einer feinen Weißweinsauce.",
+    "Gnocchi Sorrentina": "Zarte Gnocchi in fruchtiger Tomatensauce mit Mozzarella und aromatischem Basilikum.",
+    "Tagliatelle Salmone": "Feine Bandnudeln mit zartem Lachs in einer cremigen Tomaten-Sahnesauce.",
+    "Tortelloni 4 Formaggi": "Zarte Tortelloni in einer fein abgestimmten, cremigen Vier-Käse-Sauce.",
+    "Spaghetti Bolognese": "Spaghetti in einer herzhaften Hackfleisch-Tomatensauce.",
+    "Gnocchi 4 Formaggi": "Zarte Gnocchi in einer cremigen Sauce aus vier verschiedenen Käsesorten.",
+    "Spaghetti Aglio Olio Peperoncino": "Spaghetti mit aromatischem Knoblauch, feinem Olivenöl und einer pikanten Peperoncino-Note.",
+    "Gnocchi Gorgonzola": "Zarte Gnocchi in einer cremigen Sahnesauce mit würzigem Gorgonzola.",
+    "Tortelloni Gorgonzola": "Feine Tortelloni in einer cremigen Gorgonzola-Sahnesauce.",
+    "Tortelloni alla Crema di Funghi": "Zarte Tortelloni in einer fein-cremigen Champignon-Rahmsauce.",
+    "Penne 4 Formaggi": "Penne in einer cremigen Sauce aus vier verschiedenen Käsesorten.",
+    "Tortelloni Pesto": "Feine Tortelloni in aromatischem Basilikum-Pesto.",
+    "Rigatoni Valentino": "Rigatoni mit zartem Putenfleisch in aromatischem Pesto Genovese.",
+    "Spaghetti Frutti di Mare": "Spaghetti mit einer feinen Auswahl an Meeresfrüchten, Weißwein und aromatischer Tomatensauce.",
+    "Tagliatelle Funghi Porcini": "Feine Bandnudeln mit aromatischen Steinpilzen in einer herzhaften Bratensauce, abgerundet mit einem Hauch Sahne.",
+    "Spaghetti Mooshüsli": "Spaghetti mit zartem Geschnetzeltem und Erbsen in einer cremigen Tomaten-Sahne-Currysauce.",
+    "Penne Spinaci al Forno": "Penne mit zartem Spinat in einer cremigen Sahnesauce, mit Mozzarella im Ofen goldbraun überbacken.",
+    "Gnocchi al Forno": "Zarte Gnocchi in einer herzhaften Hackfleisch-Tomatensauce, mit Käse im Ofen goldbraun überbacken.",
+    "Cannelloni al Forno": "Cannelloni mit feiner Ricotta-Spinat-Füllung in einer cremigen Tomaten-Sahnesauce, mit Käse überbacken.",
+    "Rigatoni alla Romana al Forno": "Rigatoni mit Vorderschinken und Champignons in einer cremigen Sahnesauce, mit Käse im Ofen überbacken.",
+    "Lasagne al Forno": "Klassische Lasagne mit herzhafter Hackfleisch-Tomatensauce und feiner Béchamelsauce, mit Käse goldbraun überbacken.",
+    "Penne alla Toscana": "Penne mit zarten Putenstreifen in einer cremigen Sahnesauce, mit Käse im Ofen überbacken.",
+    "Risotto Vegetariano": "Cremiges Risotto mit einer feinen Gemüseauswahl in aromatischer Tomatensauce.",
+    "Rigatoni Bolognese al Forno": "Rigatoni in einer herzhaften Hackfleischsauce mit feiner Sahne, mit Käse im Ofen überbacken.",
+    "Penne alla Siciliana": "Penne mit zarten Auberginen in einer aromatischen Tomatensauce, mit Käse im Ofen überbacken.",
+    "Risotto ai Funghi Porcini": "Feines Risotto mit aromatischen Steinpilzen in einer herzhaften Bratensauce, abgerundet mit einem Hauch Sahne.",
+    "Risotto Frutti di Mare": "Feines Risotto mit einer Auswahl an Meeresfrüchten, Weißwein und aromatischer Tomatensauce."
+  },
+  "weeks": [
+    [
+      {
+        "dishes": [
+          "Paprikaschnitzel",
+          "Due Gusti",
+          "Spaghetti Napoli",
+          "Penne Spinaci al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Scaloppine al Limone",
+          "Funghi",
+          "Penne Gorgonzola",
+          "Gnocchi al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Putengeschnetzeltes al Curry",
+          "Prosciutto",
+          "Tagliatelle Alberto",
+          "Cannelloni al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Calamari alla Griglia",
+          "Vegetariana",
+          "Spaghetti Amatriciana",
+          "Rigatoni alla Romana al Forno"
+        ],
+        "side": "Spinat"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Schweinerücken alla Senape",
+          "Prosciutto e Cipolla",
+          "Gnocchi Salmone",
+          "Lasagne al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Schweineschnitzel",
+          "Diavolo",
+          "Spaghetti Napoli",
+          "Penne Spinaci al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Rindersteak Madeira",
+          "Prosciutto e Funghi",
+          "Penne Arrabbiata",
+          "Rigatoni alla Romana al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Seelachsfilet Provençale",
+          "Margherita",
+          "Spaghetti Carbonara",
+          "Cannelloni al Forno"
+        ],
+        "side": "Kroketten"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Scaloppine alla Valdostana",
+          "Italia",
+          "Spaghetti Primavera",
+          "Penne alla Toscana"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Schweinesteak al Pepe",
+          "Gorgonzola",
+          "Tortelloni Spezial",
+          "Risotto Vegetariano"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Putengeschnetzeltes al Curry",
+          "Calzone",
+          "Spaghetti al Pesto",
+          "Rigatoni Bolognese al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Pangasiusfilet al Limone",
+          "Tonno",
+          "Gnocchi Alberto",
+          "Penne alla Siciliana"
+        ],
+        "side": "Pommes frites"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Schweinesteak al Pepe",
+          "Due Gusti",
+          "Spaghetti al Pesto",
+          "Rigatoni Bolognese al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Putenstreifen al Limone",
+          "Margherita",
+          "Tortelloni Emiliana",
+          "Risotto ai Funghi Porcini"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Zürcher Geschnetzeltes",
+          "Calzone",
+          "Spaghetti Gamberetti",
+          "Lasagne al Forno"
+        ],
+        "side": "Reis"
+      },
+      {
+        "dishes": [
+          "Seelachsfilet al Limone",
+          "Gorgonzola",
+          "Gnocchi Sorrentina",
+          "Penne Spinaci al Forno"
+        ],
+        "side": "Nudeln"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Schweinesteak al Pepe",
+          "4 Stagioni",
+          "Spaghetti Carbonara",
+          "Risotto Frutti di Mare"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Putenstreifen al Limone",
+          "Sardellen",
+          "Tagliatelle Salmone",
+          "Gnocchi al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Paprikaschnitzel",
+          "Speciale",
+          "Penne Arrabbiata",
+          "Rigatoni alla Romana al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Lachsfilet all’Arancia",
+          "4 Formaggi",
+          "Tortelloni Spezial",
+          "Penne alla Siciliana"
+        ],
+        "side": "Kroketten"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Schweinerücken alla Senape",
+          "Prosciutto e Funghi",
+          "Spaghetti Aglio Olio Peperoncino",
+          "Rigatoni Bolognese al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Piccata Milanese",
+          "Salami",
+          "Spaghetti Amatriciana",
+          "Penne Spinaci al Forno"
+        ],
+        "side": "Spaghetti Napoli"
+      },
+      {
+        "dishes": [
+          "Scaloppine al Vino Bianco",
+          "4 Stagioni",
+          "Tortelloni 4 Formaggi",
+          "Gnocchi al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Lachsfilet all’Estragone",
+          "Negroni",
+          "Spaghetti Bolognese",
+          "Rigatoni alla Romana al Forno"
+        ],
+        "side": "Nudeln"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Schnitzel",
+          "Tonno",
+          "Gnocchi 4 Formaggi",
+          "Penne alla Siciliana"
+        ],
+        "side": "Nudeln"
+      },
+      {
+        "dishes": [
+          "Schweineschnitzel",
+          "Vegetariana",
+          "Spaghetti Aglio Olio Peperoncino",
+          "Cannelloni al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Zürcher Geschnetzeltes",
+          "Hawaii",
+          "Penne Arrabbiata",
+          "Risotto Vegetariano"
+        ],
+        "side": "Reis"
+      },
+      {
+        "dishes": [
+          "Seelachsfilet al Vino Bianco",
+          "Diavolo",
+          "Spaghetti Primavera",
+          "Penne Spinaci al Forno"
+        ],
+        "side": "Reis"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Cordon Bleu",
+          "Prosciutto e Funghi",
+          "Spaghetti Carbonara",
+          "Gnocchi al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Paprikaschnitzel",
+          "Napoli",
+          "Gnocchi Sorrentina",
+          "Rigatoni alla Romana al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Involtini alla Calabrese",
+          "Prosciutto e Cipolla",
+          "Spaghetti Amatriciana",
+          "Penne Spinaci al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Lachsfilet alla Griglia",
+          "Margherita",
+          "Tortelloni Gorgonzola",
+          "Lasagne al Forno"
+        ],
+        "side": "Gemüse"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Pollo alla Cacciatora",
+          "Napoli",
+          "Spaghetti Napoli",
+          "Penne alla Toscana"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Schweineschnitzel",
+          "Hawaii",
+          "Gnocchi Gorgonzola",
+          "Lasagne al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Scaloppine al Limone",
+          "Funghi",
+          "Spaghetti al Pesto",
+          "Rigatoni Bolognese al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Pangasiusfilet alla Livornese",
+          "Speciale",
+          "Tortelloni alla Crema di Funghi",
+          "Cannelloni al Forno"
+        ],
+        "side": "Kroketten"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Putensteak ai Funghi",
+          "Tonno",
+          "Spaghetti Aglio Olio Peperoncino",
+          "Penne alla Siciliana"
+        ],
+        "side": "Nudeln"
+      },
+      {
+        "dishes": [
+          "Cordon Bleu",
+          "Prosciutto",
+          "Penne 4 Formaggi",
+          "Gnocchi al Forno"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Scaloppine alla Romana",
+          "Funghi",
+          "Spaghetti Bolognese",
+          "Penne alla Toscana"
+        ],
+        "side": "Pommes frites"
+      },
+      {
+        "dishes": [
+          "Pangasiusfilet al Forno",
+          "Alberto",
+          "Tortelloni Pesto",
+          "Rigatoni Bolognese al Forno"
+        ],
+        "side": "Kroketten"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Piccata Milanese",
+          "Diavolo",
+          "Gnocchi Alberto",
+          "Cannelloni al Forno"
+        ],
+        "side": "Spaghetti Napoli"
+      },
+      {
+        "dishes": [
+          "Scaloppine alla Marsala",
+          "Prosciutto",
+          "Spaghetti Frutti di Mare",
+          "Rigatoni alla Romana al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Schnitzel",
+          "Salami",
+          "Rigatoni Valentino",
+          "Lasagne al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Pangasiusfilet Dorato",
+          "O Sole Mio",
+          "Tortelloni Emiliana",
+          "Penne alla Siciliana"
+        ],
+        "side": "Pommes frites"
+      }
+    ],
+    [
+      {
+        "dishes": [
+          "Scaloppine alla Valdostana",
+          "Negroni",
+          "Tagliatelle Funghi Porcini",
+          "Rigatoni Bolognese al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Scaloppine al Vino Bianco",
+          "Napoli",
+          "Spaghetti Bolognese",
+          "Penne alla Toscana"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Putensteak ai Funghi",
+          "Alberto",
+          "Rigatoni Valentino",
+          "Cannelloni al Forno"
+        ],
+        "side": "Kroketten"
+      },
+      {
+        "dishes": [
+          "Seelachsfilet all’Estragone",
+          "Salami",
+          "Spaghetti Mooshüsli",
+          "Penne alla Siciliana"
+        ],
+        "side": "Brokkoli"
+      }
+    ]
+  ]
+}

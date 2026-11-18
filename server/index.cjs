@@ -4,9 +4,10 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const { createRatingsService } = require("./ratings.cjs");
 const ROOT = path.resolve(__dirname, "..");
-// Resolve only the nine public clean URLs; retain existing .html behavior.
+// Resolve only the public clean URLs; retain existing .html behavior.
 const PAGE_FILES = new Map([
   ["/", "index.html"],
+  ["/mittagstisch", "mittagstisch.html"],
   ["/speisekarte", "speisekarte.html"],
   ["/ueber-uns", "ueber-uns.html"],
   ["/galerie", "galerie.html"],

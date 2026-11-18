@@ -1,0 +1,52 @@
+<section class="lunch-hero" aria-labelledby="lunch-title">
+  <div class="lunch-hero-inner">
+    <div class="lunch-hero-type">
+      <p class="lunch-label" lang="it">LA TUA PAUSA ITALIANA</p>
+      <h1 id="lunch-title">Unser <em>Mittagstisch</em></h1>
+      <p class="lunch-intro">Vier Mittagsgerichte zur Wahl, dazu ein kleiner Beilagensalat.</p>
+      <p class="lunch-hours"><span>Mo · Di · Do · Fr</span><span>11:30–14:00 Uhr</span></p>
+    </div>
+    <div class="lunch-photos">
+      <figure class="lunch-print lunch-pizza"><img src="assets/mittagstisch-pizza.webp" srcset="assets/responsive/mittagstisch-pizza-240.webp 240w, assets/mittagstisch-pizza.webp 560w" sizes="(max-width: 720px) 85px, (max-width: 1100px) 16vw, 216px" width="560" height="841" alt="Pizza mit Ei, Oliven und Champignons auf dem Restauranttisch" decoding="async"></figure>
+      <figure class="lunch-print lunch-pasta"><img src="assets/mittagstisch-pasta.webp" srcset="assets/responsive/mittagstisch-pasta-240.webp 240w, assets/mittagstisch-pasta.webp 560w" sizes="(max-width: 720px) 85px, (max-width: 1100px) 16vw, 216px" width="560" height="841" alt="Bandnudeln mit Sauce und frischer Petersilie" decoding="async"></figure>
+      <figure class="lunch-print lunch-fisch"><img src="assets/mittagstisch-fisch.webp" srcset="assets/responsive/mittagstisch-fisch-240.webp 240w, assets/mittagstisch-fisch.webp 560w" sizes="(max-width: 720px) 85px, (max-width: 1100px) 16vw, 216px" width="560" height="841" alt="Fischfilet mit Zitronenscheiben, Reis und Gemüse" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+<div class="lunch-wrap lunch-body">
+  <noscript><p>Bitte aktivieren Sie JavaScript für die datumsaktuelle Mittagskarte oder rufen Sie uns an.</p></noscript>
+  <div class="lunch-columns">
+    <div class="lunch-menu-column">
+      <div class="lunch-calendar-bar">
+        <section aria-labelledby="lunch-week" id="lunch-calendar" hidden>
+          <p class="lunch-label">UNSERE WOCHENKARTE</p>
+          <h2 id="lunch-week"></h2>
+          <div id="lunch-days" role="group" aria-label="Tag auswählen"></div>
+          <p id="lunch-notice" role="status" hidden></p>
+        </section>
+        <a class="lunch-call-small" href="tel:+4976216869205">Jetzt reservieren <span aria-hidden="true">↗</span></a>
+      </div>
+      <section id="lunch-selection" aria-labelledby="lunch-day" hidden>
+        <h3 id="lunch-day" aria-live="polite"></h3>
+        <p id="lunch-availability" role="status" hidden></p>
+        <dl id="lunch-dishes"></dl>
+      </section>
+    </div>
+    <aside class="lunch-special" id="lunch-special" aria-labelledby="lunch-special-title" hidden>
+      <div class="sr-only">
+        <p>UNSER MITTAGS-SPECIAL</p>
+        <h3 id="lunch-special-title">Espresso &amp; Tiramisu</h3>
+        <p>4,90 €</p>
+      </div>
+      <img src="assets/alberto-espresso-tiramisu.png" width="1170" height="1344" alt="Espresso in der Alberto-Tasse und Tiramisu auf einem grünen Teller" loading="lazy" decoding="async">
+    </aside>
+  </div>
+  <div class="lunch-notes">
+    <div><p>Alle Mittagsgerichte werden mit einem kleinen Beilagensalat serviert.</p>
+    <p>Nur zum Verzehr im Restaurant. Mittwoch Ruhetag · Kein Mittagstisch an gesetzlichen Feiertagen.</p></div>
+    <a class="lunch-call" href="tel:+4976216869205">Jetzt reservieren <span aria-hidden="true">↗</span></a>
+  </div>
+  <p class="lunch-allergens">Bei Fragen zu Allergenen, Zusatzstoffen oder Unverträglichkeiten wenden Sie sich bitte an unser Servicepersonal. Wir informieren Sie gerne.</p>
+</div>
+<script id="lunch-data" type="application/json">{{LUNCH_DATA}}</script>
+<script src="mittagstisch.js" defer></script>

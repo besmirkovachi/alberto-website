@@ -2,6 +2,7 @@
 """Build the static Alberto website. Python 3 standard library only."""
 from pathlib import Path
 from html import escape
+import argparse
 import json
 import os
 import re
@@ -18,7 +19,11 @@ if SITE_URL:
         raise SystemExit('SITE_URL must be an HTTPS website URL without credentials, query, or fragment.')
 if INDEXABLE and not SITE_URL:
     raise SystemExit('Set the confirmed SITE_URL before enabling search indexing.')
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--page', choices=['mittagstisch'], help='Build only the lunch page; leave all other output intact.')
+args = parser.parse_args()
 PAGES = {
+    'mittagstisch': ('Mittagstisch in Weil am Rhein', 'Entdecken Sie den abwechslungsreichen italienischen Mittagstisch im Ristorante Pizzeria Alberto in Weil am Rhein. Pizza, Pasta und täglich wechselnde Spezialitäten.'),
     'index': ('Italienisches Restaurant & Pizzeria in Weil am Rhein', 'Italienisch essen gehen in Weil am Rhein: Pizza, Pasta und mehr im Ristorante Pizzeria Alberto. Speisekarte entdecken und telefonisch einen Tisch reservieren.'),
     'speisekarte': ('Speisekarte Alberto Weil am Rhein – Pizza & Pasta', 'Entdecken Sie die italienische Speisekarte von Alberto in Weil am Rhein: Pizza, Pasta, Risotto, Fleisch, Fisch und Desserts. Gerichte und Preise im Überblick.'),
     'ueber-uns': ('Über uns · Italienisch im Herzen', 'Lernen Sie Ristorante Pizzeria Alberto in Weil am Rhein kennen. Italienische Küche und persönliche Gastfreundschaft seit 2023.'),
@@ -156,10 +161,17 @@ schema={'@context':'https://schema.org','@type':'Restaurant','name':'Ristorante 
 if SITE_URL: schema.update(url=SITE_URL,image=SITE_URL+'/assets/hero.webp',hasMenu=SITE_URL+'/speisekarte')
 
 for page,(title,desc) in PAGES.items():
+    if args.page and page != args.page:
+        continue
     body=(ROOT/'templates'/f'{page}.html').read_text()
     body=body.replace('{{SOCIAL}}', social_links()).replace('{{MENU}}',menu() if page=='speisekarte' else '').replace('{{GALLERY}}',gallery() if page=='galerie' else '').replace('{{CONTACT}}',contact())
     body=re.sub(r'\{\{image:([^}]+)\}\}',image_token,body)
     css_files=['premium.css']
+    if page == 'mittagstisch':
+        css_files.append('mittagstisch.css')
+        data = json.loads((ROOT/'templates'/'mittagstisch-menu.json').read_text())
+        payload = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', r'\u003c')
+        body = body.replace('{{LUNCH_DATA}}', payload)
     if page == 'speisekarte': css_files.append('menu-premium.css')
     if page in ('ueber-uns','galerie','feiern'): css_files.append('story-pages.css')
     if page in ('bestellen','kontakt','impressum','datenschutz'): css_files.append('service-pages.css')
@@ -200,6 +212,9 @@ for page,(title,desc) in PAGES.items():
     flower='<svg class="flower-icon" viewBox="0 0 100 100" width="50" height="50" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M50 6v88M6 50h88M19 19l62 62M19 81l62-62"/><circle cx="50" cy="50" r="16"/></g></svg>'
     html=html.replace('↗',arrow).replace('✳',flower)
     (ROOT/f'{page}.html').write_text(html)
+if args.page:
+    print(f'Built {args.page}.html')
+    raise SystemExit(0)
 if SITE_URL:
     urls=''.join(f'<url><loc>{escape(SITE_URL+("/" if p=="index" else "/"+p))}</loc></url>' for p in PAGES)
     (ROOT/'sitemap.xml').write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')

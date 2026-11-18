@@ -1,0 +1,109 @@
+.page-mittagstisch main {
+  --lunch-gold: #a88d57;
+  --lunch-rule: #d9ceba;
+}
+.page-mittagstisch main [hidden] { display: none; }
+.lunch-wrap { width: min(1160px, calc(100% - 2 * var(--gutter))); margin-inline: auto; }
+.lunch-label { font: 600 11px/1.4 var(--sans); letter-spacing: .17em; text-transform: uppercase; color: var(--green); }
+
+.lunch-hero {
+  background: radial-gradient(ellipse at center, #faf6ee, var(--paper) 62%, #eee6d7);
+  color: var(--green);
+  border-bottom: 1px solid var(--lunch-rule);
+}
+.lunch-hero-inner {
+  width: min(1280px, 95%); margin: auto; min-height: 264px;
+  position: relative; display: grid; align-items: center;
+}
+.lunch-hero-type { position: relative; width: 47%; margin-inline: auto; text-align: center; padding: 20px 0; }
+.lunch-hero-type .lunch-label { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.lunch-hero-type .lunch-label::before, .lunch-hero-type .lunch-label::after {
+  content: ''; width: 25px; height: 1px; background: var(--lunch-gold);
+}
+.lunch-hero h1 { font-size: clamp(46px,5.25vw,78px); line-height: 1; margin: 8px 0 9px; font-weight: 500; }
+.lunch-hero h1 em { color: inherit; }
+.lunch-intro { font-size: clamp(13px,1.15vw,16px); line-height: 1.5; }
+.lunch-hours {
+  display: flex; justify-content: center; align-items: center; gap: 12px;
+  margin: 14px auto 0; font-size: 13px; font-weight: 600; line-height: 1.2;
+}
+.lunch-hours span + span { padding-left: 12px; border-left: 1px solid var(--lunch-gold); }
+.lunch-photos { position: absolute; inset: 0; pointer-events: none; }
+.lunch-print {
+  position: absolute; background: #fffcf4; padding: 6px 6px 10px; margin: 0;
+  border: 1px solid #c9bfa9; box-shadow: 1px 5px 12px #46301524;
+}
+.lunch-print img { width: 100%; height: 100%; object-fit: cover; }
+.lunch-pizza { width: 17%; height: 181px; top: 38px; left: 5.5%; transform: rotate(-7deg); }
+.lunch-pizza img { object-position: center 85%; }
+.lunch-pasta { width: 13%; height: 159px; top: 28px; right: 10%; transform: rotate(-8deg); }
+.lunch-pasta img { object-position: center 70%; }
+.lunch-fisch { width: 12%; height: 144px; top: 96px; right: 1.1%; transform: rotate(7deg); }
+.lunch-fisch img { object-position: center 72%; }
+.lunch-body { padding: 0 0 45px; }
+.lunch-calendar-bar { position: relative; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--lunch-rule); }
+#lunch-calendar .lunch-label { min-height: 20px; padding-right: 140px; }
+#lunch-week { font-size: clamp(31px,3vw,44px); line-height: 1.12; margin: 5px 0 13px; }
+#lunch-days { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 6px; max-width: 32rem; }
+#lunch-days:empty { display: none; }
+#lunch-days button {
+  min-width: 57px; min-height: 48px; padding: 5px 10px; border: 1px solid var(--lunch-rule);
+  color: var(--green); font-size: 12px; line-height: 1.35; font-variant-numeric: tabular-nums;
+  transition: background-color .15s;
+}
+#lunch-days strong { display: block; font-weight: 700; font-size: 13px; }
+#lunch-days button:hover { background: #e5e9de; }
+#lunch-days button[aria-pressed="true"] { color: var(--paper); border-color: var(--green); background: var(--green); }
+#lunch-notice { font-size: 13px; color: var(--green); margin-top: 6px; }
+.lunch-call-small, .lunch-call { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--green); font-weight: 600; white-space: nowrap; }
+.lunch-call-small { position: absolute; top: -13px; right: 0; font-size: 13px; }
+.lunch-calendar-bar:has(#lunch-calendar[hidden]) .lunch-call-small { position: static; }
+.lunch-call-small:hover, .lunch-call:hover { text-decoration: underline; }
+.lunch-columns { display: grid; grid-template-columns: minmax(0,1.8fr) minmax(0,1fr); align-items: start; gap: clamp(28px,5vw,80px); margin-block: 30px; }
+#lunch-day { font-size: clamp(31px,3.05vw,46px); color: var(--green); margin: 0 0 14px; }
+#lunch-availability { color: var(--green); font-size: 14px; margin: 0 0 10px; }
+#lunch-dishes { margin: 0; }
+.lunch-dish { border-top: 1px solid var(--lunch-rule); padding: 13px 0 14px; }
+.lunch-dish dt { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: baseline; column-gap: 10px; }
+.lunch-dish .lunch-label { grid-column: 1/-1; font-size: 10px; letter-spacing: .13em; margin-bottom: 3px; color: #695b3b; }
+.lunch-dish-name { font: 500 clamp(25px,2.4vw,35px)/1.08 var(--serif); letter-spacing: -.032em; }
+.lunch-price { color: var(--green); font: 600 15px var(--sans); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lunch-dish dd { margin: 4px 0 0; font-size: 14px; line-height: 1.55; }
+.lunch-special { position: relative; width: min(100%, 350px); justify-self: center; }
+.lunch-special img { width: 100%; height: auto; }
+.lunch-notes { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 17px; border-block: 1px solid var(--lunch-rule); color: var(--green); }
+.lunch-notes p:first-child { font: 500 24px/1.25 var(--serif); }
+.lunch-notes p + p, .lunch-allergens { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+.lunch-allergens { max-width: 80ch; margin-top: 15px; }
+.lunch-call { padding: 10px 20px; color: var(--paper); background: var(--green); }
+@media (min-width: 721px) and (max-width: 1000px) {
+  .lunch-hero-type { width: 49%; }
+  .lunch-pizza { left: 3%; height: 152px; top: 55px; }
+  .lunch-pasta { right: 9%; height: 133px; top: 46px; }
+  .lunch-fisch { height: 122px; top: 110px; }
+  #lunch-days button { min-width: 48px; padding-inline: 5px; }
+}
+@media (max-width: 720px) {
+  .lunch-hero-inner { width: 100%; min-height: 0; padding: 17px 16px 12px; gap: 9px; }
+  .lunch-hero-type { width: 100%; padding: 0; }
+  .lunch-hero-type .lunch-label { font-size: 10px; }
+  .lunch-hero h1 { font-size: clamp(38px,9vw,49px); margin: 5px 0; }
+  .lunch-intro { max-width: 38ch; margin-inline: auto; font-size: 13px; line-height: 1.35; }
+  .lunch-hours { margin-top: 8px; font-size: 12px; }
+  .lunch-photos { position: static; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 4px 0; }
+  .lunch-print { position: static; width: min(24vw, 94px); height: clamp(55px,16vw,70px); padding: 3px 3px 5px; }
+  .lunch-pizza { transform: rotate(-5deg); }
+  .lunch-pasta { transform: rotate(2deg); }
+  .lunch-fisch { transform: rotate(-3deg); }
+  .lunch-calendar-bar { padding-bottom: 14px; margin-bottom: 16px; }
+  #lunch-calendar .lunch-label { min-height: 20px; padding-right: 125px; }
+  #lunch-week { font-size: clamp(29px,7vw,36px); margin: 3px 0 12px; }
+  #lunch-notice { margin: 8px 0 0; }
+  #lunch-days button { min-width: 0; min-height: 44px; }
+  .lunch-call-small { font-size: 11px; }
+  .lunch-columns { grid-template-columns: minmax(0,1fr); gap: 16px; margin-block: 19px; }
+  #lunch-day { margin-bottom: 12px; }
+  .lunch-special { justify-self: center; }
+  .lunch-notes { align-items: start; flex-direction: column; gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { #lunch-days button { transition: none; } }
