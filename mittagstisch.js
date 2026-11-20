@@ -17,11 +17,13 @@
     const today = dayNumber(parts.year, parts.month, parts.day);
     const weekday = (new Date(today * dayMs).getUTCDay() + 6) % 7;
     const weekend = weekday >= 5;
-    const monday = today - weekday + (weekend ? 7 : 0);
+    // First-launch preview only: 20–22 November 2026, using the real Berlin date.
+    const launchPreview = today >= start - 3 && today < start;
+    const monday = launchPreview ? start : today - weekday + (weekend ? 7 : 0);
     return {
       today, monday, weekend, minutes: parts.hour * 60 + parts.minute,
       weekIndex: monday < start ? -1 : ((monday - start) / 7) % 12,
-      selection: weekend ? 0 : serviceOffsets.indexOf(weekday)
+      selection: launchPreview || weekend ? 0 : serviceOffsets.indexOf(weekday)
     };
   }
 

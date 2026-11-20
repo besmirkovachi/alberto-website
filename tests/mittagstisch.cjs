@@ -22,7 +22,7 @@ test("All 12 weeks have four complete menus in service order", () => {
 });
 test("Berlin midnight preview, including the launch weekend and year boundary", () => {
   for (const [iso, idx, selected] of [
-    ["2026-11-20T22:59:59Z", -1, 3], ["2026-11-20T23:00:00Z", 0, 0],
+    ["2026-11-20T22:59:59Z", 0, 0], ["2026-11-20T23:00:00Z", 0, 0],
     ["2026-11-27T22:59:59Z", 0, 3], ["2026-11-27T23:00:00Z", 1, 0],
     ["2026-11-29T12:00:00Z", 1, 0], ["2026-11-29T23:00:00Z", 1, 0],
     ["2026-12-30T12:00:00Z", 5, -1], ["2027-01-01T12:00:00Z", 5, 3],
@@ -50,4 +50,17 @@ test("Statutory BW holidays, regular service dates and inclusive restaurant clos
   for (const iso of ["2026-11-30","2026-12-01"]) assert.match(closureReason(Date.parse(iso) / 86400000, closures), /Betriebsferien/);
   assert.equal(closureReason(dayNumber(2026,12,3),closures), "");
   assert.deepEqual(menu.closures, []);
+});
+
+test("First-launch preview is limited to 20–22 November in Berlin", () => {
+  assert.equal(week("2026-11-19T22:59:59Z").weekIndex, -1);
+  for (const iso of ["2026-11-19T23:00:00Z", "2026-11-20T12:00:00Z", "2026-11-21T12:00:00Z", "2026-11-22T22:59:59Z"]) {
+    const actual = week(iso);
+    assert.equal(actual.monday, dayNumber(2026,11,23));
+    assert.equal(actual.weekIndex, 0);
+    assert.equal(actual.selection, 0);
+  }
+  assert.equal(week("2026-11-20T12:00:00Z").weekend, false);
+  assert.equal(week("2026-11-22T23:00:00Z").today, dayNumber(2026,11,23));
+  assert.equal(week("2026-11-23T23:00:00Z").selection, 1);
 });
