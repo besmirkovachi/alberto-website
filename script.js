@@ -4,22 +4,6 @@
 (() => {
   const root = document.documentElement;
 
-  // Reuse the two original homepage hero links at every viewport width.
-  const heroActions = document.querySelector(".page-index .hero-actions");
-  if (heroActions) {
-    const phoneLayout = window.matchMedia("(max-width: 760px)");
-    const primary = heroActions.querySelector(".hero-primary");
-    const secondary = heroActions.querySelector(".hero-secondary");
-    const updateHeroLinks = () => {
-      primary.firstChild.nodeValue = phoneLayout.matches ? "Unser Mittagstisch " : "Unsere Speisekarte ";
-      primary.setAttribute("href", phoneLayout.matches ? "/mittagstisch" : "/speisekarte");
-      secondary.firstChild.nodeValue = phoneLayout.matches ? "Bestellen " : "Anrufen ";
-      secondary.setAttribute("href", phoneLayout.matches ? "/bestellen" : "tel:+4976216869205");
-    };
-    updateHeroLinks();
-    phoneLayout.addEventListener("change", updateHeroLinks);
-  }
-
   const motionPreference = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   );
