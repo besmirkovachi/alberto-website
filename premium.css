@@ -298,3 +298,10 @@ main {min-width:0}
 }
 @media(prefers-reduced-motion:reduce) {.social-links .social-link {transition:none}.social-links .social-link:hover {transform:none}}
 @media print {.footer-social,.kitchen-video .video-toggle {display:none!important}}
+
+/* Homepage hero actions follow the existing phone layout breakpoint. */
+.page-index .hero-actions .hero-mobile-action {display:none}
+@media(max-width:760px) {
+ .page-index .hero-actions .hero-desktop-action {display:none}
+ .page-index .hero-actions .hero-mobile-action {display:inline-flex}
+}
